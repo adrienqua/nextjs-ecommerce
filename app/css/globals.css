@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +24,27 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+ */
+
+body {
+    /* background-color: #f8fafc; */
+    @apply bg-zinc-100;
+}
+
+.input,
+.textarea,
+.select {
+    @apply border-base-300 font-normal;
+}
+.btn {
+    text-transform: unset;
+}
+/* h1 {
+    @apply mb-4 text-4xl text-center font-extrabold;
+} */
+
+a,
+button {
+    @apply hover:transition hover:duration-300;
 }
