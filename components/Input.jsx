@@ -4,7 +4,7 @@ import React from "react"
 export default function Input({
     name,
     label,
-    onChange,
+    handleChange,
     type = "text",
     options,
     ...rest
@@ -21,7 +21,7 @@ export default function Input({
                         name={name}
                         placeholder={label}
                         className="input input-bordered input-md"
-                        onChange={(e) => onChange(e)}
+                        onChange={handleChange}
                         {...rest}
                     />
                 </div>
@@ -37,8 +37,9 @@ export default function Input({
                         name={name}
                         placeholder={label}
                         className="textarea textarea-bordered textarea-md"
-                        onChange={(e) => onChange(e)}
+                        onChange={handleChange}
                         rows="5"
+                        {...rest}
                     />
                 </div>
             )
@@ -51,8 +52,9 @@ export default function Input({
                     <select
                         name={name}
                         className="select select-bordered"
-                        onChange={(e) => onChange(e, "true")}
+                        onChange={handleChange}
                         defaultValue={""}
+                        {...rest}
                     >
                         <option value="" disabled>
                             {label}

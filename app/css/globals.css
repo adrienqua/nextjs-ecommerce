@@ -29,20 +29,20 @@ body {
 
 body {
     /* background-color: #f8fafc; */
-    @apply bg-zinc-100;
+    @apply bg-gray-100;
 }
 
 .input,
 .textarea,
 .select {
-    @apply border-base-300 font-normal;
+    @apply bg-gray-50 font-normal;
 }
 .btn {
     text-transform: unset;
 }
-/* h1 {
-    @apply mb-4 text-4xl text-center font-extrabold;
-} */
+.h1 {
+    @apply text-2xl font-bold;
+}
 
 a,
 button {

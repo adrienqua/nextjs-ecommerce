@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import Providers from "@/components/Providers"
 import Head from "next/head"
 import { AuthContextProvider } from "@/components/contexts/authContext"
+import { CartContextProvider } from "@/components/contexts/CartContext"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,10 +21,12 @@ export default function RootLayout({ children }) {
                     className={`${inter.className} min-h-screen`}
                     suppressHydrationWarning
                 >
-                    <Navbar />
-                    <div className="container h-100">
-                        <AuthContextProvider>{children}</AuthContextProvider>
-                    </div>
+                    <AuthContextProvider>
+                        <CartContextProvider>
+                            <Navbar />
+                            <div className="container h-100">{children}</div>
+                        </CartContextProvider>
+                    </AuthContextProvider>
                 </body>
             </html>
         </Providers>

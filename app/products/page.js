@@ -24,38 +24,9 @@ export default async function ProductsPage() {
     const products = await fetchProducts()
     const categories = await fetchCategories()
 
-    const handleSubmit = async (datas) => {
-        "use server"
-        await newProduct({
-            name: datas.get("name"),
-            description: datas.get("description"),
-            price: datas.get("price"),
-            categoryId: parseInt(datas.get("categoryId")),
-        })
-        revalidatePath("/products")
-        // useSWR("/api/products")
-    }
-
     return (
         <div>
             <h1 className="text-center text-3xl">Produits</h1>
-            <Form handleSubmit={handleSubmit}>
-                <Input name="name" label="Nom" />
-                <Input name="description" label="Description" type="textarea" />
-                <Input
-                    name="price"
-                    label="Prix"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                />
-                <Input
-                    name="categoryId"
-                    label="Catégorie"
-                    type="select"
-                    options={categories}
-                />
-            </Form>
 
             <Searchbar />
 
