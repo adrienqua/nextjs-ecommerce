@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation"
 export default function Login() {
     const { data: session } = useSession()
     const { user, setUser } = useAuthContext()
-    const router = useRouter()
     console.log(session)
 
     const fetchUser = async (id) => {
@@ -26,17 +25,9 @@ export default function Login() {
 
     return (
         <>
-            {!session ? (
-                <button className="btn btn-primary" onClick={() => signIn()}>
-                    Sign in
-                </button>
-            ) : (
-                <>
-                    Signed in as {session.user.email} <br />
-                    <button onClick={() => signOut()}>Sign out</button>
-                    Not signed in <br />
-                </>
-            )}
+            Signed in as {session?.user?.email} <br />
+            <button onClick={() => signOut()}>Sign out</button>
+            Not signed in <br />
         </>
     )
 }

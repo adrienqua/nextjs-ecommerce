@@ -1,4 +1,5 @@
 import { getProduct } from "@/app/services/productAPI"
+import AddToCart from "@/components/products/AddToCart"
 import Image from "next/image"
 import React from "react"
 
@@ -25,9 +26,7 @@ export default async function ProductDetails({ params }) {
                     <h1 className="text-3xl">{product.name}</h1>
                     <p>{product.description}</p>
                     <p>{parseFloat(product.price).toFixed(2)} €</p>
-                    <button type="button" className="btn btn-primary">
-                        Ajouter au panier
-                    </button>
+                    <AddToCart id={product.id} />
                 </div>
             </div>
             <div className="product-long-description  w-full lg:w-1/2  p-5 ">

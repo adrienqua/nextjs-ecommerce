@@ -7,6 +7,7 @@ export default function Input({
     handleChange,
     type = "text",
     options,
+    optionLabel,
     ...rest
 }) {
     switch (type) {
@@ -61,7 +62,7 @@ export default function Input({
                         </option>
                         {options.map((option) => (
                             <option key={option.id} value={parseInt(option.id)}>
-                                {option.name}
+                                {option[optionLabel]}
                             </option>
                         ))}
                     </select>

@@ -10,6 +10,10 @@ export function getFeaturedProducts() {
     return axios.get(apiEndpoint + "/" + "featured").then((res) => res.data)
 }
 
+export function getProduct(id) {
+    return axios.get(apiEndpoint + "/" + id).then((res) => res.data)
+}
+
 export function newProduct(datas) {
     return axios.post("http://localhost:3000/api/products", datas)
 }

@@ -1,10 +1,10 @@
-import CartTable from "@/components/checkout/CartTable"
+import CartContainer from "@/components/checkout/CartContainer"
 import React from "react"
 
 export default function CartPage() {
     return (
         <div className="cart">
-            <CartTable />
+            <CartContainer />
         </div>
     )
 }

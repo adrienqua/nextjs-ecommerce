@@ -35,14 +35,14 @@ export default function Form({
             handleSubmit(datas)
         }
 
-        if (modalId.length > 0) {
+        if (modalId?.length > 0) {
             closeModalRef.current.click()
         }
     }
 
     return (
         <form
-            className="flex flex-col items-center mb-16 m-5"
+            className="flex flex-col items-center mb-10 m-5"
             /* onSubmit={async (e) => {
                     await handleSubmit(e)
                 }} */

@@ -25,7 +25,7 @@ const handler = NextAuth({
             credentials: {
                 email: {
                     label: "Email",
-                    type: "text",
+                    type: "email",
                     placeholder: "email@gmail.com",
                 },
                 password: { label: "Password", type: "password" },
@@ -68,14 +68,29 @@ const handler = NextAuth({
             },
         }),
     ],
-    pages: {
-        signIn: "/auth/signin",
-        signOut: "/auth/signout",
-        error: "/auth/error", // Error code passed in query string as ?error=
-        verifyRequest: "/auth/verify-request", // (used for check email message)
-        newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
+
+    callbacks: {
+        session: ({ session, token }) => {
+            console.log("Session Callback", { session, token })
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    id: token.id,
+                },
+            }
+        },
+        jwt: ({ token, user }) => {
+            console.log("JWT Callback", { token, user })
+            if (user) {
+                return {
+                    ...token,
+                    id: user.id,
+                }
+            }
+            return token
+        },
     },
-    callbacks: {},
 })
 
 export { handler as GET, handler as POST }

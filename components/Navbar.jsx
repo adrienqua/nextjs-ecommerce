@@ -2,6 +2,7 @@
 import Link from "next/link"
 import React, { useState } from "react"
 import { useCartContext } from "./contexts/CartContext"
+import { useSession } from "next-auth/react"
 
 export default function Navbar() {
     const [toggleMobile, setToggleMobile] = useState(false)
@@ -9,6 +10,7 @@ export default function Navbar() {
         setToggleMobile(!toggleMobile)
     }
     const { cartProducts } = useCartContext()
+    const { data: session } = useSession()
 
     return (
         <div className="nav mb-8 text-white bg-slate-900 py-5 px-6 ">
@@ -48,7 +50,10 @@ export default function Navbar() {
                             ({cartProducts ? cartProducts.length : 0})
                         </small>
                     </Link>
-                    <Link className="px-2" href="/login">
+                    <Link
+                        className="px-2"
+                        href={!session?.user ? "login" : "account"}
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -63,9 +68,7 @@ export default function Navbar() {
                                 d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                             />
                         </svg>
-                    </Link>
-                    <Link className="px-2 py-2" href="/register">
-                        Inscription
+                        {session?.user && <small>{session.user.name}</small>}
                     </Link>
                 </div>
                 <button

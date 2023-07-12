@@ -3,9 +3,9 @@ import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 
 export async function GET(req, context) {
-    const email = context.params.email
+    const id = context.params.id
     const user = await prisma.user.findUnique({
-        where: { email: email },
+        where: { id: id },
     })
     return NextResponse.json(user)
 }

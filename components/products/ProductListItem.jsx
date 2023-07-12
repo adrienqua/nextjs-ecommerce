@@ -1,12 +1,9 @@
-"use client"
 import Image from "next/image"
 import Link from "next/link"
-import React, { useContext, useEffect } from "react"
-import { CartContext, useCartContext } from "../contexts/CartContext"
+import React from "react"
+import AddToCart from "./AddToCart"
 
 export default function ProductListItem({ product }) {
-    const { cartProducts, setCartProducts, handleAddToCart } = useCartContext()
-
     return (
         <>
             <div
@@ -30,12 +27,7 @@ export default function ProductListItem({ product }) {
                     </Link>
                     <div className="card-actions flex justify-between items-center">
                         <span>{parseFloat(product.price).toFixed(2)} €</span>
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => handleAddToCart(product.id)}
-                        >
-                            Ajouter au panier
-                        </button>
+                        <AddToCart id={product.id} />
                     </div>
                 </div>
             </div>

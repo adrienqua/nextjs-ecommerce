@@ -9,21 +9,37 @@ export const CartContextProvider = ({ children }) => {
 
     function handleAddToCart(product) {
         setCartProducts((prev) => [...prev, product])
+    }
 
-        console.log(product)
+    function handleSubstractToCart(product) {
+        let products = [...cartProducts]
+        const index = products.indexOf(product)
+        if (index > -1) {
+            products.splice(index, 1)
+        }
+        setCartProducts(products)
     }
 
     useEffect(() => {
-        if (cartProducts.length === 0) {
-            setCartProducts(JSON.parse(localStorage.getItem("cart")))
+        if (localStorage.getItem("cart") === null) {
+            localStorage.setItem("cart", JSON.stringify([]))
         } else {
-            localStorage.setItem("cart", JSON.stringify(cartProducts))
+            if (cartProducts?.length === 0) {
+                setCartProducts(JSON.parse(localStorage.getItem("cart")))
+            } else {
+                localStorage.setItem("cart", JSON.stringify(cartProducts))
+            }
         }
     }, [cartProducts])
 
     return (
         <CartContext.Provider
-            value={{ cartProducts, setCartProducts, handleAddToCart }}
+            value={{
+                cartProducts,
+                setCartProducts,
+                handleAddToCart,
+                handleSubstractToCart,
+            }}
         >
             {children}
         </CartContext.Provider>

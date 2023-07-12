@@ -10,3 +10,9 @@ export function getUser(id) {
 export function newUser(datas) {
     return axios.post("http://localhost:3000/api/users", datas)
 }
+
+export function getUserAddresses(id) {
+    return axios
+        .get(apiEndpoint + "/" + id + "/addresses")
+        .then((res) => res.data)
+}
