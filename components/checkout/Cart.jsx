@@ -15,7 +15,7 @@ export default function CartTable({
 }) {
     return (
         <div className="cart-table bg-white rounded-xl px-8 py-6 shadow-sm md:w-2/3 mb-5">
-            <h1 className="h1">
+            <h1 className="h1 mb-5">
                 Mon panier{" "}
                 <span className="text-sm text-gray-500">
                     ({cartProducts?.length} articles)

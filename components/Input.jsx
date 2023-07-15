@@ -68,5 +68,17 @@ export default function Input({
                     </select>
                 </div>
             )
+        case "radio":
+            return (
+                <label className="label cursor-pointer">
+                    <input
+                        type="radio"
+                        name={name}
+                        className="radio radio-sm checked:bg-primary"
+                        {...rest}
+                    />
+                    <span className="label-text">{label}</span>
+                </label>
+            )
     }
 }

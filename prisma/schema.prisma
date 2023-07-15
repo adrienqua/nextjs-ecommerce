@@ -90,6 +90,13 @@ model Address {
   userId     String
 }
 
+model Carrier {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal @db.Decimal(7, 2)
+}
+
 model Order {
   id           String       @id @default(cuid())
   status       String
