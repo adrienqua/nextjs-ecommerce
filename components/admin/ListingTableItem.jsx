@@ -30,8 +30,8 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
 
     return (
         <tr>
-            {headerDatas.map((headerData) => (
-                <>
+            {headerDatas.map((headerData, index) => (
+                <React.Fragment key={index}>
                     {headerData.value === "price" ? (
                         <td key={headerData.value}>
                             {parseFloat(data[headerData.value]).toFixed(2)} €
@@ -140,7 +140,7 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
                     ) : (
                         <td>{data[headerData.value]}</td>
                     )}
-                </>
+                </React.Fragment>
             ))}
         </tr>
     )

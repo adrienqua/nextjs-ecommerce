@@ -15,13 +15,11 @@ export function getProduct(id) {
 }
 
 export function newProduct(datas) {
-    return axios.post("http://localhost:3000/api/products", datas)
+    return axios.post(apiEndpoint, datas)
 }
 
 export function editProduct(id, datas) {
-    return axios
-        .put("http://localhost:3000/api/products/" + id, datas)
-        .then((res) => res.data)
+    return axios.put(apiEndpoint + "/" + id, datas).then((res) => res.data)
 }
 
 export function deleteProduct(id) {

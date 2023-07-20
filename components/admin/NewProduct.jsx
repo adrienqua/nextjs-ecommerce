@@ -51,6 +51,7 @@ export default function NewProduct({ id, label, handleSubmit, categories }) {
                         label="Catégorie"
                         type="select"
                         options={categories}
+                        optionLabel="name"
                         handleChange={(e) => handleChange(e, true)}
                     />
                 </Form>
