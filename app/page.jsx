@@ -6,6 +6,7 @@ import React from "react"
 import { getFeaturedProducts } from "./services/productAPI"
 
 const fetchFeaturedProducts = async () => {
+    "use server"
     const datas = await getFeaturedProducts()
     return datas
 }

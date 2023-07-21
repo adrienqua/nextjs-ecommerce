@@ -7,7 +7,7 @@ export function getProducts() {
     return axios.get(apiEndpoint).then((res) => res.data)
 }
 export function getFeaturedProducts() {
-    return axios.get(apiEndpoint + "/" + "featured").then((res) => res.data)
+    return axios.get(apiEndpoint + "/featured").then((res) => res.data)
 }
 
 export function getProduct(id) {

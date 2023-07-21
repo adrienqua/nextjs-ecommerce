@@ -1,18 +1,18 @@
+import React from "react"
+import ListingTable from "@/components/admin/ListingTable"
+import Modal from "@/components/Modal"
+import Sidebar from "@/components/admin/Sidebar"
+import { revalidatePath } from "next/cache"
+import Link from "next/link"
+import Form from "@/components/Form"
+import Input from "@/components/Input"
+import NewProduct from "@/components/admin/NewProduct"
 import {
     getProducts,
     deleteProduct,
     newProduct,
     editProduct,
 } from "@/app/services/productAPI"
-import Modal from "@/components/Modal"
-import ListingTable from "@/components/admin/ListingTable"
-import Sidebar from "@/components/admin/Sidebar"
-import { revalidatePath } from "next/cache"
-import Link from "next/link"
-import React from "react"
-import NewProduct from "../../../components/admin/NewProduct"
-import Form from "@/components/Form"
-import Input from "@/components/Input"
 import { getCategories } from "@/app/services/categoryAPI"
 
 const fetchProducts = async () => {
@@ -49,7 +49,6 @@ export default async function AdminProductList({ params }) {
 
     const handleSubmitNew = async (datas) => {
         "use server"
-
         await newProduct(datas)
         revalidatePath("/admin/products")
     }

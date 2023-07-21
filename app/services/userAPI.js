@@ -8,7 +8,7 @@ export function getUser(id) {
 }
 
 export function newUser(datas) {
-    return axios.post("http://localhost:3000/api/users", datas)
+    return axios.post(apiEndpoint, datas)
 }
 
 export function getUserAddresses(id) {

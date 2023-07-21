@@ -3,11 +3,15 @@ import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 
 export async function GET(req, context) {
-    const id = parseInt(context.params.id)
-    const product = await prisma.product.findUnique({
-        where: { id: id },
-    })
-    return NextResponse.json(product)
+    try {
+        const id = parseInt(context.params.id)
+        const product = await prisma.product.findUnique({
+            where: { id: id },
+        })
+        return NextResponse.json(product)
+    } catch (error) {
+        return NextResponse.json(error)
+    }
 }
 
 export async function PUT(req, context) {

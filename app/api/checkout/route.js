@@ -14,9 +14,13 @@ export async function POST(req) {
 
     let line_items = []
     let order_items = []
+    let subTotal = 0
     for (const product of productsDetails) {
         const quantity = products.filter((id) => id === product.id).length
         const price = product.price * 100
+
+        subTotal += price * quantity
+
         line_items.push({
             quantity: quantity,
             price_data: {
@@ -31,15 +35,6 @@ export async function POST(req) {
             product: product.name,
         })
     }
-
-    /*     line_items.push({
-        quantity: 1,
-        price_data: {
-            currency: "EUR",
-            product_data: { name: carrierName },
-            unit_amount: carrierPrice * 100,
-        },
-    }) */
 
     const order = await prisma.order.create({
         data: {
@@ -63,7 +58,10 @@ export async function POST(req) {
                 shipping_rate_data: {
                     type: "fixed_amount",
                     fixed_amount: {
-                        amount: (carrierPrice * 100).toFixed(0),
+                        amount:
+                            subTotal >= 6000
+                                ? 0
+                                : (carrierPrice * 100).toFixed(0),
                         currency: "EUR",
                     },
                     display_name: carrierName,

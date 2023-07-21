@@ -4,22 +4,26 @@ import { NextResponse } from "next/server"
 import Categories from "./../../categories/page"
 
 export async function GET() {
-    const products = await prisma.product.findMany({
-        select: {
-            id: true,
-            name: true,
-            description: true,
-            price: true,
-            categoryId: true,
-            category: {
-                select: {
-                    name: true,
+    try {
+        const products = await prisma.product.findMany({
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                price: true,
+                categoryId: true,
+                category: {
+                    select: {
+                        name: true,
+                    },
                 },
             },
-        },
-    })
-    console.log(products)
-    return NextResponse.json(products)
+        })
+        console.log(products)
+        return NextResponse.json(products)
+    } catch (error) {
+        return NextResponse.json(error)
+    }
 }
 
 export async function POST(req) {
