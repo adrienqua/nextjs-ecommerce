@@ -8,6 +8,7 @@ export default function Input({
     type = "text",
     options,
     optionLabel,
+    error,
     ...rest
 }) {
     switch (type) {
@@ -21,10 +22,19 @@ export default function Input({
                         type={type}
                         name={name}
                         placeholder={label}
-                        className="input input-bordered input-md"
+                        className={`input input-bordered input-md ${
+                            error && "input-error"
+                        } `}
                         onChange={handleChange}
                         {...rest}
                     />
+                    {error && (
+                        <label className="label error">
+                            <span className="label-text font-medium text-error">
+                                {error}
+                            </span>
+                        </label>
+                    )}
                 </div>
             )
         case "textarea":
@@ -37,11 +47,20 @@ export default function Input({
                         type="text"
                         name={name}
                         placeholder={label}
-                        className="textarea textarea-bordered textarea-md"
+                        className={`textarea textarea-bordered textarea-md ${
+                            error && "textarea-error"
+                        }`}
                         onChange={handleChange}
                         rows="5"
                         {...rest}
                     />
+                    {error && (
+                        <label className="label error">
+                            <span className="label-text font-medium text-error">
+                                {error}
+                            </span>
+                        </label>
+                    )}
                 </div>
             )
         case "select":
@@ -52,7 +71,9 @@ export default function Input({
                     </label>
                     <select
                         name={name}
-                        className="select select-bordered"
+                        className={`select select-bordered ${
+                            error && "select-error"
+                        }`}
                         onChange={handleChange}
                         defaultValue={""}
                         {...rest}
@@ -66,6 +87,13 @@ export default function Input({
                             </option>
                         ))}
                     </select>
+                    {error && (
+                        <label className="label error">
+                            <span className="label-text font-medium text-error">
+                                {error}
+                            </span>
+                        </label>
+                    )}
                 </div>
             )
         case "radio":

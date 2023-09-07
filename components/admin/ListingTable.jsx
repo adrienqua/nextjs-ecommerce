@@ -4,7 +4,12 @@ import ListingTableItem from "./ListingTableItem"
 import ListingTableHeader from "./ListingTableHeader"
 import Categories from "./../../app/categories/page"
 
-export default function ListingTable({ headerDatas, datas, categories }) {
+export default function ListingTable({
+    headerDatas,
+    datas,
+    categories,
+    handleEdit,
+}) {
     return (
         <div className="overflow-x-auto">
             <table className="table mt-5 rounded-t-xl overflow-hidden">
@@ -25,6 +30,7 @@ export default function ListingTable({ headerDatas, datas, categories }) {
                             headerDatas={headerDatas}
                             key={data.id}
                             categories={categories}
+                            handleEdit={handleEdit}
                         />
                     ))}
                 </tbody>

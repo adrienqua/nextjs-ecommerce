@@ -1,18 +1,29 @@
 import { prisma } from "@/app/lib/prisma"
+import { userSchema } from "@/prisma/validation"
 import { PrismaClient } from "@prisma/client"
 import { hash } from "bcrypt"
 import { NextResponse } from "next/server"
 
 export async function POST(req) {
-    const body = await req.json()
-    const user = await prisma.user.create({
-        data: {
+    try {
+        const body = await req.json()
+        const validation = userSchema.parse({
             email: body.email,
-            password: await hash(body.password, 12),
+            password: body.password,
             name: body.name,
-        },
-    })
-    console.log(user)
+        })
 
-    return NextResponse.json(user)
+        const user = await prisma.user.create({
+            data: {
+                email: validation.email,
+                password: await hash(validation.password, 12),
+                name: validation.name,
+            },
+        })
+        console.log(user)
+
+        return NextResponse.json(user)
+    } catch (error) {
+        return NextResponse.json(error, { status: 400 })
+    }
 }

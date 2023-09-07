@@ -5,9 +5,12 @@ import { redirect } from "next/navigation"
 import React, { useState } from "react"
 import { newUser } from "../services/userAPI"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { signIn } from "next-auth/react"
 
 export default function RegisterPage() {
     const [datas, setDatas] = useState()
+    const [errors, setErrors] = useState()
 
     const router = useRouter()
 
@@ -20,15 +23,29 @@ export default function RegisterPage() {
     }
 
     const handleSubmit = async (datas) => {
-        await newUser(datas)
+        try {
+            await newUser(datas)
+            await signIn("credentials", {
+                redirect: false,
+                email: datas?.email,
+                password: datas?.password,
+            })
+            router.push("/")
+        } catch (error) {
+            const errors = error?.response?.data?.issues
+            const formatedErrors = {}
+            errors.forEach((err) => {
+                formatedErrors[err.path[0]] = err.message
+            })
+            setErrors(formatedErrors)
+        }
 
-        router.push("/")
         // useSWR("/api/products")
     }
 
     return (
-        <div>
-            <h1>S&apos;inscrire</h1>
+        <div className="register text-center xl:mx-[25%]">
+            <h1 className="text-center text-4xl">S&apos;inscrire</h1>
 
             <Form handleSubmit={handleSubmit} datas={datas}>
                 <Input
@@ -37,6 +54,7 @@ export default function RegisterPage() {
                     label="Email"
                     required="required"
                     handleChange={(e) => handleChange(e)}
+                    error={errors?.email}
                 />
                 <Input
                     name="password"
@@ -45,8 +63,16 @@ export default function RegisterPage() {
                     label="Mot de passe"
                     required="required"
                     handleChange={(e) => handleChange(e)}
+                    error={errors?.password}
                 />
             </Form>
+
+            <Link
+                className="text-primary hover:text-primary-focus"
+                href="/login"
+            >
+                Vous avez déjà un compte ? Se connecter
+            </Link>
         </div>
     )
 }

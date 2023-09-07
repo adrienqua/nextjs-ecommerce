@@ -6,15 +6,26 @@ import React, { useEffect, useState } from "react"
 import Modal from "../Modal"
 import Form from "../Form"
 import Input from "../Input"
+import { editProduct } from "@/app/services/productAPI"
+import { formatErrors } from "@/utils/formatErrors"
 
-export default function ListingTableItem({ data, headerDatas, categories }) {
+export default function ListingTableItem({
+    data,
+    headerDatas,
+    categories,
+    handleEdit,
+}) {
     const pathname = usePathname()
+
+    const router = useRouter()
+
     const [datas, setDatas] = useState({
         name: "",
         description: "",
         price: "",
         categoryId: "",
     })
+    const [errors, setErrors] = useState([])
 
     const handleChange = (e, parse = false) => {
         let value = e.target.value
@@ -22,6 +33,17 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
             value = parseInt(e.target.value)
         }
         setDatas({ ...datas, [e.target.name]: value })
+    }
+
+    const handleSubmit = async (id, datas, closeModal) => {
+        try {
+            await handleEdit(id, datas)
+            setErrors([])
+            closeModal.click()
+            router.refresh()
+        } catch (error) {
+            setErrors(formatErrors(error))
+        }
     }
 
     useEffect(() => {
@@ -55,7 +77,7 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
                                             Modifier {data.name}
                                         </h3>
                                         <Form
-                                            handleSubmit={headerData.action}
+                                            handleSubmit={handleSubmit}
                                             modalId={`edit-${data.id}`}
                                             datas={datas}
                                             edit={true}
@@ -67,6 +89,7 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
                                                     handleChange(e)
                                                 }
                                                 value={datas.name}
+                                                error={errors.name}
                                             />
                                             <Input
                                                 name="description"
@@ -76,6 +99,7 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
                                                     handleChange(e)
                                                 }
                                                 value={datas.description}
+                                                error={errors.description}
                                             />
                                             <Input
                                                 name="price"
@@ -86,9 +110,8 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
                                                 handleChange={(e) =>
                                                     handleChange(e)
                                                 }
-                                                value={parseFloat(
-                                                    datas.price
-                                                ).toFixed(2)}
+                                                value={datas.price}
+                                                error={errors.price}
                                             />
                                             <Input
                                                 name="categoryId"
@@ -100,6 +123,7 @@ export default function ListingTableItem({ data, headerDatas, categories }) {
                                                     handleChange(e, true)
                                                 }
                                                 value={datas.categoryId}
+                                                error={errors.categoryId}
                                             />
                                         </Form>
                                     </Modal>

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState, useTransition } from "react"
+import React, { useEffect, useRef, useTransition } from "react"
 import Input from "./Input"
 import useSWR from "swr"
 import { newProduct } from "@/app/services/productAPI"
@@ -29,14 +29,10 @@ export default function Form({
     const handleSubmitGlobal = async (e) => {
         e.preventDefault()
         if (edit) {
-            handleSubmit(datas.id, datas)
+            await handleSubmit(datas.id, datas, closeModalRef.current)
             console.log("edit")
         } else {
-            handleSubmit(datas)
-        }
-
-        if (modalId?.length > 0) {
-            closeModalRef.current.click()
+            await handleSubmit(datas, closeModalRef.current)
         }
     }
 

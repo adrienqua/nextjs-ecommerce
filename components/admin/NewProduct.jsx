@@ -3,9 +3,14 @@ import React, { useEffect, useState } from "react"
 import Modal from "../Modal"
 import Input from "../Input"
 import Form from "../Form"
+import { useRouter } from "next/navigation"
+import { formatErrors } from "@/utils/formatErrors"
 
-export default function NewProduct({ id, label, handleSubmit, categories }) {
-    const [datas, setDatas] = useState()
+export default function NewProduct({ id, label, handleNew, categories }) {
+    const [datas, setDatas] = useState({})
+    const [errors, setErrors] = useState([])
+
+    const router = useRouter()
 
     const handleChange = (e, parse = false) => {
         let value = e.target.value
@@ -13,6 +18,17 @@ export default function NewProduct({ id, label, handleSubmit, categories }) {
             value = parseInt(e.target.value)
         }
         setDatas({ ...datas, [e.target.name]: value })
+    }
+
+    const handleSubmit = async (datas, closeModal) => {
+        try {
+            await handleNew(datas)
+            setErrors([])
+            closeModal.click()
+            router.refresh()
+        } catch (error) {
+            setErrors(formatErrors(error))
+        }
     }
 
     return (
@@ -31,12 +47,14 @@ export default function NewProduct({ id, label, handleSubmit, categories }) {
                         name="name"
                         label="Nom"
                         handleChange={(e) => handleChange(e)}
+                        error={errors.name}
                     />
                     <Input
                         name="description"
                         label="Description"
                         type="textarea"
                         handleChange={(e) => handleChange(e)}
+                        error={errors.description}
                     />
                     <Input
                         name="price"
@@ -45,6 +63,7 @@ export default function NewProduct({ id, label, handleSubmit, categories }) {
                         min="0"
                         step="0.01"
                         handleChange={(e) => handleChange(e)}
+                        error={errors.price}
                     />
                     <Input
                         name="categoryId"
@@ -53,6 +72,7 @@ export default function NewProduct({ id, label, handleSubmit, categories }) {
                         options={categories}
                         optionLabel="name"
                         handleChange={(e) => handleChange(e, true)}
+                        error={errors.categoryId}
                     />
                 </Form>
             </Modal>

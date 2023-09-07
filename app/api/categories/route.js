@@ -1,4 +1,5 @@
 import { prisma } from "@/app/lib/prisma"
+import { categorySchema } from "@/prisma/validation"
 import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 
@@ -13,9 +14,15 @@ export async function GET() {
 }
 
 export async function POST(req) {
-    const body = await req.json()
-    const category = await prisma.category.create({ data: body })
-    console.log(category)
+    try {
+        const body = await req.json()
+        const validation = categorySchema.parse(body)
 
-    return NextResponse.json(category)
+        const category = await prisma.category.create({ data: validation })
+        console.log(category)
+
+        return NextResponse.json(category)
+    } catch (error) {
+        return NextResponse.json(error, { status: 400 })
+    }
 }

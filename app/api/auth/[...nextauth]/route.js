@@ -57,7 +57,11 @@ const handler = NextAuth({
                 )
 
                 if (!isPasswordValid) {
-                    return null
+                    throw new Error(
+                        JSON.stringify({
+                            password: "Mot de passe incorrect.",
+                        })
+                    )
                 }
 
                 return {

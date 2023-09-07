@@ -53,7 +53,7 @@ export default function Navbar() {
                     </Link>
                     <Link
                         className="px-2"
-                        href={!session?.user ? "login" : "account"}
+                        href={!session?.user ? "/login" : "/account"}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

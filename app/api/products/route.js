@@ -2,6 +2,7 @@ import { prisma } from "@/app/lib/prisma"
 import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import Categories from "./../../categories/page"
+import { productSchema } from "@/prisma/validation"
 
 export async function GET() {
     try {
@@ -27,9 +28,16 @@ export async function GET() {
 }
 
 export async function POST(req) {
-    const body = await req.json()
-    const product = await prisma.product.create({ data: body })
-    console.log(product)
+    try {
+        const body = await req.json()
+        const validation = productSchema.parse(body)
 
-    return NextResponse.json(product)
+        const product = await prisma.product.create({ data: validation })
+
+        console.log(product)
+
+        return NextResponse.json(product)
+    } catch (error) {
+        return NextResponse.json(error, { status: 400 })
+    }
 }

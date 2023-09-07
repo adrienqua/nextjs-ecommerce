@@ -14,6 +14,9 @@ import {
     editProduct,
 } from "@/app/services/productAPI"
 import { getCategories } from "@/app/services/categoryAPI"
+import { editProductApi } from "@/components/admin/editApi"
+import { productSchema } from "@/prisma/validation"
+import AdminProducts from "@/components/admin/AdminProducts"
 
 const fetchProducts = async () => {
     const datas = await getProducts()
@@ -30,54 +33,5 @@ export default async function AdminProductList({ params }) {
 
     const categories = await fetchCategories()
 
-    const handleDelete = async (id) => {
-        "use server"
-        await deleteProduct(id)
-        revalidatePath("/admin/products")
-    }
-
-    const handleEdit = async (id, datas) => {
-        "use server"
-        await editProduct(id, {
-            name: datas.name,
-            description: datas.description,
-            price: datas.price,
-            categoryId: datas.categoryId,
-        })
-        revalidatePath("/admin/products")
-    }
-
-    const handleSubmitNew = async (datas) => {
-        "use server"
-        await newProduct(datas)
-        revalidatePath("/admin/products")
-    }
-
-    const headerDatas = [
-        { label: "Id", value: "id" },
-        { label: "Nom", value: "name" },
-        { label: "Prix", value: "price" },
-
-        { label: "", value: "edit", action: handleEdit },
-        { label: "", value: "delete", action: handleDelete },
-    ]
-    return (
-        <div className="bg-white rounded-xl px-8 py-6 shadow-sm">
-            <div className="flex justify-between  items-center">
-                <h1 className="h1 ">Produits</h1>
-                <NewProduct
-                    id="new-form"
-                    label="Ajouter un produit"
-                    handleSubmit={handleSubmitNew}
-                    categories={categories}
-                />
-            </div>
-
-            <ListingTable
-                datas={products}
-                headerDatas={headerDatas}
-                categories={categories}
-            />
-        </div>
-    )
+    return <AdminProducts products={products} categories={categories} />
 }
