@@ -6,7 +6,10 @@ export default function AddToCart({ id }) {
     const { handleAddToCart } = useCartContext()
 
     return (
-        <button className="btn btn-primary" onClick={() => handleAddToCart(id)}>
+        <button
+            className="btn btn-primary mt-5"
+            onClick={() => handleAddToCart(id)}
+        >
             Ajouter au panier
         </button>
     )

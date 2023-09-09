@@ -3,13 +3,11 @@ import { getCategories } from "@/app/services/categoryAPI"
 import CategoryList from "@/components/categories/CategoryList"
 
 const fetchCategories = async () => {
-    "use server"
     const datas = await getCategories()
-    console.log("datasssssssssssssssssss", datas)
     return datas
 }
 
-export default async function Categories() {
+export default async function CategoriesPage() {
     const categories = await fetchCategories()
     return (
         <div>

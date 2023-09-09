@@ -8,9 +8,16 @@ export async function POST(req) {
 
     const productsUniqueIds = [...new Set(products)]
 
-    const productsDetails = await prisma.product.findMany({
+    const productsDetails = await prisma.productVariant.findMany({
         where: { id: { in: productsUniqueIds } },
+        include: {
+            color: true,
+            size: true,
+            product: true,
+        },
     })
+
+    console.log(productsDetails, "dddddddddddddddddd")
 
     let line_items = []
     let order_items = []
@@ -25,14 +32,14 @@ export async function POST(req) {
             quantity: quantity,
             price_data: {
                 currency: "EUR",
-                product_data: { name: product.name },
+                product_data: { name: product.product.name },
                 unit_amount: price.toFixed(0),
             },
         })
         order_items.push({
             quantity,
             price: product.price,
-            product: product.name,
+            product: product.product.name,
         })
     }
 

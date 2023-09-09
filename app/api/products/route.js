@@ -32,9 +32,22 @@ export async function POST(req) {
         const body = await req.json()
         const validation = productSchema.parse(body)
 
-        const product = await prisma.product.create({ data: validation })
-
-        console.log(product)
+        const product = await prisma.product.create({
+            data: {
+                name: validation.name,
+                description: validation.description,
+                price: validation.price,
+                categoryId: validation.categoryId,
+                productVariants: {
+                    createMany: {
+                        data: body.productVariants,
+                    },
+                },
+            },
+            include: {
+                productVariants: true,
+            },
+        })
 
         return NextResponse.json(product)
     } catch (error) {

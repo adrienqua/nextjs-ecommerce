@@ -19,14 +19,41 @@ model Category {
 }
 
 model Product {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String?   @db.VarChar(800)
-  price       Decimal   @db.Decimal(7, 2)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @updatedAt
-  category    Category  @relation(fields: [categoryId], references: [id])
-  categoryId  Int
+  id              Int              @id @default(autoincrement())
+  name            String
+  description     String?          @db.VarChar(800)
+  price           Decimal          @db.Decimal(7, 2)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime?        @updatedAt
+  category        Category         @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  productVariants ProductVariant[]
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  color     Color?  @relation(fields: [colorId], references: [id])
+  colorId   Int?
+  size      Size?   @relation(fields: [sizeId], references: [id])
+  sizeId    Int?
+  price     Decimal @db.Decimal(7, 2)
+  quantity  Int
+
+  @@unique([productId, colorId, sizeId])
+}
+
+model Color {
+  id              Int              @id @default(autoincrement())
+  name            String
+  productVariants ProductVariant[]
+}
+
+model Size {
+  id              Int              @id @default(autoincrement())
+  name            String
+  productVariants ProductVariant[]
 }
 
 model Account {
@@ -86,7 +113,7 @@ model Address {
   postalCode String
   city       String
   country    String
-  user       User   @relation(fields: [userId], references: [id])
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
 }
 
@@ -100,7 +127,7 @@ model Carrier {
 model Order {
   id           String       @id @default(cuid())
   status       String
-  user         User         @relation(fields: [userId], references: [id])
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
   address      String
   carrierName  String
@@ -111,7 +138,7 @@ model Order {
 
 model OrderItems {
   id       String  @id @default(cuid())
-  order    Order   @relation(fields: [orderId], references: [id])
+  order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId  String
   product  String
   price    Decimal @db.Decimal(7, 2)

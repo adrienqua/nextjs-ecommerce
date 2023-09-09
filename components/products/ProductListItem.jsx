@@ -27,7 +27,7 @@ export default function ProductListItem({ product }) {
                     </Link>
                     <div className="card-actions flex justify-between items-center">
                         <span>{parseFloat(product.price).toFixed(2)} €</span>
-                        <AddToCart id={product.id} />
+                        {/* <AddToCart id={product.id} /> */}
                     </div>
                 </div>
             </div>

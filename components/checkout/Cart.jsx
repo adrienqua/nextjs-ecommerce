@@ -38,8 +38,28 @@ export default function CartTable({
                                 <tr key={index}>
                                     <td className="font-medium">
                                         <Link href={`products/${product.id}`}>
-                                            {product.name}
+                                            {product.product.name}
                                         </Link>
+                                        {product.size.name && (
+                                            <div>
+                                                <small>
+                                                    Taille :{" "}
+                                                    <span className="font-medium">
+                                                        {product.size.name}
+                                                    </span>
+                                                </small>
+                                            </div>
+                                        )}
+                                        {product.color.name && (
+                                            <div>
+                                                <small>
+                                                    Couleur :{" "}
+                                                    <span className="font-medium">
+                                                        {product.color.name}
+                                                    </span>
+                                                </small>
+                                            </div>
+                                        )}
                                     </td>
                                     <td>{formatPrice(product.price)}</td>
                                     <td className="space-x-1">

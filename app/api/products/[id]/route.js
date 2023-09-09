@@ -7,6 +7,14 @@ export async function GET(req, context) {
     const id = parseInt(context.params.id)
     const product = await prisma.product.findUnique({
         where: { id: id },
+        include: {
+            productVariants: {
+                include: {
+                    color: true,
+                    size: true,
+                },
+            },
+        },
     })
     return NextResponse.json(product)
 }
