@@ -2,22 +2,28 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import Modal from "../Modal"
 import Form from "../Form"
 import Input from "../Input"
 import { editProduct } from "@/app/services/productAPI"
 import { formatErrors } from "@/utils/formatErrors"
+import { DisplayNestedProperties } from "@/utils/displayNestedProperties"
+import { formatPrice } from "@/utils/formatPrice"
 
 export default function ListingTableItem({
     data,
     headerDatas,
     categories,
     handleEdit,
+    formDatas,
+    detailsDatas,
 }) {
     const pathname = usePathname()
 
     const router = useRouter()
+
+    const closeModalRef = useRef(null)
 
     const [datas, setDatas] = useState({
         name: "",
@@ -30,7 +36,7 @@ export default function ListingTableItem({
     const handleChange = (e, parse = false) => {
         let value = e.target.value
         if (parse) {
-            value = parseInt(e.target.value)
+            value = parseFloat(e.target.value)
         }
         setDatas({ ...datas, [e.target.name]: value })
     }
@@ -82,52 +88,127 @@ export default function ListingTableItem({
                                             datas={datas}
                                             edit={true}
                                         >
-                                            <Input
-                                                name="name"
-                                                label="Nom"
-                                                handleChange={(e) =>
-                                                    handleChange(e)
-                                                }
-                                                value={datas.name}
-                                                error={errors.name}
-                                            />
-                                            <Input
-                                                name="description"
-                                                label="Description"
-                                                type="textarea"
-                                                handleChange={(e) =>
-                                                    handleChange(e)
-                                                }
-                                                value={datas.description}
-                                                error={errors.description}
-                                            />
-                                            <Input
-                                                name="price"
-                                                label="Prix"
-                                                type="number"
-                                                min="0"
-                                                step="0.01"
-                                                handleChange={(e) =>
-                                                    handleChange(e)
-                                                }
-                                                value={datas.price}
-                                                error={errors.price}
-                                            />
-                                            <Input
-                                                name="categoryId"
-                                                label="Catégorie"
-                                                type="select"
-                                                options={categories}
-                                                optionLabel="name"
-                                                handleChange={(e) =>
-                                                    handleChange(e, true)
-                                                }
-                                                value={datas.categoryId}
-                                                error={errors.categoryId}
-                                            />
+                                            {formDatas.map(
+                                                (formData, index) => (
+                                                    <Input
+                                                        name={formData.name}
+                                                        label={formData.label}
+                                                        type={
+                                                            formData?.type ||
+                                                            "input"
+                                                        }
+                                                        handleChange={(e) =>
+                                                            handleChange(
+                                                                e,
+                                                                formData.integer ===
+                                                                    true && true
+                                                            )
+                                                        }
+                                                        value={
+                                                            datas[formData.name]
+                                                        }
+                                                        error={
+                                                            errors[
+                                                                formData.name
+                                                            ]
+                                                        }
+                                                        {...(formData.type ===
+                                                            "select" && {
+                                                            options:
+                                                                formData.options,
+                                                            optionLabel:
+                                                                formData.optionLabel,
+                                                        })}
+                                                        key={index}
+                                                    />
+                                                )
+                                            )}
                                         </Form>
                                     </Modal>
                                 </>
+                            )}
+                            {headerData.value === "details" && (
+                                <div>
+                                    <label
+                                        htmlFor={`details-${data.id}`}
+                                        className="btn btn-xs"
+                                    >
+                                        Détails
+                                    </label>
+                                    <Modal id={`details-${data.id}`}>
+                                        <h3 className="font-bold text-lg">
+                                            Détails {data.id}
+                                        </h3>
+                                        <table className="table table-zebra">
+                                            {detailsDatas.map(
+                                                (detailsData, index) => (
+                                                    <tr key={index}>
+                                                        <th>
+                                                            {detailsData.label}
+                                                        </th>
+                                                        <th>
+                                                            {data[
+                                                                detailsData
+                                                                    .value
+                                                            ] instanceof
+                                                            Array ? (
+                                                                <ul className="list-disc">
+                                                                    {data[
+                                                                        detailsData
+                                                                            .value
+                                                                    ].map(
+                                                                        (
+                                                                            item,
+                                                                            index
+                                                                        ) => (
+                                                                            <li
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                            >
+                                                                                {detailsData[
+                                                                                    detailsData
+                                                                                        .value
+                                                                                ].map(
+                                                                                    (
+                                                                                        subItem,
+                                                                                        index
+                                                                                    ) => (
+                                                                                        <span
+                                                                                            key={
+                                                                                                index
+                                                                                            }
+                                                                                        >
+                                                                                            {subItem ===
+                                                                                            "price"
+                                                                                                ? formatPrice(
+                                                                                                      item[
+                                                                                                          subItem
+                                                                                                      ]
+                                                                                                  )
+                                                                                                : item[
+                                                                                                      subItem
+                                                                                                  ]}{" "}
+                                                                                        </span>
+                                                                                    )
+                                                                                )}
+                                                                            </li>
+                                                                        )
+                                                                    )}
+                                                                </ul>
+                                                            ) : (
+                                                                DisplayNestedProperties(
+                                                                    data,
+                                                                    detailsData.value
+                                                                )
+                                                            )}
+                                                        </th>
+                                                    </tr>
+                                                )
+                                            )}
+                                        </table>
+                                    </Modal>
+                                </div>
                             )}
                             {headerData.value === "delete" && (
                                 <div>
@@ -142,20 +223,28 @@ export default function ListingTableItem({
                                             Supprimer {data.name}
                                         </h3>
                                         <p className="py-4 text-center">
-                                            Etes vous sûr de vouloir supprimer
-                                            le produit <b>{data.name}</b> ?
+                                            Etes vous sûr de vouloir supprimer{" "}
+                                            <b>{data.name}</b> ?
                                         </p>
                                         <div className=" flex flex-col items-center">
                                             <button
                                                 className="btn btn-error btn-sm"
                                                 onClick={() =>
                                                     headerData.action(
-                                                        parseInt(data.id)
+                                                        parseInt(data.id),
+                                                        closeModalRef.current
                                                     )
                                                 }
                                             >
-                                                Delete
+                                                Supprimer
                                             </button>
+                                            <label
+                                                htmlFor={`delete-${data.id}`}
+                                                ref={closeModalRef}
+                                                className="btn btn-sm hidden"
+                                            >
+                                                Close modal
+                                            </label>
                                         </div>
                                     </Modal>
                                 </div>

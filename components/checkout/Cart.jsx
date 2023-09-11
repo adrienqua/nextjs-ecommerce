@@ -40,7 +40,7 @@ export default function CartTable({
                                         <Link href={`products/${product.id}`}>
                                             {product.product.name}
                                         </Link>
-                                        {product.size.name && (
+                                        {product.size?.name && (
                                             <div>
                                                 <small>
                                                     Taille :{" "}
@@ -50,7 +50,7 @@ export default function CartTable({
                                                 </small>
                                             </div>
                                         )}
-                                        {product.color.name && (
+                                        {product.color?.name && (
                                             <div>
                                                 <small>
                                                     Couleur :{" "}

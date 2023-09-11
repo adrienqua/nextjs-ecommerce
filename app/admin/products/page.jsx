@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache"
 import Link from "next/link"
 import Form from "@/components/Form"
 import Input from "@/components/Input"
-import NewProduct from "@/components/admin/NewProduct"
+import NewProduct from "@/components/admin/AdminNew"
 import {
     getProducts,
     deleteProduct,

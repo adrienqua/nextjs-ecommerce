@@ -26,6 +26,12 @@ export default function Input({
                             error && "input-error"
                         } `}
                         onChange={handleChange}
+                        {...(type === "number" && {
+                            min: "0",
+                        })}
+                        {...(name === "price" && {
+                            step: "0.01",
+                        })}
                         {...rest}
                     />
                     {error && (

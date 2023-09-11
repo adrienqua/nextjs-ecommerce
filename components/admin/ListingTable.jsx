@@ -9,6 +9,8 @@ export default function ListingTable({
     datas,
     categories,
     handleEdit,
+    formDatas,
+    detailsDatas,
 }) {
     return (
         <div className="overflow-x-auto">
@@ -28,9 +30,11 @@ export default function ListingTable({
                         <ListingTableItem
                             data={data}
                             headerDatas={headerDatas}
+                            formDatas={formDatas}
                             key={data.id}
                             categories={categories}
                             handleEdit={handleEdit}
+                            detailsDatas={detailsDatas}
                         />
                     ))}
                 </tbody>

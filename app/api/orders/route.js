@@ -2,7 +2,12 @@ import { prisma } from "@/app/lib/prisma"
 import { NextResponse } from "next/server"
 
 export async function GET() {
-    const orders = await prisma.order.findMany()
+    const orders = await prisma.order.findMany({
+        include: {
+            orderItems: true,
+            user: true,
+        },
+    })
     console.log(orders)
     return NextResponse.json(orders)
 }
