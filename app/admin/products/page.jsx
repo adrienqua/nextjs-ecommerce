@@ -19,11 +19,13 @@ import { productSchema } from "@/prisma/validation"
 import AdminProducts from "@/components/admin/AdminProducts"
 
 const fetchProducts = async () => {
+    "use server"
     const datas = await getProducts()
     return datas
 }
 
 const fetchCategories = async () => {
+    "use server"
     const datas = await getCategories()
     return datas
 }

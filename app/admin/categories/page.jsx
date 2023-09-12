@@ -2,10 +2,10 @@ import React from "react"
 
 import { getCategories } from "@/app/services/categoryAPI"
 
-import AdminProducts from "@/components/admin/AdminProducts"
 import AdminCategories from "@/components/admin/AdminCategories"
 
 const fetchCategories = async () => {
+    "use server"
     const datas = await getCategories()
     return datas
 }

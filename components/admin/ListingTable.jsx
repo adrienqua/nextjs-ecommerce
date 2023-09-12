@@ -2,7 +2,6 @@ import Image from "next/image"
 import React from "react"
 import ListingTableItem from "./ListingTableItem"
 import ListingTableHeader from "./ListingTableHeader"
-import Categories from "./../../app/categories/page"
 
 export default function ListingTable({
     headerDatas,

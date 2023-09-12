@@ -6,6 +6,7 @@ import { redirect } from "next/navigation"
 import React from "react"
 
 const fetchCategories = async () => {
+    "use server"
     const datas = await getCategories()
     return datas
 }
