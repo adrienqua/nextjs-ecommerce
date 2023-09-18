@@ -6,8 +6,29 @@ const apiEndpoint = apiUrl + "products"
 export function getProducts() {
     return axios.get(apiEndpoint).then((res) => res.data)
 }
+
 export function getFeaturedProducts() {
     return axios.get(apiEndpoint + "/featured").then((res) => res.data)
+}
+
+export function getFilteredProducts(filterDatas) {
+    let filteredString = ""
+    for (const [key, value] of Object.entries(filterDatas)) {
+        let content = value
+        if (value instanceof Array) {
+            content = value.map((x) => x.id)
+            console.log(content)
+        }
+        if (filteredString.length === 0) {
+            filteredString += "?" + key + "=" + content
+        } else {
+            filteredString += "&" + key + "=" + content
+        }
+    }
+
+    return axios
+        .get(apiEndpoint + "/filter" + filteredString)
+        .then((res) => res.data)
 }
 
 export function getProduct(id) {

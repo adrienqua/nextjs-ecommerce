@@ -92,8 +92,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  address       Address[]
-  order         Order[]
+  addresses     Address[]
+  orders        Order[]
 }
 
 model VerificationToken {
@@ -132,6 +132,8 @@ model Order {
   address      String
   carrierName  String
   carrierPrice Decimal      @db.Decimal(7, 2)
+  subTotal     Decimal      @db.Decimal(7, 2)
+  total        Decimal      @db.Decimal(7, 2)
   createdAt    DateTime     @default(now())
   orderItems   OrderItems[]
 }

@@ -29,7 +29,7 @@ export default function Input({
                         {...(type === "number" && {
                             min: "0",
                         })}
-                        {...(name === "price" && {
+                        {...(name.indexOf("price") >= 0 && {
                             step: "0.01",
                         })}
                         {...rest}

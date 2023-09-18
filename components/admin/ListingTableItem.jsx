@@ -14,7 +14,6 @@ import { formatPrice } from "@/utils/formatPrice"
 export default function ListingTableItem({
     data,
     headerDatas,
-    categories,
     handleEdit,
     formDatas,
     detailsDatas,
@@ -136,76 +135,81 @@ export default function ListingTableItem({
                                         Détails
                                     </label>
                                     <Modal id={`details-${data.id}`}>
-                                        <h3 className="font-bold text-lg">
+                                        <h3 className="font-bold text-lg mb-3">
                                             Détails {data.id}
                                         </h3>
                                         <table className="table table-zebra">
-                                            {detailsDatas.map(
-                                                (detailsData, index) => (
-                                                    <tr key={index}>
-                                                        <th>
-                                                            {detailsData.label}
-                                                        </th>
-                                                        <th>
-                                                            {data[
-                                                                detailsData
-                                                                    .value
-                                                            ] instanceof
-                                                            Array ? (
-                                                                <ul className="list-disc">
-                                                                    {data[
-                                                                        detailsData
-                                                                            .value
-                                                                    ].map(
-                                                                        (
-                                                                            item,
-                                                                            index
-                                                                        ) => (
-                                                                            <li
-                                                                                key={
-                                                                                    index
-                                                                                }
-                                                                            >
-                                                                                {detailsData[
-                                                                                    detailsData
-                                                                                        .value
-                                                                                ].map(
-                                                                                    (
-                                                                                        subItem,
+                                            <tbody>
+                                                {detailsDatas.map(
+                                                    (detailsData, index) => (
+                                                        <tr key={index}>
+                                                            <th>
+                                                                {
+                                                                    detailsData.label
+                                                                }
+                                                            </th>
+                                                            <td>
+                                                                {data[
+                                                                    detailsData
+                                                                        .value
+                                                                ] instanceof
+                                                                Array ? (
+                                                                    <ul className="list-disc">
+                                                                        {data[
+                                                                            detailsData
+                                                                                .value
+                                                                        ].map(
+                                                                            (
+                                                                                item,
+                                                                                index
+                                                                            ) => (
+                                                                                <li
+                                                                                    key={
                                                                                         index
-                                                                                    ) => (
-                                                                                        <span
-                                                                                            key={
-                                                                                                index
-                                                                                            }
-                                                                                        >
-                                                                                            {subItem ===
-                                                                                            "price"
-                                                                                                ? formatPrice(
-                                                                                                      item[
+                                                                                    }
+                                                                                >
+                                                                                    {detailsData[
+                                                                                        detailsData
+                                                                                            .value
+                                                                                    ].map(
+                                                                                        (
+                                                                                            subItem,
+                                                                                            index
+                                                                                        ) => (
+                                                                                            <span
+                                                                                                key={
+                                                                                                    index
+                                                                                                }
+                                                                                            >
+                                                                                                {subItem ===
+                                                                                                "price"
+                                                                                                    ? formatPrice(
+                                                                                                          item[
+                                                                                                              subItem
+                                                                                                          ]
+                                                                                                      )
+                                                                                                    : item[
                                                                                                           subItem
-                                                                                                      ]
-                                                                                                  )
-                                                                                                : item[
-                                                                                                      subItem
-                                                                                                  ]}{" "}
-                                                                                        </span>
-                                                                                    )
-                                                                                )}
-                                                                            </li>
-                                                                        )
-                                                                    )}
-                                                                </ul>
-                                                            ) : (
-                                                                DisplayNestedProperties(
-                                                                    data,
-                                                                    detailsData.value
-                                                                )
-                                                            )}
-                                                        </th>
-                                                    </tr>
-                                                )
-                                            )}
+                                                                                                      ]}{" "}
+                                                                                            </span>
+                                                                                        )
+                                                                                    )}
+                                                                                </li>
+                                                                            )
+                                                                        )}
+                                                                    </ul>
+                                                                ) : (
+                                                                    DisplayNestedProperties(
+                                                                        data,
+                                                                        detailsData.value,
+                                                                        detailsData.format
+                                                                    )
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                )}
+                                            </tbody>
                                         </table>
                                     </Modal>
                                 </div>

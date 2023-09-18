@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import React from "react"
 import ListingTableItem from "./ListingTableItem"
@@ -6,7 +7,6 @@ import ListingTableHeader from "./ListingTableHeader"
 export default function ListingTable({
     headerDatas,
     datas,
-    categories,
     handleEdit,
     formDatas,
     detailsDatas,
@@ -14,7 +14,7 @@ export default function ListingTable({
     return (
         <div className="overflow-x-auto">
             <table className="table mt-5 rounded-t-xl overflow-hidden">
-                <thead className="bg-base-200 text-black ">
+                <thead className="bg-base-100 text-black ">
                     <tr>
                         {headerDatas.map((headerDatas) => (
                             <ListingTableHeader
@@ -31,7 +31,6 @@ export default function ListingTable({
                             headerDatas={headerDatas}
                             formDatas={formDatas}
                             key={data.id}
-                            categories={categories}
                             handleEdit={handleEdit}
                             detailsDatas={detailsDatas}
                         />

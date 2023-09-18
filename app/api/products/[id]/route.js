@@ -5,6 +5,7 @@ import { NextResponse } from "next/server"
 
 export async function GET(req, context) {
     const id = parseInt(context.params.id)
+    console.log(context, "ddddddddddddddddddddd")
     const product = await prisma.product.findUnique({
         where: { id: id },
         include: {

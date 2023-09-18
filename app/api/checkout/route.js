@@ -26,7 +26,7 @@ export async function POST(req) {
         const quantity = products.filter((id) => id === product.id).length
         const price = product.price * 100
 
-        subTotal += price * quantity
+        subTotal += (price * quantity) / 100
 
         line_items.push({
             quantity: quantity,
@@ -43,6 +43,8 @@ export async function POST(req) {
         })
     }
 
+    const total = subTotal + carrierPrice
+
     const order = await prisma.order.create({
         data: {
             userId: userId,
@@ -50,6 +52,8 @@ export async function POST(req) {
             status: "Unpaid",
             carrierName: carrierName,
             carrierPrice: carrierPrice,
+            subTotal: parseFloat(subTotal),
+            total: total,
             orderItems: {
                 createMany: {
                     data: order_items,
@@ -66,7 +70,7 @@ export async function POST(req) {
                     type: "fixed_amount",
                     fixed_amount: {
                         amount:
-                            subTotal >= 6000
+                            subTotal >= 7000
                                 ? 0
                                 : (carrierPrice * 100).toFixed(0),
                         currency: "EUR",

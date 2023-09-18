@@ -6,7 +6,7 @@ import Providers from "@/components/Providers"
 import Head from "next/head"
 import { AuthContextProvider } from "@/components/contexts/authContext"
 import { CartContextProvider } from "@/components/contexts/CartContext"
-import { ToastContainer } from "react-toastify"
+import { ToastContainer, Slide } from "react-toastify"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,7 +25,11 @@ export default function RootLayout({ children }) {
                 >
                     <AuthContextProvider>
                         <CartContextProvider>
-                            <ToastContainer />
+                            <ToastContainer
+                                hideProgressBar={true}
+                                transition={Slide}
+                                autoClose={2500}
+                            />
                             <Navbar />
                             <div className="container h-100">{children}</div>
                         </CartContextProvider>

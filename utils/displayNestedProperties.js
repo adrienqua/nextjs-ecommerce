@@ -1,6 +1,11 @@
-export function DisplayNestedProperties(data, path) {
+import { formatPrice } from "./formatPrice"
+
+export function DisplayNestedProperties(data, path, format) {
     const keys = path.split(".")
-    if (keys < 2) {
+    if (keys.length < 2) {
+        if (format === "price") {
+            return formatPrice(data[path])
+        }
         return data[path]
     }
     let current = data

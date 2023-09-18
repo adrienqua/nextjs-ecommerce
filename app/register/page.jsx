@@ -7,6 +7,7 @@ import { newUser } from "../services/userAPI"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
+import { formatErrors } from "@/utils/formatErrors"
 
 export default function RegisterPage() {
     const [datas, setDatas] = useState()
@@ -32,12 +33,7 @@ export default function RegisterPage() {
             })
             router.push("/")
         } catch (error) {
-            const errors = error?.response?.data?.issues
-            const formatedErrors = {}
-            errors.forEach((err) => {
-                formatedErrors[err.path[0]] = err.message
-            })
-            setErrors(formatedErrors)
+            setErrors(formatErrors(error))
         }
 
         // useSWR("/api/products")

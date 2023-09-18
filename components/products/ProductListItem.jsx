@@ -7,7 +7,7 @@ export default function ProductListItem({ product }) {
     return (
         <>
             <div
-                className="card card-compact  bg-base-100 shadow-xl"
+                className="card card-compact bg-white shadow-sm"
                 key={product.id}
             >
                 <Link href={`/products/${product.id}`}>

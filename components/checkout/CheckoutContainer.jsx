@@ -64,7 +64,7 @@ export default function CheckoutContainer({ children }) {
     }, [cartProducts])
 
     useEffect(() => {
-        subTotal > 60
+        subTotal > 7000
             ? setShipping(0)
             : Object.keys(selectedCarrier).length > 0 &&
               setShipping(parseFloat(selectedCarrier.price))
@@ -130,7 +130,7 @@ export default function CheckoutContainer({ children }) {
             userId: session.user.id,
             address: `${selectedAddress.address} ${selectedAddress.postalCode} ${selectedAddress.city} ${selectedAddress.country}`,
             carrierName: selectedCarrier.name,
-            carrierPrice: selectedCarrier.price,
+            carrierPrice: parseFloat(selectedCarrier.price),
             products: cartProducts,
         })
 
