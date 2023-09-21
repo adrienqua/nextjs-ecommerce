@@ -10,7 +10,7 @@ export default function ProductDescription({ product }) {
         <div className="product-description flex flex-col lg:flex-row items-center">
             <div className="p-5 shrink-0">
                 <Image
-                    src="/img/500.jpg"
+                    src={product?.pictures[0]?.url}
                     width={500}
                     height={500}
                     alt="Picture of the author"
@@ -21,14 +21,9 @@ export default function ProductDescription({ product }) {
                 <h1 className="text-3xl">{product.name}</h1>
                 <p>{product.description}</p>
 
-                <h4 className="font-bold">
-                    {parseFloat(selectedVariant?.price).toFixed(2)} €
-                </h4>
+                <h4 className="font-bold">{parseFloat(selectedVariant?.price).toFixed(2)} €</h4>
 
-                <ProductAttributes
-                    product={product}
-                    setSelectedVariant={setSelectedVariant}
-                />
+                <ProductAttributes product={product} setSelectedVariant={setSelectedVariant} />
 
                 <AddToCart id={selectedVariant?.id} />
             </div>

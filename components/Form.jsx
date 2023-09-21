@@ -13,7 +13,9 @@ export default function Form({
     handleSubmit,
     modalId,
     datas,
+    formRef,
     edit = false,
+    ...rest
 }) {
     const { data: session, status } = useSession()
 
@@ -44,6 +46,8 @@ export default function Form({
                 }} */
             // action={handleSubmit}
             method="POST"
+            ref={formRef}
+            {...rest}
         >
             {children}
             <button

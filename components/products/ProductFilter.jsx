@@ -12,7 +12,8 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
     const [errors, setErrors] = useState([])
 
     const router = useRouter()
-    const filterRef = useRef()
+    const toggleFilterRef = useRef()
+    const filterFormRef = useRef()
 
     const handleChange = (e, parse = false) => {
         let value = e.target.value
@@ -55,6 +56,7 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
             setErrors([])
             toast.success("Les filtres ont bien été appliqués !")
             router.refresh()
+            toggleFilterRef.current.click()
         } catch (error) {
             setErrors(formatErrors(error))
         }
@@ -63,19 +65,25 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
     const handleReset = async () => {
         setProductsFiltered([])
         setDatas({})
-        filterRef.current.click()
+        toggleFilterRef.current.click()
+        filterFormRef.current.reset()
+        console.log(toggleFilterRef)
         toast.info("Les filtres ont été supprimés !")
     }
 
     return (
         <>
             <div className="collapse collapse-arrow bg-white shadow-sm mb-5">
-                <input ref={filterRef} type="checkbox" />
+                <input ref={toggleFilterRef} type="checkbox" />
                 <div className="collapse-title text-xl font-medium">
                     Filtres
                 </div>
                 <div className="collapse-content">
-                    <Form datas={datas} handleSubmit={handleSubmit}>
+                    <Form
+                        datas={datas}
+                        handleSubmit={handleSubmit}
+                        formRef={filterFormRef}
+                    >
                         <h3 className="h3">Prix</h3>
                         <div className="flex space-x-2">
                             <Input

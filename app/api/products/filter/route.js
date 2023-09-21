@@ -37,10 +37,17 @@ export async function GET(req, context) {
                             in: categories ? categories : undefined,
                         },
                         productVariants: {
-                            some: {
-                                colorId: { in: colors ? colors : undefined },
-                                sizeId: { in: sizes ? sizes : undefined },
-                            },
+                            some:
+                                colors || sizes
+                                    ? {
+                                          colorId: {
+                                              in: colors ? colors : undefined,
+                                          },
+                                          sizeId: {
+                                              in: sizes ? sizes : undefined,
+                                          },
+                                      }
+                                    : undefined,
                         },
                     },
                 ],

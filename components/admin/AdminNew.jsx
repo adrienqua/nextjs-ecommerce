@@ -5,6 +5,7 @@ import Input from "../Input"
 import Form from "../Form"
 import { useRouter } from "next/navigation"
 import { formatErrors } from "@/utils/formatErrors"
+import Dropzone from "react-dropzone"
 
 export default function AdminNew({ id, label, handleNew, formDatas }) {
     const [datas, setDatas] = useState({})
@@ -42,22 +43,33 @@ export default function AdminNew({ id, label, handleNew, formDatas }) {
                     handleSubmit={handleSubmit}
                     modalId={`new-form`}
                     datas={datas}
+                    enctype="multipart/form-data"
                 >
                     {formDatas.map((formData, index) => (
                         <Input
                             name={formData.name}
                             label={formData.label}
                             type={formData?.type || "input"}
-                            handleChange={(e) =>
-                                handleChange(
-                                    e,
-                                    formData.integer === true && true
-                                )
+                            handleChange={
+                                formData.type === "file"
+                                    ? (e) =>
+                                          setDatas({
+                                              ...datas,
+                                              files: e.target.files,
+                                          })
+                                    : (e) =>
+                                          handleChange(
+                                              e,
+                                              formData.integer === true && true
+                                          )
                             }
                             error={errors[formData.name]}
                             {...(formData.type === "select" && {
                                 options: formData.options,
                                 optionLabel: formData.optionLabel,
+                            })}
+                            {...(formData.multiple === true && {
+                                multiple: true,
                             })}
                             key={index}
                         />

@@ -22,9 +22,11 @@ export default function Input({
                         type={type}
                         name={name}
                         placeholder={label}
-                        className={`input input-bordered input-md ${
-                            error && "input-error"
-                        } `}
+                        className={`${
+                            type === "file"
+                                ? "file-input"
+                                : "input input-bordered input-md"
+                        } ${error && "input-error"} `}
                         onChange={handleChange}
                         {...(type === "number" && {
                             min: "0",

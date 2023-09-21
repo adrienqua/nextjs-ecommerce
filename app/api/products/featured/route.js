@@ -10,6 +10,12 @@ export async function GET() {
             description: true,
             price: true,
             categoryId: true,
+            pictures: {
+                select: {
+                    id: true,
+                    url: true,
+                },
+            },
             category: {
                 select: {
                     name: true,

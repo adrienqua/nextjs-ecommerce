@@ -2,16 +2,13 @@
 import React, { useState } from "react"
 import AdminNew from "@/components/admin/AdminNew"
 import ListingTable from "@/components/admin/ListingTable"
-import {
-    deleteProduct,
-    editProduct,
-    newProduct,
-} from "@/app/services/productAPI"
+import { deleteProduct, editProduct, newProduct } from "@/app/services/productAPI"
 import { useRouter } from "next/navigation"
 
 export default function AdminProducts({ products, categories }) {
     const [formDatas, setFormDatas] = useState([
         { label: "Nom", name: "name" },
+        { label: "Images", name: "files", type: "file", multiple: true },
         { label: "Description", name: "description", type: "textarea" },
         { label: "Prix", name: "price", type: "number", integer: true },
         {
@@ -34,34 +31,52 @@ export default function AdminProducts({ products, categories }) {
     }
 
     const handleEdit = async (id, datas) => {
-        await editProduct(id, {
-            name: datas.name,
-            description: datas.description,
-            price: parseFloat(datas.price),
-            categoryId: datas.categoryId,
-        })
+        const formData = new FormData()
+
+        formData.set("name", datas.name)
+        formData.set("description", datas.description)
+        formData.set("price", parseFloat(datas.price))
+        formData.set("categoryId", datas.categoryId)
+
+        if (typeof datas.files !== "undefined") {
+            for (let i = 0; i < datas.files.length; i++) {
+                formData.append("files", datas.files[i])
+            }
+        }
+
+        await editProduct(id, formData)
     }
 
     const handleNew = async (datas) => {
-        await newProduct({
-            name: datas.name,
-            description: datas.description,
-            price: parseFloat(datas.price),
-            categoryId: datas.categoryId,
-            productVariants: [
+        const formData = new FormData()
+        formData.set("name", datas.name)
+        formData.set("description", datas.description)
+        formData.set("price", parseFloat(datas.price))
+        formData.set("categoryId", datas.categoryId)
+        formData.set(
+            "productVariants",
+            JSON.stringify([
                 {
                     price: parseFloat(datas.price),
                     quantity: datas.quantity,
                 },
-            ],
-        })
+            ])
+        )
+
+        if (typeof datas.files !== "undefined") {
+            for (let i = 0; i < datas.files.length; i++) {
+                formData.append("files", datas.files[i])
+            }
+        }
+
+        await newProduct(formData)
     }
 
     const headerDatas = [
         { label: "Id", value: "id" },
+        { label: "Image", value: "pictures", type: "picture" },
         { label: "Nom", value: "name" },
         { label: "Prix", value: "price" },
-
         { label: "", value: "edit", action: handleEdit },
         { label: "", value: "delete", action: handleDelete },
     ]
@@ -71,12 +86,7 @@ export default function AdminProducts({ products, categories }) {
             <div className="flex justify-between  items-center">
                 <h1 className="h1 ">Produits</h1>
 
-                <AdminNew
-                    id="new-form"
-                    label="Ajouter un produit"
-                    handleNew={handleNew}
-                    formDatas={formDatas}
-                />
+                <AdminNew id="new-form" label="Ajouter un produit" handleNew={handleNew} formDatas={formDatas} />
             </div>
 
             <ListingTable

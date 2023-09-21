@@ -36,7 +36,11 @@ export function getProduct(id) {
 }
 
 export function newProduct(datas) {
-    return axios.post(apiEndpoint, datas)
+    return axios.post(apiEndpoint, datas, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    })
 }
 
 export function editProduct(id, datas) {
