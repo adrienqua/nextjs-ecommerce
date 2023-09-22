@@ -3,8 +3,7 @@ import { NextResponse } from "next/server"
 const stripe = require("stripe")(process.env.STRIPE_SK)
 
 export async function POST(req) {
-    const { userId, address, carrierName, carrierPrice, products } =
-        await req.json()
+    const { userId, address, carrierName, carrierPrice, products } = await req.json()
 
     const productsUniqueIds = [...new Set(products)]
 
@@ -40,27 +39,42 @@ export async function POST(req) {
             quantity,
             price: product.price,
             product: product.product.name,
+            size: product?.size?.name,
+            color: product?.color?.name,
         })
     }
 
     const total = subTotal + carrierPrice
 
-    const order = await prisma.order.create({
-        data: {
-            userId: userId,
-            address: address,
-            status: "Unpaid",
-            carrierName: carrierName,
-            carrierPrice: carrierPrice,
-            subTotal: parseFloat(subTotal),
-            total: total,
-            orderItems: {
-                createMany: {
-                    data: order_items,
+    const order = await prisma.order
+        .create({
+            data: {
+                userId: userId,
+                address: address,
+                status: "Unpaid",
+                carrierName: carrierName,
+                carrierPrice: carrierPrice,
+                subTotal: parseFloat(subTotal),
+                total: total,
+                orderItems: {
+                    createMany: {
+                        data: order_items,
+                    },
                 },
             },
-        },
-    })
+        })
+        .then(async (res) => {
+            const updatedOrder = await prisma.order.update({
+                where: {
+                    id: res.id,
+                },
+                data: {
+                    orderNumber: `A${res.id.toString().padStart(7, 0)}`,
+                },
+            })
+
+            return updatedOrder
+        })
 
     const session = await stripe.checkout.sessions.create({
         line_items: line_items,
@@ -69,10 +83,7 @@ export async function POST(req) {
                 shipping_rate_data: {
                     type: "fixed_amount",
                     fixed_amount: {
-                        amount:
-                            subTotal >= 7000
-                                ? 0
-                                : (carrierPrice * 100).toFixed(0),
+                        amount: subTotal >= 60 ? 0 : (carrierPrice * 100).toFixed(0),
                         currency: "EUR",
                     },
                     display_name: carrierName,
@@ -81,11 +92,9 @@ export async function POST(req) {
         ],
         mode: "payment",
         customer_email: "777adrien@gmail.com",
-        success_url:
-            process.env.PUBLIC_URL + "/checkout/success?orderId=" + order.id,
-        cancel_url:
-            process.env.PUBLIC_URL + "/checkout/canceled?orderId=" + order.id,
-        metadata: { orderId: order.id.toString() },
+        success_url: process.env.PUBLIC_URL + "/checkout/success?orderId=" + order.orderNumber,
+        cancel_url: process.env.PUBLIC_URL + "/checkout/canceled?orderId=" + order.orderNumber,
+        metadata: { orderId: order.orderNumber },
     })
 
     //res.redirect(303, session.url)

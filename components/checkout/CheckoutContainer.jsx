@@ -29,8 +29,7 @@ export default function CheckoutContainer({ children }) {
     const [isOrderFilled, setIsOrderFilled] = useState(false)
     const { data: session } = useSession()
 
-    const { cartProducts, handleAddToCart, handleSubstractToCart } =
-        useCartContext()
+    const { cartProducts, handleAddToCart, handleSubstractToCart } = useCartContext()
 
     //Cart
     const fetchCart = async () => {
@@ -39,9 +38,7 @@ export default function CheckoutContainer({ children }) {
                 const datas = res.data
                 let subtotal = 0
                 datas.map((data) => {
-                    data.quantity = cartProducts?.filter(
-                        (id) => id === data.id
-                    ).length
+                    data.quantity = cartProducts?.filter((id) => id === data.id).length
                     subtotal += data.price * data.quantity
                 })
                 setSubTotal(subtotal)
@@ -64,10 +61,9 @@ export default function CheckoutContainer({ children }) {
     }, [cartProducts])
 
     useEffect(() => {
-        subTotal > 7000
+        subTotal > 60
             ? setShipping(0)
-            : Object.keys(selectedCarrier).length > 0 &&
-              setShipping(parseFloat(selectedCarrier.price))
+            : Object.keys(selectedCarrier).length > 0 && setShipping(parseFloat(selectedCarrier.price))
     }, [subTotal, selectedCarrier])
 
     //Address
@@ -140,10 +136,7 @@ export default function CheckoutContainer({ children }) {
     }
 
     useEffect(() => {
-        if (
-            Object.keys(selectedAddress).length > 0 &&
-            Object.keys(selectedCarrier).length > 0
-        ) {
+        if (Object.keys(selectedAddress).length > 0 && Object.keys(selectedCarrier).length > 0) {
             setIsOrderFilled(true)
         }
     }, [selectedAddress, selectedCarrier])
@@ -157,37 +150,25 @@ export default function CheckoutContainer({ children }) {
                     onIncrement={handleIncrement}
                     onDecrement={handleDecrement}
                 />
-                <Order
-                    subTotal={subTotal}
-                    shipping={shipping}
-                    handleOrder={handleOrder}
-                >
+                <Order subTotal={subTotal} shipping={shipping} handleOrder={handleOrder}>
                     <div className="cart-details flex flex-col mb-5">
                         <div className="cart-subtotal flex justify-between">
                             <span>Sous total</span>
-                            <span className="font-medium">
-                                {formatPrice(subTotal)}
-                            </span>
+                            <span className="font-medium">{formatPrice(subTotal)}</span>
                         </div>
                         <div className="cart-shipping flex justify-between">
                             <span>Livraison</span>
-                            <span className="font-medium">
-                                {formatPrice(shipping)}
-                            </span>
+                            <span className="font-medium">{formatPrice(shipping)}</span>
                         </div>
                         <hr />
                         <div className="cart-total flex justify-between">
                             <span>Total</span>
-                            <span className="font-bold">
-                                {formatPrice(subTotal + shipping)}
-                            </span>
+                            <span className="font-bold">{formatPrice(subTotal + shipping)}</span>
                         </div>
                     </div>
 
                     <button
-                        className={`btn btn-primary btn-md ${
-                            isOrderFilled ? null : "btn-disabled"
-                        }`}
+                        className={`btn btn-primary btn-md ${isOrderFilled ? null : "btn-disabled"}`}
                         onClick={() => handleOrder()}
                     >
                         Passer au paiement
@@ -203,10 +184,7 @@ export default function CheckoutContainer({ children }) {
                     handleAddressChange={handleAddressChange}
                     handleSubmit={handleSubmit}
                 />
-                <Carrier
-                    carriers={carriers}
-                    handleCarrierChange={handleCarrierChange}
-                />
+                <Carrier carriers={carriers} handleCarrierChange={handleCarrierChange} />
             </div>
         </>
     )

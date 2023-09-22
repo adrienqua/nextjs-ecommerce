@@ -29,10 +29,7 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
 
         const currentDatas = datas[e.target.name] || []
 
-        if (
-            !datas[e.target.name] ||
-            !datas[e.target.name].some((item) => item.id === id)
-        ) {
+        if (!datas[e.target.name] || !datas[e.target.name].some((item) => item.id === id)) {
             setDatas({
                 ...datas,
                 [e.target.name]: [...currentDatas, { id: id, label: label }],
@@ -63,7 +60,7 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
     }
 
     const handleReset = async () => {
-        setProductsFiltered([])
+        setProductsFiltered(null)
         setDatas({})
         toggleFilterRef.current.click()
         filterFormRef.current.reset()
@@ -75,29 +72,13 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
         <>
             <div className="collapse collapse-arrow bg-white shadow-sm mb-5">
                 <input ref={toggleFilterRef} type="checkbox" />
-                <div className="collapse-title text-xl font-medium">
-                    Filtres
-                </div>
+                <div className="collapse-title text-xl font-medium">Filtres</div>
                 <div className="collapse-content">
-                    <Form
-                        datas={datas}
-                        handleSubmit={handleSubmit}
-                        formRef={filterFormRef}
-                    >
+                    <Form datas={datas} handleSubmit={handleSubmit} formRef={filterFormRef}>
                         <h3 className="h3">Prix</h3>
                         <div className="flex space-x-2">
-                            <Input
-                                name="minPrice"
-                                label="Min"
-                                type="number"
-                                handleChange={(e) => handleChange(e)}
-                            />
-                            <Input
-                                name="maxPrice"
-                                label="Max"
-                                type="number"
-                                handleChange={(e) => handleChange(e)}
-                            />
+                            <Input name="minPrice" label="Min" type="number" handleChange={(e) => handleChange(e)} />
+                            <Input name="maxPrice" label="Max" type="number" handleChange={(e) => handleChange(e)} />
                         </div>
                         <h3 className="h3">Catégories</h3>
                         <Input
@@ -110,19 +91,11 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
                         />
                         <div className="flex space-x-2">
                             {datas.categories?.map((category) => (
-                                <span
-                                    key={category.id}
-                                    className="badge py-5 px-3 relative pr-10"
-                                >
+                                <span key={category.id} className="badge py-5 px-3 relative pr-10">
                                     {category.label}{" "}
                                     <button
                                         className="btn bg-base-100 absolute right-2 min-h-0 h-6 px-2"
-                                        onClick={(e) =>
-                                            handleRemoveSelect(
-                                                category.id,
-                                                "categories"
-                                            )
-                                        }
+                                        onClick={(e) => handleRemoveSelect(category.id, "categories")}
                                     >
                                         X
                                     </button>
@@ -131,10 +104,7 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
                         </div>
 
                         <div className="pt-5">
-                            <button
-                                className="btn"
-                                onClick={() => handleReset()}
-                            >
+                            <button className="btn" onClick={() => handleReset()}>
                                 Supprimer les filtres
                             </button>
                         </div>

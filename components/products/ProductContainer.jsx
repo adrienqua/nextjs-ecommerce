@@ -31,9 +31,7 @@ export default function ProductContainer({ products, categories }) {
 
     return (
         <div>
-            <h1 className="text-center text-3xl">Produits</h1>
-
-            <Searchbar />
+            <h1 className="text-center text-3xl mb-5 font-bold">Produits</h1>
 
             <ProductFilter setProductsFiltered={setProductsFiltered} categories={categories} />
 

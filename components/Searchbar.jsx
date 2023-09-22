@@ -17,18 +17,13 @@ export default function Searchbar() {
     }
 
     return (
-        <div className="join my-5 flex items-center">
-            <form onSubmit={handleSearch}>
-                <input
-                    className="input input-bordered input-md join-item"
-                    type="search"
-                    placeholder="Rechercher un produit"
-                    onChange={(e) => handleChange(e)}
-                />
-                <button className="btn join-item rounded-r-full">
-                    Rechercher
-                </button>
-            </form>
-        </div>
+        <form onSubmit={handleSearch}>
+            <input
+                className="input input-bordered input-md h-10 text-black"
+                type="search"
+                placeholder="Rechercher un produit"
+                onChange={(e) => handleChange(e)}
+            />
+        </form>
     )
 }

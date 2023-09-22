@@ -6,11 +6,8 @@ export default function Modal({ children, id }) {
         <>
             <input type="checkbox" id={id} className="modal-toggle" />
             <div className="modal">
-                <div className="modal-box">
-                    <label
-                        htmlFor={id}
-                        className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                    >
+                <div className="modal-box max-w-xl">
+                    <label htmlFor={id} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-5.5">
                         ✕
                     </label>
                     {children}

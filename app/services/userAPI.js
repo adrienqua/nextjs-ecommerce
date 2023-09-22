@@ -1,5 +1,5 @@
 import axios from "axios"
-import { apiUrl } from "../config"
+import { apiUrl } from "../(app)/config"
 
 const apiEndpoint = apiUrl + "users"
 
@@ -16,7 +16,5 @@ export function editUser(id, datas) {
 }
 
 export function getUserAddresses(id) {
-    return axios
-        .get(apiEndpoint + "/" + id + "/addresses")
-        .then((res) => res.data)
+    return axios.get(apiEndpoint + "/" + id + "/addresses").then((res) => res.data)
 }

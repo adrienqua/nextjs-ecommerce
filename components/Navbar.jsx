@@ -3,6 +3,7 @@ import Link from "next/link"
 import React, { useState } from "react"
 import { useCartContext } from "./contexts/CartContext"
 import { useSession } from "next-auth/react"
+import Searchbar from "./Searchbar"
 
 export default function Navbar() {
     const [toggleMobile, setToggleMobile] = useState(false)
@@ -13,8 +14,8 @@ export default function Navbar() {
     const { data: session } = useSession()
 
     return (
-        <div className="nav mb-8 text-white bg-slate-900 py-5 px-6 ">
-            <div className="flex flex-row justify-between ">
+        <div className="nav mb-8 text-white bg-slate-900 py-3 px-6 ">
+            <div className="flex flex-row justify-between items-center ">
                 <div className="flex">
                     <Link className="px-2" href="/">
                         Logo
@@ -30,7 +31,8 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <div className="hidden md:block">
+                <div className="hidden md:flex items-center">
+                    <Searchbar />
                     <Link className="px-2 relative" href="/cart">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +49,7 @@ export default function Navbar() {
                             />
                         </svg>
 
-                        <span className="absolute bottom-[-0.5rem] right-0 badge badge-primary badge-xs py-2">
+                        <span className="absolute bottom-[-6px] right-0 badge badge-primary badge-xs py-2">
                             {cartProducts ? cartProducts.length : 0}
                         </span>
                     </Link>

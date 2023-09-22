@@ -16,6 +16,7 @@ export async function GET(req, context) {
             orders: {
                 select: {
                     id: true,
+                    orderNumber: true,
                     status: true,
                     address: true,
                     user: true,

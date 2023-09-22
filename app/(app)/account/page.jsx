@@ -1,6 +1,6 @@
 import React from "react"
 
-import { getUser } from "../services/userAPI"
+import { getUser } from "../../services/userAPI"
 import AccountSidebar from "@/components/account/AccountSidebar"
 import ListingTable from "@/components/admin/ListingTable"
 import AccountInformations from "@/components/account/AccountInformations"
@@ -23,13 +23,14 @@ export default async function AccountPage() {
     console.log(session)
 
     const ordersHeaderDatas = [
-        { label: "Id", value: "id" },
+        { label: "Commande", value: "orderNumber" },
+        { label: "Total", value: "total", type: "price" },
         { label: "Statut", value: "status" },
         { label: "", value: "details", action: "details" },
     ]
 
     const ordersDetailsDatas = [
-        { label: "Id", value: "id" },
+        { label: "Commande", value: "orderNumber" },
         { label: "Statut", value: "status" },
         { label: "Client", value: "user.email" },
         { label: "Adresse", value: "address" },
@@ -37,7 +38,7 @@ export default async function AccountPage() {
         {
             label: "Contenu de la commande",
             value: "orderItems",
-            orderItems: ["quantity", "product", "price"],
+            orderItems: ["quantity", "product", "color", "size", "price"],
         },
         { label: "Transporteur", value: "carrierName" },
         { label: "Sous total", value: "subTotal", format: "price" },
@@ -50,10 +51,7 @@ export default async function AccountPage() {
             <h1 className="h1 pl-6 mb-3">Mon compte</h1>
             <div className="flex">
                 <AccountSidebar />
-                <div
-                    id="account-orders"
-                    className="flex flex-col flex-1 space-y-5"
-                >
+                <div id="account-orders" className="flex flex-col flex-1 space-y-5">
                     <div className="flex-1 mx-5 bg-white p-5 shadow-sm rounded-2xl">
                         <h2 className="h2 text-center">Mes commandes</h2>
                         {user && (
@@ -65,10 +63,7 @@ export default async function AccountPage() {
                         )}
                     </div>
 
-                    <AccountAddresses
-                        addresses={user.addresses}
-                        userId={user.id}
-                    />
+                    <AccountAddresses addresses={user.addresses} userId={user.id} />
 
                     <AccountInformations user={user} />
                 </div>

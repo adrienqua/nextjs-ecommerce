@@ -63,9 +63,9 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
                                 className="rounded-lg"
                             />
                         </td>
-                    ) : headerData.value === "price" ? (
+                    ) : headerData.type === "price" ? (
                         <td key={headerData.value}>{parseFloat(data[headerData.value]).toFixed(2)} €</td>
-                    ) : headerData.value === "id" ? (
+                    ) : index === 0 ? (
                         <td key={headerData.value} className="font-bold">
                             {data[headerData.value]}
                         </td>

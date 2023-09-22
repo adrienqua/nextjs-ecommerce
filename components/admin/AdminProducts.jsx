@@ -76,7 +76,7 @@ export default function AdminProducts({ products, categories }) {
         { label: "Id", value: "id" },
         { label: "Image", value: "pictures", type: "picture" },
         { label: "Nom", value: "name" },
-        { label: "Prix", value: "price" },
+        { label: "Prix", value: "price", type: "price" },
         { label: "", value: "edit", action: handleEdit },
         { label: "", value: "delete", action: handleDelete },
     ]

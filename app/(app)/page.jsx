@@ -3,8 +3,8 @@ import Searchbar from "@/components/Searchbar"
 import ProductList from "@/components/products/ProductList"
 import Link from "next/link"
 import React from "react"
-import { getFeaturedProducts } from "./services/productAPI"
 import Slider from "@/components/Slider"
+import { getFeaturedProducts } from "../services/productAPI"
 
 const fetchFeaturedProducts = async () => {
     "use server"
@@ -17,8 +17,6 @@ export default async function HomePage() {
     return (
         <>
             <Slider />
-
-            <Searchbar />
 
             <h2 className="h1 mb-4">Produits en vedette</h2>
             <ProductList products={featuredProducts} />

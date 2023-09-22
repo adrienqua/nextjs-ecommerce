@@ -47,7 +47,7 @@ model ProductVariant {
 
 model Picture {
   id        Int     @id @default(autoincrement())
-  Product   Product @relation(fields: [productId], references: [id])
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
   url       String
 }
@@ -133,8 +133,9 @@ model Carrier {
 }
 
 model Order {
-  id           String       @id @default(cuid())
+  id           Int          @id @default(autoincrement())
   status       String
+  orderNumber  String?
   user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
   address      String
@@ -149,8 +150,10 @@ model Order {
 model OrderItems {
   id       String  @id @default(cuid())
   order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderId  String
+  orderId  Int
   product  String
+  color    String?
+  size     String?
   price    Decimal @db.Decimal(7, 2)
   quantity Int
 }

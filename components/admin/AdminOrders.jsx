@@ -18,22 +18,23 @@ export default function AdminOrders({ orders }) {
     }
 
     const headerDatas = [
-        { label: "Id", value: "id" },
+        { label: "Commande", value: "orderNumber" },
+        { label: "Total", value: "total", type: "price" },
         { label: "Statut", value: "status" },
         { label: "", value: "details", action: handleDetails },
         { label: "", value: "delete", action: handleDelete },
     ]
 
     const detailsDatas = [
-        { label: "Id", value: "id" },
+        { label: "Commande", value: "orderNumber" },
         { label: "Statut", value: "status" },
         { label: "Client", value: "user.email" },
         { label: "Adresse", value: "address" },
         { label: "Transporteur", value: "carrierName" },
         {
-            label: "Contenu de lka commande",
+            label: "Contenu de la commande",
             value: "orderItems",
-            orderItems: ["quantity", "product", "price"],
+            orderItems: ["quantity", "product",  "color", "size", "price"],
         },
     ]
     return (

@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation"
 import React, { Suspense, useEffect, useState } from "react"
-import { searchProducts } from "../services/searchAPI"
+import { searchProducts } from "../../services/searchAPI"
 import Searchbar from "@/components/Searchbar"
 import ProductList from "@/components/products/ProductList"
 import Loading from "@/components/Loading"
@@ -26,7 +26,7 @@ export default function SearchPage({ params }) {
 
     return (
         <div>
-            <Searchbar />
+            <h1 className="text-center text-3xl mb-5 font-bold">Produits</h1>
             <Suspense fallback={<Loading />}>
                 <ProductList products={products} />
             </Suspense>

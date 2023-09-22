@@ -3,7 +3,7 @@ import Form from "@/components/Form"
 import Input from "@/components/Input"
 import { redirect } from "next/navigation"
 import React, { useState } from "react"
-import { newUser } from "../services/userAPI"
+import { newUser } from "../../services/userAPI"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
@@ -63,10 +63,7 @@ export default function RegisterPage() {
                 />
             </Form>
 
-            <Link
-                className="text-primary hover:text-primary-focus"
-                href="/login"
-            >
+            <Link className="text-primary hover:text-primary-focus" href="/login">
                 Vous avez déjà un compte ? Se connecter
             </Link>
         </div>

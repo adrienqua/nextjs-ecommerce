@@ -16,6 +16,7 @@ export async function POST(req) {
     const body = await req.json()
     const order = await prisma.order.create({
         data: {
+            orderNumber: body.orderNumber,
             address: body.address,
             userId: body.userId,
             status: body.status,

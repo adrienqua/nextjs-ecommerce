@@ -28,7 +28,7 @@ export default function Slider() {
                 navigation={true}
                 loop={true}
                 modules={[Autoplay, Pagination, Navigation]}
-                className="flex h-[350px] lg:h-[550px] min-[2000px]:h-[700px] w-[100vw] !ml-[calc(-50vw+50%)] !mr-[calc(-50vw+50%)] -mt-8"
+                className="flex h-[350px] lg:h-[550px] min-[2000px]:h-[700px] w-[100vw] !ml-[calc(-50vw+50%)] !mr-[calc(-50vw+50%)] -mt-8 mb-20"
             >
                 <SwiperSlide className="!flex justify-center items-center text-left relative">
                     <div className="slide-content text-white absolute left-[12%]  max-w-[150px] md:max-w-[300px]">
