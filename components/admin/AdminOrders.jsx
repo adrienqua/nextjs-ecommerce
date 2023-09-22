@@ -2,11 +2,7 @@
 import React, { useState } from "react"
 import AdminNew from "@/components/admin/AdminNew"
 import ListingTable from "@/components/admin/ListingTable"
-import {
-    deleteCategory,
-    editCategory,
-    newCategory,
-} from "@/app/services/categoryAPI"
+import { deleteCategory, editCategory, newCategory } from "@/app/services/categoryAPI"
 
 export default function AdminOrders({ orders }) {
     const [formDatas, setFormDatas] = useState([{ label: "Nom", name: "name" }])
@@ -35,7 +31,7 @@ export default function AdminOrders({ orders }) {
         { label: "Adresse", value: "address" },
         { label: "Transporteur", value: "carrierName" },
         {
-            label: "Contenu de la commande",
+            label: "Contenu de lka commande",
             value: "orderItems",
             orderItems: ["quantity", "product", "price"],
         },

@@ -4,6 +4,7 @@ import ProductList from "@/components/products/ProductList"
 import Link from "next/link"
 import React from "react"
 import { getFeaturedProducts } from "./services/productAPI"
+import Slider from "@/components/Slider"
 
 const fetchFeaturedProducts = async () => {
     "use server"
@@ -11,18 +12,16 @@ const fetchFeaturedProducts = async () => {
     return datas
 }
 
-const HomePage = async () => {
+export default async function HomePage() {
     const featuredProducts = await fetchFeaturedProducts()
     return (
         <>
-            <div>
-                <Searchbar />
+            <Slider />
 
-                <h2 className="h1 mb-4">Produits en vedette</h2>
-                <ProductList products={featuredProducts} />
-            </div>
+            <Searchbar />
+
+            <h2 className="h1 mb-4">Produits en vedette</h2>
+            <ProductList products={featuredProducts} />
         </>
     )
 }
-
-export default HomePage

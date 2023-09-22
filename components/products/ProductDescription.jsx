@@ -10,10 +10,10 @@ export default function ProductDescription({ product }) {
         <div className="product-description flex flex-col lg:flex-row items-center">
             <div className="p-5 shrink-0">
                 <Image
-                    src={product?.pictures[0]?.url}
+                    src={product.pictures.length > 0 ? product?.pictures?.[0]?.url : "/img/placeholder.jpg"}
                     width={500}
                     height={500}
-                    alt="Picture of the author"
+                    alt={product.name}
                     className="rounded-xl"
                 />
             </div>

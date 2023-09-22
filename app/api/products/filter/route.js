@@ -63,6 +63,12 @@ export async function GET(req, context) {
                         name: true,
                     },
                 },
+                pictures: {
+                    select: {
+                        id: true,
+                        url: true,
+                    },
+                },
                 productVariants: {
                     select: {
                         colorId: true,

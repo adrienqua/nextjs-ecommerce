@@ -15,12 +15,18 @@ module.exports = {
         container: {
             center: true,
             padding: "1rem",
+            sm: "600px",
+            md: "728px",
+            lg: "984px",
+            xl: "1240px",
         },
         extend: {
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-                "gradient-conic":
-                    "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+                "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+            },
+            margin: {
+                fullwidth: "calc(-50vw + 50%) !important",
             },
         },
     },

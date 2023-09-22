@@ -28,7 +28,7 @@ export async function PUT(req, context) {
         const validation = productSchema.parse({
             name: formData.get("name"),
             description: formData.get("description"),
-            price: parseInt(formData.get("price")),
+            price: parseFloat(formData.get("price")),
             categoryId: parseInt(formData.get("categoryId")),
         })
 

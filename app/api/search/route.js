@@ -6,6 +6,10 @@ export async function GET(req) {
     const url = new URL(req.url)
     const query = url.searchParams.get("q")
 
+    if (!query) {
+        return NextResponse.json([])
+    }
+
     const products = await prisma.product.findMany({
         where: {
             OR: [
@@ -20,6 +24,9 @@ export async function GET(req) {
                     },
                 },
             ],
+        },
+        include: {
+            pictures: true,
         },
     })
     console.log(products)

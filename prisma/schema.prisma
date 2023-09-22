@@ -154,3 +154,9 @@ model OrderItems {
   price    Decimal @db.Decimal(7, 2)
   quantity Int
 }
+
+model Settings {
+  id String @id @default(cuid())
+
+  freeShipping Decimal @db.Decimal(7, 2)
+}

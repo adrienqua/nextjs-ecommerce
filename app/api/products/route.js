@@ -6,9 +6,16 @@ import { productSchema } from "@/prisma/validation"
 
 import { mkdir, writeFile } from "fs/promises"
 
-export async function GET() {
+export async function GET(req) {
+    const searchParams = req.nextUrl.searchParams
+    const page = parseInt(searchParams.get("page"))
+    const pageCount = 12
+
+    console.log(page)
     try {
         const products = await prisma.product.findMany({
+            skip: page ? page * pageCount - pageCount : undefined,
+            take: pageCount,
             select: {
                 id: true,
                 name: true,

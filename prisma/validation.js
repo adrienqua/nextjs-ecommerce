@@ -22,6 +22,14 @@ export const productSchema = z.object({
     categoryId: z.number(),
 })
 
+export const productVariantSchema = z.object({
+    productId: z.number(),
+    colorId: z.number().optional(),
+    sizeId: z.number().optional(),
+    price: z.number(),
+    quantity: z.number(),
+})
+
 export const userSchema = z.object({
     email: z.string().email().min(5),
     password: z.string().min(5),

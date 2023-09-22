@@ -51,10 +51,7 @@ export default function Navbar() {
                             {cartProducts ? cartProducts.length : 0}
                         </span>
                     </Link>
-                    <Link
-                        className="px-2"
-                        href={!session?.user ? "/login" : "/account"}
-                    >
+                    <Link className="px-2" href={!session?.user ? "/login" : "/account"}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -76,10 +73,7 @@ export default function Navbar() {
                         )}
                     </Link>
                 </div>
-                <button
-                    className="mobile-toggle inline-block align-bottom md:hidden"
-                    onClick={() => handleClick()}
-                >
+                <button className="mobile-toggle inline-block align-bottom md:hidden" onClick={() => handleClick()}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

@@ -58,3 +58,11 @@ button {
 .Toastify__toast {
     border-radius: 15px;
 }
+
+.swiper-pagination-bullet-active {
+    @apply !bg-primary;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    @apply !text-primary;
+}

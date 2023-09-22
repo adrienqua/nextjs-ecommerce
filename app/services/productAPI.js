@@ -3,8 +3,8 @@ import { apiUrl } from "../config"
 
 const apiEndpoint = apiUrl + "products"
 
-export function getProducts() {
-    return axios.get(apiEndpoint).then((res) => res.data)
+export function getProducts(page) {
+    return axios.get(`${apiEndpoint}?page=${page}`).then((res) => res.data)
 }
 
 export function getFeaturedProducts() {
@@ -26,9 +26,7 @@ export function getFilteredProducts(filterDatas) {
         }
     }
 
-    return axios
-        .get(apiEndpoint + "/filter" + filteredString)
-        .then((res) => res.data)
+    return axios.get(apiEndpoint + "/filter" + filteredString).then((res) => res.data)
 }
 
 export function getProduct(id) {

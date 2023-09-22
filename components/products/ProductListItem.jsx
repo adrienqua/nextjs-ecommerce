@@ -8,8 +8,14 @@ export default function ProductListItem({ product }) {
         <>
             <div className="card card-compact bg-white shadow-sm" key={product.id}>
                 <Link href={`/products/${product.id}`}>
-                    <figure className="rounded-t-2xl">
-                        <Image src={product?.pictures[0]?.url} width={500} height={350} alt={product.description} />
+                    <figure className="rounded-t-2xl aspect-square">
+                        <Image
+                            src={product.pictures.length > 0 ? product?.pictures?.[0]?.url : "/img/placeholder.jpg"}
+                            width={300}
+                            height={300}
+                            alt={product.name}
+                            className="object-cover w-full h-full hover:scale-105 duration-300"
+                        />
                     </figure>
                 </Link>
                 <div className="card-body">
