@@ -35,3 +35,10 @@ export const userSchema = z.object({
     password: z.string().min(5),
     name: z.string().min(2),
 })
+
+export const reviewSchema = z.object({
+    productId: z.number(),
+    userId: z.string(),
+    message: z.string().min(5),
+    rating: z.number().min(1).max(5),
+})

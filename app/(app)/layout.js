@@ -15,7 +15,7 @@ export default function AppLayout({ children }) {
         <div className="min-h-screen flex flex-col">
             <TopBanner />
             <Navbar />
-            <div className="container h-100">{children}</div>
+            <div className="container h-100 pb-12">{children}</div>
             <Footer />
         </div>
     )

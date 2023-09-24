@@ -3,6 +3,11 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
     const orders = await prisma.order.findMany({
+        orderBy: [
+            {
+                id: "desc",
+            },
+        ],
         include: {
             orderItems: true,
             user: true,

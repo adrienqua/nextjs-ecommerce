@@ -3,7 +3,12 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
     const carriers = await prisma.carrier.findMany()
-    return NextResponse.json(carriers)
+    /*     const computedCarriers = carriers.map((carrier) => {
+        carrier.computed = carrier.name + " " + carrier.description
+        return carrier
+    })
+ */
+    return NextResponse.json(computedCarriers)
 }
 
 export async function POST(req) {

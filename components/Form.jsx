@@ -8,15 +8,7 @@ import { useAuthContext } from "./contexts/authContext"
 import { useSession, signIn, signOut } from "next-auth/react"
 import { revalidatePath } from "next/cache"
 
-export default function Form({
-    children,
-    handleSubmit,
-    modalId,
-    datas,
-    formRef,
-    edit = false,
-    ...rest
-}) {
+export default function Form({ children, handleSubmit, modalId, datas, formRef, edit = false, ...rest }) {
     const { data: session, status } = useSession()
 
     const { user, setUser } = useAuthContext()
@@ -52,17 +44,13 @@ export default function Form({
             {children}
             <button
                 type="submit"
-                className="btn btn-primary  mt-4"
+                className="btn btn-primary  mt-2"
                 //formAction={handleSubmit}
                 onClick={(e) => handleSubmitGlobal(e)}
             >
                 Confirmer
             </button>
-            <label
-                htmlFor={modalId}
-                ref={closeModalRef}
-                className="btn btn-sm hidden"
-            >
+            <label htmlFor={modalId} ref={closeModalRef} className="btn btn-sm hidden">
                 Close modal
             </label>
         </form>

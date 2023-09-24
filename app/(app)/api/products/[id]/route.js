@@ -16,6 +16,18 @@ export async function GET(req, context) {
                     size: true,
                 },
             },
+            reviews: {
+                orderBy: {
+                    id: "desc",
+                },
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                        },
+                    },
+                },
+            },
         },
     })
     return NextResponse.json(product)

@@ -29,6 +29,7 @@ model Product {
   categoryId      Int
   productVariants ProductVariant[]
   pictures        Picture[]
+  reviews         Review[]
 }
 
 model ProductVariant {
@@ -50,6 +51,18 @@ model Picture {
   Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
   url       String
+}
+
+model Review {
+  id        Int       @id @default(autoincrement())
+  rating    Int
+  message   String
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Color {
@@ -102,6 +115,7 @@ model User {
   sessions      Session[]
   addresses     Address[]
   orders        Order[]
+  Review        Review[]
 }
 
 model VerificationToken {

@@ -9,12 +9,13 @@ export default function Input({
     options,
     optionLabel,
     error,
+    width = "w-2/3",
     ...rest
 }) {
     switch (type) {
         default:
             return (
-                <div className="flex flex-col w-full md:w-2/3 mb-4">
+                <div className={`flex flex-col w-full md:${width} mb-4`}>
                     <label className="label">
                         <span className="label-text font-medium">{label}</span>
                     </label>
@@ -22,11 +23,9 @@ export default function Input({
                         type={type}
                         name={name}
                         placeholder={label}
-                        className={`${
-                            type === "file"
-                                ? "file-input"
-                                : "input input-bordered input-md"
-                        } ${error && "input-error"} `}
+                        className={`${type === "file" ? "file-input" : "input input-bordered input-md"} ${
+                            error && "input-error"
+                        } `}
                         onChange={handleChange}
                         {...(type === "number" && {
                             min: "0",
@@ -38,16 +37,14 @@ export default function Input({
                     />
                     {error && (
                         <label className="label error">
-                            <span className="label-text font-medium text-error">
-                                {error}
-                            </span>
+                            <span className="label-text font-medium text-error">{error}</span>
                         </label>
                     )}
                 </div>
             )
         case "textarea":
             return (
-                <div className="flex flex-col w-full md:w-2/3 mb-4">
+                <div className={`flex flex-col w-full md:${width} mb-4`}>
                     <label className="label">
                         <span className="label-text font-medium">{label}</span>
                     </label>
@@ -55,33 +52,27 @@ export default function Input({
                         type="text"
                         name={name}
                         placeholder={label}
-                        className={`textarea textarea-bordered textarea-md ${
-                            error && "textarea-error"
-                        }`}
+                        className={`textarea textarea-bordered textarea-md ${error && "textarea-error"}`}
                         onChange={handleChange}
                         rows="5"
                         {...rest}
                     />
                     {error && (
                         <label className="label error">
-                            <span className="label-text font-medium text-error">
-                                {error}
-                            </span>
+                            <span className="label-text font-medium text-error">{error}</span>
                         </label>
                     )}
                 </div>
             )
         case "select":
             return (
-                <div className="flex flex-col w-full md:w-2/3 mb-4">
+                <div className={`flex flex-col w-full md:${width} mb-4`}>
                     <label className="label">
                         <span className="label-text font-medium">{label}</span>
                     </label>
                     <select
                         name={name}
-                        className={`select select-bordered ${
-                            error && "select-error"
-                        }`}
+                        className={`select select-bordered ${error && "select-error"}`}
                         onChange={handleChange}
                         defaultValue={""}
                         {...rest}
@@ -97,9 +88,7 @@ export default function Input({
                     </select>
                     {error && (
                         <label className="label error">
-                            <span className="label-text font-medium text-error">
-                                {error}
-                            </span>
+                            <span className="label-text font-medium text-error">{error}</span>
                         </label>
                     )}
                 </div>
@@ -107,12 +96,7 @@ export default function Input({
         case "radio":
             return (
                 <label className="label cursor-pointer">
-                    <input
-                        type="radio"
-                        name={name}
-                        className="radio radio-sm checked:bg-primary"
-                        {...rest}
-                    />
+                    <input type="radio" name={name} className="radio radio-sm checked:bg-primary" {...rest} />
                     <span className="label-text">{label}</span>
                 </label>
             )

@@ -14,6 +14,11 @@ export async function GET(req, context) {
             name: true,
             addresses: true,
             orders: {
+                orderBy: [
+                    {
+                        id: "desc",
+                    },
+                ],
                 select: {
                     id: true,
                     orderNumber: true,

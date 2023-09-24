@@ -5,17 +5,12 @@ import Link from "next/link"
 export default function CategoryListItem({ category }) {
     return (
         <>
-            <Link
-                href={`/${category.name}`}
-                className="card bg-base-100 shadow-xl image-full"
-            >
+            <Link href={`/${category.name}`} className="card bg-base-100 shadow-xl image-full">
                 <figure>
-                    <Image src="/img/500.jpg" width={500} height={350} />
+                    <Image src="/img/placeholder.jpg" width={500} height={350} alt="catégorie" />
                 </figure>
                 <div className="card-body justify-center">
-                    <h2 className="text-3xl font-bold uppercase text-center">
-                        {category.name}
-                    </h2>
+                    <h2 className="text-3xl font-bold uppercase text-center">{category.name}</h2>
                 </div>
             </Link>
         </>

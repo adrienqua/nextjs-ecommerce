@@ -13,7 +13,7 @@ export default async function CategoryPage() {
 
     return (
         <div>
-            <h1 className="text-center text-3xl mb-4">Catégories</h1>
+            <h1 className="text-center text-3xl mb-4 font-bold">Catégories</h1>
             <CategoryList categories={categories} />
         </div>
     )
