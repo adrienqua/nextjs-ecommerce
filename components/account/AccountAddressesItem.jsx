@@ -14,7 +14,7 @@ export default function AccountAddressesItem({ address }) {
     const router = useRouter()
     const closeModalRef = useRef(null)
 
-    const handleSubmit = async (id, datas, closeModal) => {
+    const handleSubmit = async (datas, id, closeModal) => {
         try {
             await editAddress(id, {
                 label: datas.label,

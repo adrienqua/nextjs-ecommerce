@@ -44,7 +44,7 @@ model ProductVariant {
   price     Decimal @db.Decimal(7, 2)
   quantity  Int
 
-  @@unique([productId, colorId, sizeId])
+  @@unique([productId, colorId, sizeId], name: "productId_colorId_sizeId")
 }
 
 model Picture {

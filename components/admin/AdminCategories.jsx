@@ -2,29 +2,34 @@
 import React, { useState } from "react"
 import AdminNew from "@/components/admin/AdminNew"
 import ListingTable from "@/components/admin/ListingTable"
-import {
-    deleteCategory,
-    editCategory,
-    newCategory,
-} from "@/app/services/categoryAPI"
+import { deleteCategory, editCategory, newCategory } from "@/app/services/categoryAPI"
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
 
 export default function AdminCategories({ categories }) {
     const [formDatas, setFormDatas] = useState([{ label: "Nom", name: "name" }])
 
-    const handleDelete = async (id) => {
+    const router = useRouter()
+
+    const handleDelete = async (id, closeModal) => {
         await deleteCategory(id)
+        closeModal.click()
+        router.refresh()
+        toast.success("Catégorie supprimée !")
     }
 
     const handleEdit = async (id, datas) => {
         await editCategory(id, {
             name: datas.name,
         })
+        toast.success("Catégorie modifiée !")
     }
 
     const handleNew = async (datas) => {
         await newCategory({
             name: datas.name,
         })
+        toast.success("Catégorie ajoutée !")
     }
 
     const headerDatas = [

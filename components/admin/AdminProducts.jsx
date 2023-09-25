@@ -4,6 +4,8 @@ import AdminNew from "@/components/admin/AdminNew"
 import ListingTable from "@/components/admin/ListingTable"
 import { deleteProduct, editProduct, newProduct } from "@/app/services/productAPI"
 import { useRouter } from "next/navigation"
+import ProductForm from "./form/ProductForm"
+import { toast } from "react-toastify"
 
 export default function AdminProducts({ products, categories }) {
     const [formDatas, setFormDatas] = useState([
@@ -28,6 +30,7 @@ export default function AdminProducts({ products, categories }) {
         await deleteProduct(id)
         closeModal.click()
         router.refresh()
+        toast.success("Produit supprimé !")
     }
 
     const handleEdit = async (id, datas) => {
@@ -77,7 +80,7 @@ export default function AdminProducts({ products, categories }) {
         { label: "Image", value: "pictures", type: "picture" },
         { label: "Nom", value: "name" },
         { label: "Prix", value: "price", type: "price" },
-        { label: "", value: "edit", action: handleEdit },
+        { label: "", value: "edit", action: handleEdit, url: "/admin/products/" },
         { label: "", value: "delete", action: handleDelete },
     ]
 
@@ -86,7 +89,13 @@ export default function AdminProducts({ products, categories }) {
             <div className="flex justify-between  items-center">
                 <h1 className="h1 ">Produits</h1>
 
-                <AdminNew id="new-form" label="Ajouter un produit" handleNew={handleNew} formDatas={formDatas} />
+                <AdminNew
+                    id="new-form"
+                    label="Ajouter un produit"
+                    url="/admin/products/new"
+                    handleNew={handleNew}
+                    formDatas={formDatas}
+                />
             </div>
 
             <ListingTable

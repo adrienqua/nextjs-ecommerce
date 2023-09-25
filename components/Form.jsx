@@ -23,7 +23,7 @@ export default function Form({ children, handleSubmit, modalId, datas, formRef, 
     const handleSubmitGlobal = async (e) => {
         e.preventDefault()
         if (edit) {
-            await handleSubmit(datas.id, datas, closeModalRef.current)
+            await handleSubmit(datas, datas.id, closeModalRef.current)
             console.log("edit")
         } else {
             await handleSubmit(datas, closeModalRef.current)

@@ -6,11 +6,6 @@ import ProductDescription from "@/components/products/ProductDescription"
 import Image from "next/image"
 import React from "react"
 
-export const metadata = {
-    title: "test",
-    description: "A fullstack e-commerce application created by Adrien Quacchia.",
-}
-
 export async function generateMetadata({ params, searchParams }, parent) {
     const product = await fetchProduct(params.id)
 

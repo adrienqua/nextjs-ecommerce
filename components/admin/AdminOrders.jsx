@@ -1,14 +1,20 @@
 "use client"
 import React, { useState } from "react"
-import AdminNew from "@/components/admin/AdminNew"
 import ListingTable from "@/components/admin/ListingTable"
-import { deleteCategory, editCategory, newCategory } from "@/app/services/categoryAPI"
+import { editCategory } from "@/app/services/categoryAPI"
+import { deleteOrder } from "@/app/services/ordersAPI"
+import { useRouter } from "next/navigation"
 
 export default function AdminOrders({ orders }) {
     const [formDatas, setFormDatas] = useState([{ label: "Nom", name: "name" }])
 
-    const handleDelete = async (id) => {
-        await deleteCategory(id)
+    const router = useRouter()
+
+    const handleDelete = async (id, closeModal) => {
+        await deleteOrder(id)
+        closeModal.click()
+        router.refresh()
+        toast.success("Commande supprimée !")
     }
 
     const handleDetails = async (id, datas) => {

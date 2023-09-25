@@ -34,7 +34,7 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
         setDatas({ ...datas, [e.target.name]: value })
     }
 
-    const handleSubmit = async (id, datas, closeModal) => {
+    const handleSubmit = async (datas, id, closeModal) => {
         try {
             await handleEdit(id, datas)
             setErrors([])
@@ -53,6 +53,7 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
         <tr>
             {headerDatas.map((headerData, index) => (
                 <React.Fragment key={index}>
+                    {headerData.test && headerData.test}
                     {headerData.type === "picture" ? (
                         <td key={headerData.value}>
                             <Image
@@ -77,64 +78,75 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
                         <td>
                             {headerData.value === "edit" && (
                                 <>
-                                    <label htmlFor={`edit-${data.id}`} className="btn btn-xs">
-                                        Editer
-                                    </label>
-                                    <Modal id={`edit-${data.id}`}>
-                                        <h3 className="font-bold text-lg">Modifier {data.name}</h3>
-                                        <Form
-                                            handleSubmit={handleSubmit}
-                                            modalId={`edit-${data.id}`}
-                                            datas={datas}
-                                            edit={true}
-                                        >
-                                            {formDatas.map((formData, index) => (
-                                                <>
-                                                    <Input
-                                                        name={formData.name}
-                                                        label={formData.label}
-                                                        type={formData?.type || "input"}
-                                                        handleChange={
-                                                            formData?.type === "file"
-                                                                ? (e) =>
-                                                                      setDatas({
-                                                                          ...datas,
-                                                                          files: e.target.files,
-                                                                      })
-                                                                : (e) =>
-                                                                      handleChange(e, formData.integer === true && true)
-                                                        }
-                                                        {...(formData.type !== "file" && {
-                                                            value: datas[formData.name],
-                                                        })}
-                                                        {...(formData.multiple === true && {
-                                                            multiple: true,
-                                                        })}
-                                                        error={errors[formData.name]}
-                                                        {...(formData.type === "select" && {
-                                                            options: formData.options,
-                                                            optionLabel: formData.optionLabel,
-                                                        })}
-                                                        key={index}
-                                                    />
-                                                    {formData.type === "file" && (
-                                                        <div className="flex space-x-1">
-                                                            {data.pictures.map((pic) => (
-                                                                <Image
-                                                                    src={pic.url}
-                                                                    width={75}
-                                                                    height={75}
-                                                                    alt={pic.url}
-                                                                    className="rounded-lg"
-                                                                    key={pic.url}
-                                                                />
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </>
-                                            ))}
-                                        </Form>
-                                    </Modal>
+                                    {headerData.url ? (
+                                        <Link href={`${headerData.url}${data.id}`} className="btn btn-xs">
+                                            Editer
+                                        </Link>
+                                    ) : (
+                                        <>
+                                            <label htmlFor={`edit-${data.id}`} className="btn btn-xs">
+                                                Editer
+                                            </label>
+                                            <Modal id={`edit-${data.id}`}>
+                                                <h3 className="font-bold text-lg">Modifier {data.name}</h3>
+                                                <Form
+                                                    handleSubmit={handleSubmit}
+                                                    modalId={`edit-${data.id}`}
+                                                    datas={datas}
+                                                    edit={true}
+                                                >
+                                                    {formDatas.map((formData, index) => (
+                                                        <>
+                                                            <Input
+                                                                name={formData.name}
+                                                                label={formData.label}
+                                                                type={formData?.type || "input"}
+                                                                handleChange={
+                                                                    formData?.type === "file"
+                                                                        ? (e) =>
+                                                                              setDatas({
+                                                                                  ...datas,
+                                                                                  files: e.target.files,
+                                                                              })
+                                                                        : (e) =>
+                                                                              handleChange(
+                                                                                  e,
+                                                                                  formData.integer === true && true
+                                                                              )
+                                                                }
+                                                                {...(formData.type !== "file" && {
+                                                                    value: datas[formData.name],
+                                                                })}
+                                                                {...(formData.multiple === true && {
+                                                                    multiple: true,
+                                                                })}
+                                                                error={errors[formData.name]}
+                                                                {...(formData.type === "select" && {
+                                                                    options: formData.options,
+                                                                    optionLabel: formData.optionLabel,
+                                                                })}
+                                                                key={index}
+                                                            />
+                                                            {formData.type === "file" && (
+                                                                <div className="flex space-x-1">
+                                                                    {data.pictures.map((pic) => (
+                                                                        <Image
+                                                                            src={pic.url}
+                                                                            width={75}
+                                                                            height={75}
+                                                                            alt={pic.url}
+                                                                            className="rounded-lg"
+                                                                            key={pic.url}
+                                                                        />
+                                                                    ))}
+                                                                </div>
+                                                            )}
+                                                        </>
+                                                    ))}
+                                                </Form>
+                                            </Modal>
+                                        </>
+                                    )}
                                 </>
                             )}
                             {headerData.value === "details" && (

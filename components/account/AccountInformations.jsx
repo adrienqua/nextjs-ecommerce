@@ -22,7 +22,7 @@ export default function AccountInformations({ user }) {
         setDatas({ ...datas, [e.target.name]: value })
     }
 
-    const handleSubmit = async (id, datas, closeModal) => {
+    const handleSubmit = async (datas, id, closeModal) => {
         try {
             await editUser(id, {
                 email: datas.email,

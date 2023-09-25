@@ -1,6 +1,7 @@
 import { prisma } from "@/app/lib/prisma"
 import { productSchema } from "@/prisma/validation"
 import { PrismaClient } from "@prisma/client"
+import cuid from "cuid"
 import { mkdir, writeFile } from "fs/promises"
 import { NextResponse } from "next/server"
 
@@ -38,6 +39,7 @@ export async function PUT(req, context) {
     const id = parseInt(context.params.id)
     const imgArray = []
     const formData = await req.formData()
+    let productVariants = JSON.parse(formData.get("productVariants"))
     try {
         validation = productSchema.parse({
             name: formData.get("name"),
@@ -86,6 +88,24 @@ export async function PUT(req, context) {
                     data: imgArray,
                 },
             },
+            productVariants: {
+                deleteMany: {
+                    NOT: {
+                        id: {
+                            in: productVariants
+                                .map((variant) => variant.id)
+                                .filter((variant) => typeof variant === "string"),
+                        },
+                    },
+                },
+                upsert: productVariants.map((variant) => ({
+                    create: variant,
+                    update: variant,
+                    where: {
+                        id: variant.id || cuid(),
+                    },
+                })),
+            },
             specifications: {
                 deleteMany: {
                     NOT: {
@@ -110,6 +130,7 @@ export async function PUT(req, context) {
         include: {
             pictures: true,
             specifications: true,
+            productVariants: true,
         },
     })
 
