@@ -43,16 +43,18 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
+    let validation
+    let imgArray = []
+    const formData = await req.formData()
+    let productVariants = JSON.parse(formData.get("productVariants"))
+    let specifications = JSON.parse(formData.get("specifications"))
     try {
-        const formData = await req.formData()
-        const validation = productSchema.parse({
+        validation = productSchema.parse({
             name: formData.get("name"),
             description: formData.get("description"),
             price: parseInt(formData.get("price")),
             categoryId: parseInt(formData.get("categoryId")),
         })
-
-        let productVariants = JSON.parse(formData.get("productVariants"))
 
         //Setup files
         const files = formData.getAll("files")
@@ -61,7 +63,6 @@ export async function POST(req) {
         const path = `./public/uploads/img/products/`
         await mkdir(path, { recursive: true })
 
-        const imgArray = []
         for (const file of files) {
             const bytes = await file.arrayBuffer()
             const buffer = Buffer.from(bytes)
@@ -73,35 +74,41 @@ export async function POST(req) {
                 url: `/uploads/img/products/${fileName}`,
             })
         }
-
-        //Api
-        const product = await prisma.product.create({
-            data: {
-                name: validation.name,
-                description: validation.description,
-                price: validation.price,
-                categoryId: validation.categoryId,
-                pictures: {
-                    createMany: {
-                        data: imgArray,
-                    },
-                },
-                productVariants: {
-                    createMany: {
-                        data: productVariants,
-                    },
-                },
-            },
-            include: {
-                pictures: true,
-                productVariants: true,
-            },
-        })
-
-        return NextResponse.json(product)
     } catch (error) {
         return NextResponse.json(error, { status: 400 })
     }
+
+    //Api
+    const product = await prisma.product.create({
+        data: {
+            name: validation.name,
+            description: validation.description,
+            price: validation.price,
+            categoryId: validation.categoryId,
+            pictures: {
+                createMany: {
+                    data: imgArray,
+                },
+            },
+            productVariants: {
+                createMany: {
+                    data: productVariants,
+                },
+            },
+            specifications: {
+                createMany: {
+                    data: specifications || [],
+                },
+            },
+        },
+        include: {
+            pictures: true,
+            productVariants: true,
+            specifications: true,
+        },
+    })
+
+    return NextResponse.json(product)
 }
 
 /* export async function POST(req) {

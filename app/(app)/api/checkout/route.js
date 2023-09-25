@@ -97,6 +97,8 @@ export async function POST(req) {
         metadata: { orderId: order.orderNumber },
     })
 
+    console.log("sessssssssssssssssssssssssssssion", session)
+
     //res.redirect(303, session.url)
 
     console.log(order_items)

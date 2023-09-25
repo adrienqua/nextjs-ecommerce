@@ -7,6 +7,7 @@ import { formatErrors } from "@/utils/formatErrors"
 import { useRouter } from "next/navigation"
 import { deleteReview, editReview } from "@/app/services/reviewAPI"
 import { useSession } from "next-auth/react"
+import ReviewStars from "./ReviewStars"
 
 export default function ProductReviewItem({ review, productId }) {
     const [datas, setDatas] = useState({})
@@ -53,11 +54,16 @@ export default function ProductReviewItem({ review, productId }) {
 
     return (
         <>
-            <div className="border border-base-200 rounded-lg px-4 py-3 ">
+            <div className="border border-base-200 rounded-lg px-5 py-3 ">
                 <div className="review-header text-sm mb-2 flex justify-between items-center">
-                    <div>
-                        <span className="font-bold">{review.user.name}</span>{" "}
-                        <span className="text-slate-400 ">{formatDate(review.createdAt)}</span>
+                    <div className="flex flex-col">
+                        <div>
+                            <span className="font-bold text-gray-600">{review.user.name}</span>{" "}
+                            <span>
+                                <ReviewStars rating={review.rating} />
+                            </span>
+                        </div>
+                        <span className="text-gray-400 text-xs">{formatDate(review.createdAt)}</span>
                     </div>
                     <div className="dropdown dropdown-end flex ">
                         <label tabIndex={0} className="btn btn-ghost btn-xs">
@@ -89,8 +95,8 @@ export default function ProductReviewItem({ review, productId }) {
                         </ul>
                     </div>
                 </div>
-                <hr className="border-base-200 -mt-2" />
-                <p className="text-sm mt-2">{review.message}</p>
+                <hr className="border-base-200 -mt-1" />
+                <p className="text-sm mt-3 text-gray-600 leading-7">{review.message}</p>
             </div>
 
             <Modal id={`edit-review-${review.id}`}>

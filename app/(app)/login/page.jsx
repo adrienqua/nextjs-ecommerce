@@ -40,7 +40,6 @@ export default function LoginPage() {
     return (
         <div className="login text-center xl:mx-[25%]">
             <h1 className="text-center text-4xl">Se connecter</h1>
-            <Login />
             <Form handleSubmit={handleSubmit} datas={datas}>
                 <Input
                     name="email"
@@ -60,17 +59,11 @@ export default function LoginPage() {
                     error={errors}
                 />
             </Form>
-            <Link
-                className="text-primary hover:text-primary-focus"
-                href="/register"
-            >
+            <Link className="text-primary hover:text-primary-focus" href="/register">
                 Pas de compte ? S&apos;inscrire.
             </Link>
             <div className="divider w-full md:w-2/3 mx-auto mb-10">OU</div>
-            <button
-                className="btn"
-                onClick={() => signIn("google", { callbackUrl: "/" })}
-            >
+            <button className="btn" onClick={() => signIn("google", { callbackUrl: "/" })}>
                 Se connecter avec Google
             </button>
         </div>

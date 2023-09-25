@@ -1,13 +1,22 @@
 import { getProduct } from "@/app/services/productAPI"
+import { fetchProduct } from "@/components/actions/fetchProducts"
 import AddToCart from "@/components/products/AddToCart"
 import ProductAttributes from "@/components/products/ProductAttributes"
 import ProductDescription from "@/components/products/ProductDescription"
 import Image from "next/image"
 import React from "react"
 
-const fetchProduct = async (id) => {
-    const datas = await getProduct(id)
-    return datas
+export const metadata = {
+    title: "test",
+    description: "A fullstack e-commerce application created by Adrien Quacchia.",
+}
+
+export async function generateMetadata({ params, searchParams }, parent) {
+    const product = await fetchProduct(params.id)
+
+    return {
+        title: `${product.name} - Next.js ecommerce`,
+    }
 }
 
 export default async function ProductDetailsPage({ params }) {

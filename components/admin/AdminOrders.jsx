@@ -30,12 +30,15 @@ export default function AdminOrders({ orders }) {
         { label: "Statut", value: "status" },
         { label: "Client", value: "user.email" },
         { label: "Adresse", value: "address" },
-        { label: "Transporteur", value: "carrierName" },
         {
             label: "Contenu de la commande",
             value: "orderItems",
-            orderItems: ["quantity", "product",  "color", "size", "price"],
+            orderItems: ["quantity", "product", "color", "size", "price"],
         },
+        { label: "Transporteur", value: "carrierName" },
+        { label: "Sous total", value: "subTotal", format: "price" },
+        { label: "Frais de port", value: "carrierPrice", format: "price" },
+        { label: "Total", value: "total", format: "price" },
     ]
     return (
         <div className="bg-white rounded-xl px-8 py-6 shadow-sm">

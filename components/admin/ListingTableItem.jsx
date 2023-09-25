@@ -56,7 +56,11 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
                     {headerData.type === "picture" ? (
                         <td key={headerData.value}>
                             <Image
-                                src={data[headerData.value][0]?.url}
+                                src={
+                                    data[headerData.value].length > 0
+                                        ? data[headerData.value][0].url
+                                        : "/img/placeholder.jpg"
+                                }
                                 width={50}
                                 height={50}
                                 alt={data[headerData.value][0]?.url}
@@ -83,9 +87,6 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
                                             modalId={`edit-${data.id}`}
                                             datas={datas}
                                             edit={true}
-                                            {...(data.pictures && {
-                                                enctype: "multipart/form-data",
-                                            })}
                                         >
                                             {formDatas.map((formData, index) => (
                                                 <>

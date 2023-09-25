@@ -39,12 +39,7 @@ export default function AdminNew({ id, label, handleNew, formDatas }) {
             </label>
             <Modal id={`new-form`}>
                 <h3 className="font-bold text-lg">Ajouter un produit</h3>
-                <Form
-                    handleSubmit={handleSubmit}
-                    modalId={`new-form`}
-                    datas={datas}
-                    enctype="multipart/form-data"
-                >
+                <Form handleSubmit={handleSubmit} modalId={`new-form`} datas={datas}>
                     {formDatas.map((formData, index) => (
                         <Input
                             name={formData.name}
@@ -57,11 +52,7 @@ export default function AdminNew({ id, label, handleNew, formDatas }) {
                                               ...datas,
                                               files: e.target.files,
                                           })
-                                    : (e) =>
-                                          handleChange(
-                                              e,
-                                              formData.integer === true && true
-                                          )
+                                    : (e) => handleChange(e, formData.integer === true && true)
                             }
                             error={errors[formData.name]}
                             {...(formData.type === "select" && {

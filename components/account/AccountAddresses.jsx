@@ -52,24 +52,14 @@ export default function AccountAddresses({ addresses, userId }) {
 
     return (
         <>
-            <div
-                id="account-addresses"
-                className="flex-1 mx-5 bg-white p-5 shadow-sm rounded-2xl"
-            >
+            <div id="account-addresses" className="flex-1 md:mx-5 bg-white p-5 shadow-sm rounded-2xl">
                 <div className="flex justify-between px-2 mb-3">
                     <h2 className="h2 ">Mes adresses</h2>
-                    <label
-                        htmlFor={`new-address`}
-                        className="btn btn-sm btn-primary"
-                    >
+                    <label htmlFor={`new-address`} className="btn btn-sm btn-primary">
                         Nouvelle adresse
                     </label>
                     <Modal id={`new-address`}>
-                        <Form
-                            handleSubmit={handleNewSubmit}
-                            modalId={`new-address`}
-                            datas={newAddressDatas}
-                        >
+                        <Form handleSubmit={handleNewSubmit} modalId={`new-address`} datas={newAddressDatas}>
                             <Input
                                 name="label"
                                 label="Titre"
@@ -117,9 +107,11 @@ export default function AccountAddresses({ addresses, userId }) {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    {addresses.map((address, index) => (
-                        <AccountAddressesItem key={index} address={address} />
-                    ))}
+                    {addresses.length > 0 ? (
+                        addresses.map((address, index) => <AccountAddressesItem key={index} address={address} />)
+                    ) : (
+                        <p className="text-gray-500">Vous n&apos;avez pas enregistré d&apos;adresses</p>
+                    )}
                 </div>
             </div>
         </>

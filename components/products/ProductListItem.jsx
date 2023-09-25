@@ -13,6 +13,7 @@ export default function ProductListItem({ product }) {
                             src={product.pictures.length > 0 ? product?.pictures?.[0]?.url : "/img/placeholder.jpg"}
                             width={300}
                             height={300}
+                            quality={100}
                             alt={product.name}
                             className="object-cover w-full h-full hover:scale-105 duration-300"
                         />

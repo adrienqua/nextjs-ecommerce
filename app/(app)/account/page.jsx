@@ -10,6 +10,7 @@ import { GET } from "../api/auth/[...nextauth]/route"
 import Modal from "@/components/Modal"
 import Form from "@/components/Form"
 import Input from "@/components/Input"
+import AccountOrders from "@/components/account/AccountOrders"
 
 const fetchUser = async (id) => {
     "use server"
@@ -22,46 +23,13 @@ export default async function AccountPage() {
     const user = await fetchUser(session.user.email)
     console.log(session)
 
-    const ordersHeaderDatas = [
-        { label: "Commande", value: "orderNumber" },
-        { label: "Total", value: "total", type: "price" },
-        { label: "Statut", value: "status" },
-        { label: "", value: "details", action: "details" },
-    ]
-
-    const ordersDetailsDatas = [
-        { label: "Commande", value: "orderNumber" },
-        { label: "Statut", value: "status" },
-        { label: "Client", value: "user.email" },
-        { label: "Adresse", value: "address" },
-
-        {
-            label: "Contenu de la commande",
-            value: "orderItems",
-            orderItems: ["quantity", "product", "color", "size", "price"],
-        },
-        { label: "Transporteur", value: "carrierName" },
-        { label: "Sous total", value: "subTotal", format: "price" },
-        { label: "Frais de port", value: "carrierPrice", format: "price" },
-        { label: "Total", value: "total", format: "price" },
-    ]
-
     return (
         <div className="account">
             <h1 className="h1 pl-6 mb-3">Mon compte</h1>
-            <div className="flex">
+            <div className="flex flex-col md:flex-row ">
                 <AccountSidebar />
-                <div id="account-orders" className="flex flex-col flex-1 space-y-5">
-                    <div className="flex-1 mx-5 bg-white p-5 shadow-sm rounded-2xl">
-                        <h2 className="h2 text-center">Mes commandes</h2>
-                        {user && (
-                            <ListingTable
-                                datas={user.orders}
-                                headerDatas={ordersHeaderDatas}
-                                detailsDatas={ordersDetailsDatas}
-                            />
-                        )}
-                    </div>
+                <div className="flex flex-col flex-1 space-y-5">
+                    <AccountOrders user={user} />
 
                     <AccountAddresses addresses={user.addresses} userId={user.id} />
 

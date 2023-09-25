@@ -41,6 +41,7 @@ export default function Slider() {
                             src="/uploads/img/slider/slider1.jpg"
                             width={0}
                             height={0}
+                            quality={100}
                             sizes="100vw"
                             alt="slider1"
                             className="w-full h-full object-cover"
@@ -58,6 +59,7 @@ export default function Slider() {
                             src="/uploads/img/slider/slider1.jpg"
                             width={0}
                             height={0}
+                            quality={100}
                             sizes="100vw"
                             alt="slider1"
                             className="w-full h-full object-cover"
