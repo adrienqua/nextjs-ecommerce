@@ -38,7 +38,11 @@ const handler = NextAuth({
                 // You can also use the `req` object to obtain additional parameters
                 // (i.e., the request IP address)
                 if (!credentials?.email || !credentials.password) {
-                    return null
+                    throw new Error(
+                        JSON.stringify({
+                            email: "Veuillez renseigner une adresse email et un mot de passe.",
+                        })
+                    )
                 }
 
                 const user = await prisma.user.findUnique({
@@ -48,13 +52,14 @@ const handler = NextAuth({
                 })
 
                 if (!user) {
-                    return null
+                    throw new Error(
+                        JSON.stringify({
+                            email: "Cette adresse email n'est pas enregistrée.",
+                        })
+                    )
                 }
 
-                const isPasswordValid = await compare(
-                    credentials.password,
-                    user.password
-                )
+                const isPasswordValid = await compare(credentials.password, user.password)
 
                 if (!isPasswordValid) {
                     throw new Error(

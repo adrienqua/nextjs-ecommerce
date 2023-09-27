@@ -10,8 +10,11 @@ import React, { useState } from "react"
 import { toast } from "react-toastify"
 
 export default function LoginPage() {
-    const [datas, setDatas] = useState()
-    const [errors, setErrors] = useState()
+    const [datas, setDatas] = useState({
+        email: "",
+        password: "",
+    })
+    const [errors, setErrors] = useState({})
     const { data: session } = useSession()
     const router = useRouter()
 
@@ -24,7 +27,8 @@ export default function LoginPage() {
             if (!response.error) {
                 router.push("/")
             } else {
-                setErrors(JSON.parse(response.error))
+                const errors = JSON.parse(response.error)
+                setErrors(errors)
             }
         })
     }
@@ -47,7 +51,7 @@ export default function LoginPage() {
                     label="Email"
                     required="required"
                     handleChange={(e) => handleChange(e)}
-                    error={errors}
+                    error={errors.email}
                 />
                 <Input
                     name="password"
@@ -56,7 +60,7 @@ export default function LoginPage() {
                     label="Mot de passe"
                     required="required"
                     handleChange={(e) => handleChange(e)}
-                    error={errors}
+                    error={errors.password}
                 />
             </Form>
             <Link className="text-primary hover:text-primary-focus" href="/register">

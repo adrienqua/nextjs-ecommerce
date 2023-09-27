@@ -5,13 +5,14 @@ import ProductAttributes from "./ProductAttributes"
 import AddToCart from "./AddToCart"
 import ProductReviews from "./ProductReviews"
 import ProductPictures from "./ProductPictures"
+import ProductSpecifications from "./ProductSpecifications"
 
-export default function ProductDescription({ product }) {
+export default function ProductDetails({ product }) {
     const [selectedVariant, setSelectedVariant] = useState({})
     return (
         <>
             <div className="product-description flex flex-col lg:flex-row lg:space-x-5">
-                <div className=" mb-5 flex-initial min-w-[50%] sticky top-20 self-start">
+                <div className=" mb-5 flex-initial min-w-[50%] lg:sticky lg:top-20 self-start">
                     <ProductPictures product={product} />
                 </div>
                 <div className="flex-initial min-w-[50%]">
@@ -25,6 +26,7 @@ export default function ProductDescription({ product }) {
 
                         <AddToCart id={selectedVariant?.id} />
                     </div>
+                    <ProductSpecifications product={product} />
                     <ProductReviews product={product} />
                 </div>
             </div>

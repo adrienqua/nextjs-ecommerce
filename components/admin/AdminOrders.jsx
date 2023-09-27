@@ -4,6 +4,7 @@ import ListingTable from "@/components/admin/ListingTable"
 import { editCategory } from "@/app/services/categoryAPI"
 import { deleteOrder } from "@/app/services/ordersAPI"
 import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 
 export default function AdminOrders({ orders }) {
     const [formDatas, setFormDatas] = useState([{ label: "Nom", name: "name" }])

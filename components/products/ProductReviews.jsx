@@ -5,7 +5,7 @@ import ProductReviewNew from "./ProductReviewNew"
 
 export default function ProductReviews({ product }) {
     return (
-        <div className="bg-white rounded-xl px-10 py-8 shadow-sm">
+        <div className="bg-white rounded-xl px-10 py-10 shadow-sm">
             <h2 className="h1 mb-4">Commentaires client</h2>
             <ProductReviewNew product={product} />
 

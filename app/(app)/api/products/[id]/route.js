@@ -17,6 +17,7 @@ export async function GET(req, context) {
                     size: true,
                 },
             },
+            specifications: true,
             reviews: {
                 orderBy: {
                     id: "desc",
@@ -40,6 +41,9 @@ export async function PUT(req, context) {
     const imgArray = []
     const formData = await req.formData()
     let productVariants = JSON.parse(formData.get("productVariants"))
+    let specifications = JSON.parse(formData.get("specifications"))
+
+    //validation
     try {
         validation = productSchema.parse({
             name: formData.get("name"),
@@ -68,12 +72,6 @@ export async function PUT(req, context) {
     } catch (error) {
         return NextResponse.json(error, { status: 400 })
     }
-
-    const specs = [
-        { label: "Label", value: "valeur" },
-        { label: "Label2", value: "valeur22", id: 22 },
-        { label: "Label3", value: "valeur3" },
-    ]
 
     //Api
     const product = await prisma.product.update({
@@ -110,19 +108,15 @@ export async function PUT(req, context) {
                 deleteMany: {
                     NOT: {
                         id: {
-                            in: specs.map((spec) => spec.id).filter(Number),
+                            in: specifications.map((spec) => spec.id).filter((spec) => typeof spec === "string"),
                         },
                     },
                 },
-                upsert: specs.map((spec) => ({
+                upsert: specifications.map((spec) => ({
                     create: spec,
                     update: spec,
                     where: {
-                        productId_label_value: {
-                            productId: id,
-                            label: spec.label,
-                            value: spec.value,
-                        },
+                        id: spec.id || cuid(),
                     },
                 })),
             },

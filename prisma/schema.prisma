@@ -55,7 +55,7 @@ model Picture {
 }
 
 model Specification {
-  id        Int     @id @default(autoincrement())
+  id        String  @id @default(cuid())
   Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
   label     String

@@ -41,11 +41,18 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
                 sizeId: variant.sizeId,
             }))
 
+            const specifications = datas.specifications.map((spec) => ({
+                id: spec.id,
+                label: spec.label,
+                value: spec.value,
+            }))
+
             formData.set("name", datas.name)
             formData.set("description", datas.description)
             formData.set("price", parseFloat(datas.price))
             formData.set("categoryId", parseInt(datas.categoryId))
             formData.set("productVariants", JSON.stringify(productVariants))
+            formData.set("specifications", JSON.stringify(specifications))
 
             if (typeof datas.files !== "undefined") {
                 for (let i = 0; i < datas.files.length; i++) {
@@ -92,6 +99,11 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
 
     const handleAddMore = (array, defaultValues) => {
         const clonedDatas = _.cloneDeep(datas)
+
+        if (!clonedDatas[array]) {
+            clonedDatas[array] = []
+        }
+
         clonedDatas[array].push(defaultValues)
 
         setDatas(clonedDatas)
@@ -132,7 +144,11 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
                             className="rounded-lg"
                             key={pic.url}
                         />
-                        <button className="btn btn-xs absolute top-0 right-0" onClick={() => handleDeletePic(pic.id)}>
+                        <button
+                            type="button"
+                            className="btn btn-xs absolute top-0 right-0"
+                            onClick={() => handleDeletePic(pic.id)}
+                        >
                             X
                         </button>
                     </div>
@@ -164,59 +180,100 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
                 handleChange={(e) => handleChange(e)}
                 error={errors.categoryId}
             />
-            <h2 className="h3">Variants du produit</h2>
-            <div className="flex flex-col">
-                {datas.productVariants.map((variant, index) => (
-                    <div className="product-variant flex space-x-2 items-center" key={index}>
-                        <Input
-                            id={index}
-                            name="price"
-                            label="Prix variant"
-                            type="number"
-                            value={datas.productVariants[index].price}
-                            handleChange={(e) => handleChangeArray(e, "productVariants", true)}
-                            min={0}
-                            step={0.01}
-                        />
-                        <Input
-                            id={index}
-                            name="quantity"
-                            label="Quantité"
-                            type="number"
-                            value={datas.productVariants[index].quantity}
-                            handleChange={(e) => handleChangeArray(e, "productVariants", true)}
-                        />
-                        <Input
-                            id={index}
-                            name="colorId"
-                            label="Couleur"
-                            type="select"
-                            value={datas.productVariants[index].colorId}
-                            options={colors}
-                            optionLabel="name"
-                            handleChange={(e) => handleChangeArray(e, "productVariants", true)}
-                        />
-                        <Input
-                            id={index}
-                            name="sizeId"
-                            label="Taille"
-                            type="select"
-                            value={datas.productVariants[index].sizeId}
-                            options={sizes}
-                            optionLabel="name"
-                            handleChange={(e) => handleChangeArray(e, "productVariants", true)}
-                        />
-                        <button className="btn btn-sm mt-5" onClick={() => handleDeleteRow("productVariants", index)}>
-                            X
-                        </button>
-                    </div>
-                ))}
-                <button
-                    className="btn btn-sm"
-                    onClick={() => handleAddMore("productVariants", { price: datas.price, quantity: 99 })}
-                >
-                    Ajouter un variant
-                </button>
+            <div className="product-variants mt-5">
+                <h2 className="h3 text-center mb-3">Variants du produit</h2>
+                <div className="flex flex-col">
+                    {datas.productVariants.map((variant, index) => (
+                        <div className="product-variant flex space-x-2 items-center" key={index}>
+                            <Input
+                                id={index}
+                                name="price"
+                                label="Prix variant"
+                                type="number"
+                                value={datas.productVariants[index].price}
+                                handleChange={(e) => handleChangeArray(e, "productVariants", true)}
+                                min={0}
+                                step={0.01}
+                            />
+                            <Input
+                                id={index}
+                                name="quantity"
+                                label="Quantité"
+                                type="number"
+                                value={datas.productVariants[index].quantity}
+                                handleChange={(e) => handleChangeArray(e, "productVariants", true)}
+                            />
+                            <Input
+                                id={index}
+                                name="colorId"
+                                label="Couleur"
+                                type="select"
+                                value={datas.productVariants[index].colorId}
+                                options={colors}
+                                optionLabel="name"
+                                handleChange={(e) => handleChangeArray(e, "productVariants", true)}
+                            />
+                            <Input
+                                id={index}
+                                name="sizeId"
+                                label="Taille"
+                                type="select"
+                                value={datas.productVariants[index].sizeId}
+                                options={sizes}
+                                optionLabel="name"
+                                handleChange={(e) => handleChangeArray(e, "productVariants", true)}
+                            />
+                            <button
+                                type="button"
+                                className="btn btn-sm mt-5"
+                                onClick={() => handleDeleteRow("productVariants", index)}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ))}
+                    <button
+                        type="button"
+                        className="btn btn-sm"
+                        onClick={() => handleAddMore("productVariants", { price: datas.price, quantity: 99 })}
+                    >
+                        Ajouter un variant
+                    </button>
+                </div>
+            </div>
+
+            <div className="product-specifications mt-5 mb-5">
+                <h2 className="h3 text-center mb-3">Spécifications</h2>
+                <div className="flex flex-col">
+                    {datas?.specifications?.map((spec, index) => (
+                        <div className="product-variant flex space-x-2 items-center" key={index}>
+                            <Input
+                                id={index}
+                                name="label"
+                                label="Titre"
+                                value={datas.specifications[index].label}
+                                handleChange={(e) => handleChangeArray(e, "specifications")}
+                            />
+                            <Input
+                                id={index}
+                                name="value"
+                                label="Valeur"
+                                value={datas.specifications[index].value}
+                                handleChange={(e) => handleChangeArray(e, "specifications")}
+                            />
+                            <button
+                                type="button"
+                                className="btn btn-sm mt-5"
+                                onClick={() => handleDeleteRow("specifications", index)}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ))}
+                    <button type="button" className="btn btn-sm" onClick={() => handleAddMore("specifications", {})}>
+                        Ajouter des spécifications
+                    </button>
+                </div>
             </div>
         </Form>
     )

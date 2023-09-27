@@ -37,6 +37,7 @@ export default function Form({ children, handleSubmit, modalId, datas, formRef, 
                     await handleSubmit(e)
                 }} */
             // action={handleSubmit}
+            onSubmit={handleSubmitGlobal}
             method="POST"
             ref={formRef}
             {...rest}
@@ -46,7 +47,6 @@ export default function Form({ children, handleSubmit, modalId, datas, formRef, 
                 type="submit"
                 className="btn btn-primary  mt-2"
                 //formAction={handleSubmit}
-                onClick={(e) => handleSubmitGlobal(e)}
             >
                 Confirmer
             </button>
