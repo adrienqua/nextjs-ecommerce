@@ -4,7 +4,6 @@ const nextConfig = {
         serverComponentsExternalPackages: ["@prisma/client"],
         serverActions: true,
     },
-    source: "/api/:path*",
 }
 
 module.exports = nextConfig

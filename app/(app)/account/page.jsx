@@ -6,11 +6,11 @@ import ListingTable from "@/components/admin/ListingTable"
 import AccountInformations from "@/components/account/AccountInformations"
 import AccountAddresses from "@/components/account/AccountAddresses"
 import { getServerSession } from "next-auth"
-import { GET } from "../api/auth/[...nextauth]/route"
 import Modal from "@/components/Modal"
 import Form from "@/components/Form"
 import Input from "@/components/Input"
 import AccountOrders from "@/components/account/AccountOrders"
+import { authOptions } from "@/app/lib/auth"
 
 const fetchUser = async (id) => {
     "use server"
@@ -19,7 +19,7 @@ const fetchUser = async (id) => {
 }
 
 export default async function AccountPage() {
-    const session = await getServerSession(GET)
+    const session = await getServerSession(authOptions)
     const user = await fetchUser(session.user.email)
     console.log(session)
 

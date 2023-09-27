@@ -7,12 +7,7 @@ import Link from "next/link"
 import Form from "@/components/Form"
 import Input from "@/components/Input"
 import NewProduct from "@/components/admin/AdminNew"
-import {
-    getProducts,
-    deleteProduct,
-    newProduct,
-    editProduct,
-} from "@/app/services/productAPI"
+import { getProducts, deleteProduct, newProduct, editProduct } from "@/app/services/productAPI"
 import { getCategories } from "@/app/services/categoryAPI"
 import { editProductApi } from "@/components/admin/editApi"
 import { productSchema } from "@/prisma/validation"

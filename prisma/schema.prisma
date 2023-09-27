@@ -31,6 +31,7 @@ model Product {
   pictures        Picture[]
   reviews         Review[]
   specifications  Specification[]
+  favorites       Favorite[]
 }
 
 model ProductVariant {
@@ -88,6 +89,16 @@ model Size {
   productVariants ProductVariant[]
 }
 
+model Favorite {
+  id        Int     @id @default(autoincrement())
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  @@unique([productId, userId])
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -116,9 +127,9 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   password      String?
   emailVerified DateTime?
   image         String?
@@ -127,6 +138,7 @@ model User {
   addresses     Address[]
   orders        Order[]
   Review        Review[]
+  favorites     Favorite[]
 }
 
 model VerificationToken {

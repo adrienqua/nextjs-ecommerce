@@ -4,6 +4,18 @@ import { PrismaClient } from "@prisma/client"
 import { hash } from "bcrypt"
 import { NextResponse } from "next/server"
 
+export async function GET() {
+    const users = await prisma.user.findMany({
+        select: {
+            id: true,
+            name: true,
+            email: true,
+        },
+    })
+
+    return NextResponse.json(users)
+}
+
 export async function POST(req) {
     try {
         const body = await req.json()

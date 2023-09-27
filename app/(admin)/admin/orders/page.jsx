@@ -8,7 +8,7 @@ const fetchOrders = async () => {
     return datas
 }
 
-export default async function AdminOrderList({ params }) {
+export default async function AdminOrderPage({ params }) {
     const orders = await fetchOrders()
 
     return <AdminOrders orders={orders} />
