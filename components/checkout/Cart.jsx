@@ -28,25 +28,33 @@ export default function CartTable({ products, cartProducts, onIncrement, onDecre
                         <tbody>
                             {products.map((product, index) => (
                                 <tr key={index}>
-                                    <td className="font-medium">
-                                        <Link href={`products/${product.id}`}>{product.product.name}</Link>
-                                        {product.size?.name && (
-                                            <div>
-                                                <small>
-                                                    Taille : <span className="font-medium">{product.size.name}</span>
-                                                </small>
+                                    <td>
+                                        <div className="">
+                                            <Link href={`products/${product.id}`} className="text-gray-800 font-bold">
+                                                {product.product.name}
+                                            </Link>
+                                            <div className="text-gray-500 flex flex-col leading-none">
+                                                {product.color?.name && (
+                                                    <span>
+                                                        <small className="font-medium">
+                                                            Couleur :{" "}
+                                                            <span className="font-semibold">{product.color.name}</span>
+                                                        </small>
+                                                    </span>
+                                                )}
+                                                {product.size?.name && (
+                                                    <span>
+                                                        <small className="font-medium">
+                                                            Taille :{" "}
+                                                            <span className="font-semibold">{product.size.name}</span>
+                                                        </small>
+                                                    </span>
+                                                )}
                                             </div>
-                                        )}
-                                        {product.color?.name && (
-                                            <div>
-                                                <small>
-                                                    Couleur : <span className="font-medium">{product.color.name}</span>
-                                                </small>
-                                            </div>
-                                        )}
+                                        </div>
                                     </td>
-                                    <td>{formatPrice(product.price)}</td>
-                                    <td className="">
+                                    <td className="text-gray-600 font-medium">{formatPrice(product.price)}</td>
+                                    <td className="text-gray-700 font-medium">
                                         <div className="flex flex-col-reverse md:flex-row items-center md:space-x-1">
                                             <button onClick={() => onDecrement(product.id)} className="btn btn-xs">
                                                 -
@@ -58,7 +66,7 @@ export default function CartTable({ products, cartProducts, onIncrement, onDecre
                                         </div>
                                     </td>
                                     <td>
-                                        <span className="font-medium">
+                                        <span className="text-gray-800 font-semibold">
                                             {formatPrice(product.price * product.quantity)}
                                         </span>
                                     </td>

@@ -12,6 +12,7 @@ import ReviewStars from "./ReviewStars"
 export default function ProductReviewItem({ review, productId }) {
     const [datas, setDatas] = useState({})
     const [errors, setErrors] = useState([])
+    const [stars, setStars] = useState([1, 2, 3, 4, 5])
 
     const router = useRouter()
     const closeModalRef = useRef(null)
@@ -107,41 +108,18 @@ export default function ProductReviewItem({ review, productId }) {
                             <span className="label-text font-medium">Note</span>
                         </label>
                         <div className="rating">
-                            <input
-                                type="radio"
-                                name="rating"
-                                value="1"
-                                className="mask mask-star-2 bg-orange-400"
-                                onChange={(e) => handleChange(e)}
-                            />
-                            <input
-                                type="radio"
-                                name="rating"
-                                value="2"
-                                className="mask mask-star-2 bg-orange-400"
-                                onChange={(e) => handleChange(e)}
-                            />
-                            <input
-                                type="radio"
-                                name="rating"
-                                value="3"
-                                className="mask mask-star-2 bg-orange-400"
-                                onChange={(e) => handleChange(e)}
-                            />
-                            <input
-                                type="radio"
-                                name="rating"
-                                value="4"
-                                className="mask mask-star-2 bg-orange-400"
-                                onChange={(e) => handleChange(e)}
-                            />
-                            <input
-                                type="radio"
-                                name="rating"
-                                value="5"
-                                className="mask mask-star-2 bg-orange-400"
-                                onChange={(e) => handleChange(e)}
-                            />
+                            {stars.map((star) => (
+                                <input
+                                    type="radio"
+                                    name="rating"
+                                    value={star}
+                                    className={`mask mask-star-2 bg-orange-400 ${
+                                        datas.rating <= star - 1 && "bg-opacity-25"
+                                    }`}
+                                    onChange={(e) => handleChange(e)}
+                                    key={star}
+                                />
+                            ))}
                         </div>
                     </div>
                     <Input

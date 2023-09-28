@@ -9,7 +9,7 @@ export default function ProductReviews({ product }) {
             <h2 className="h1 mb-4">Commentaires client</h2>
             <ProductReviewNew product={product} />
 
-            <div className="reviews mt-5 space-y-4">
+            <div id="product-reviews" className="mt-5 space-y-4">
                 {product.reviews.length > 0 ? (
                     product.reviews.map((review) => (
                         <ProductReviewItem key={review.id} review={review} productId={product.id} />

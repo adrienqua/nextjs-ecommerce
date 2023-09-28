@@ -69,8 +69,8 @@ export default function CartContainer({ children, user }) {
             <Order subTotal={subTotal} shipping={shipping}>
                 <div className="cart-details flex flex-col mb-5">
                     <div className="cart-subtotal flex justify-between">
-                        <span>Sous total</span>
-                        <span className="font-medium">{formatPrice(subTotal)}</span>
+                        <span className="font-medium">Sous total</span>
+                        <span className="font-bold">{formatPrice(subTotal)}</span>
                     </div>
                 </div>
 

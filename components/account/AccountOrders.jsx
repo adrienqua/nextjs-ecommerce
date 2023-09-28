@@ -5,7 +5,7 @@ export default function AccountOrders({ user }) {
     const ordersHeaderDatas = [
         { label: "Commande", value: "orderNumber" },
         { label: "Total", value: "total", type: "price" },
-        { label: "Statut", value: "status" },
+        { label: "Statut", value: "status", type: "badge" },
         { label: "", value: "details", action: "details" },
     ]
 

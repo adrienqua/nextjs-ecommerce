@@ -151,14 +151,14 @@ export default function CheckoutContainer({ children }) {
                     onDecrement={handleDecrement}
                 />
                 <Order subTotal={subTotal} shipping={shipping} handleOrder={handleOrder}>
-                    <div className="cart-details flex flex-col mb-5">
+                    <div className="cart-details flex flex-col mb-5 font-medium">
                         <div className="cart-subtotal flex justify-between">
                             <span>Sous total</span>
-                            <span className="font-medium">{formatPrice(subTotal)}</span>
+                            <span className="font-semibold">{formatPrice(subTotal)}</span>
                         </div>
                         <div className="cart-shipping flex justify-between">
                             <span>Livraison</span>
-                            <span className="font-medium">{formatPrice(shipping)}</span>
+                            <span className="font-semibold">{formatPrice(shipping)}</span>
                         </div>
                         <hr />
                         <div className="cart-total flex justify-between">
