@@ -10,7 +10,7 @@ const fetchCategories = async () => {
     return datas
 }
 
-export default async function AdminCategoriesList({ params }) {
+export default async function AdminCategoriesPage({ params }) {
     const categories = await fetchCategories()
 
     return <AdminCategories categories={categories} />

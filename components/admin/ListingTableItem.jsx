@@ -70,6 +70,10 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
                         </td>
                     ) : headerData.type === "price" ? (
                         <td key={headerData.value}>{parseFloat(data[headerData.value]).toFixed(2)} €</td>
+                    ) : headerData.type === "badge" ? (
+                        <td key={headerData.value}>
+                            <span className="badge">{data[headerData.value]}</span>
+                        </td>
                     ) : index === 0 ? (
                         <td key={headerData.value} className="font-bold">
                             {data[headerData.value]}

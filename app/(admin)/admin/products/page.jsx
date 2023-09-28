@@ -25,7 +25,7 @@ const fetchCategories = async () => {
     return datas
 }
 
-export default async function AdminProductList({ params }) {
+export default async function AdminProductsPage({ params }) {
     const products = await fetchProducts()
 
     const categories = await fetchCategories()

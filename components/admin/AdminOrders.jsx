@@ -27,14 +27,14 @@ export default function AdminOrders({ orders }) {
     const headerDatas = [
         { label: "Commande", value: "orderNumber" },
         { label: "Total", value: "total", type: "price" },
-        { label: "Statut", value: "status" },
+        { label: "Statut", value: "status", type: "badge" },
         { label: "", value: "details", action: handleDetails },
         { label: "", value: "delete", action: handleDelete },
     ]
 
     const detailsDatas = [
         { label: "Commande", value: "orderNumber" },
-        { label: "Statut", value: "status" },
+        { label: "Statut", value: "status", type: "badge" },
         { label: "Client", value: "user.email" },
         { label: "Adresse", value: "address" },
         {

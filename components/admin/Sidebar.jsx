@@ -13,6 +13,19 @@ export default function Sidebar() {
                     <Link href="/admin/products">Produits</Link>
                 </li>
                 <li>
+                    <details open>
+                        <summary>Attributs</summary>
+                        <ul>
+                            <li>
+                                <Link href="/admin/colors">Couleurs</Link>
+                            </li>
+                            <li>
+                                <Link href="/admin/sizes">Tailles</Link>
+                            </li>
+                        </ul>
+                    </details>
+                </li>
+                <li>
                     <Link href="/admin/orders">Commandes</Link>
                 </li>
             </ul>
