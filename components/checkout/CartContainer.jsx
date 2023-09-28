@@ -43,7 +43,7 @@ export default function CartContainer({ children, user }) {
     }
 
     useEffect(() => {
-        cartProducts?.length > 0 && fetchCart()
+        cartProducts && fetchCart()
     }, [cartProducts])
 
     useEffect(() => {

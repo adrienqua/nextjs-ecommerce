@@ -9,12 +9,14 @@ export const CartContextProvider = ({ children }) => {
     const [counter, setCounter] = useState(0)
 
     function handleAddToCart(product) {
-        setCartProducts((prev) => [...prev, product])
+        let products = JSON.parse(localStorage.getItem("cart"))
+        products = [...products, product]
+        setCartProducts(products)
         setCounter((prev) => prev + 1)
     }
 
     function handleSubstractToCart(product) {
-        let products = [...cartProducts]
+        let products = JSON.parse(localStorage.getItem("cart"))
         const index = products.indexOf(product)
         if (index > -1) {
             products.splice(index, 1)
@@ -26,11 +28,17 @@ export const CartContextProvider = ({ children }) => {
     useEffect(() => {
         if (localStorage.getItem("cart") === null) {
             localStorage.setItem("cart", JSON.stringify([]))
-        } else {
-            if (cartProducts?.length === 0) {
+        }
+        if (cartProducts.length === 0) {
+            setCartProducts(JSON.parse(localStorage.getItem("cart")))
+        }
+    }, [])
+
+    useEffect(() => {
+        if (counter > 0) {
+            localStorage.setItem("cart", JSON.stringify(cartProducts))
+            if (cartProducts.length === 0) {
                 setCartProducts(JSON.parse(localStorage.getItem("cart")))
-            } else {
-                localStorage.setItem("cart", JSON.stringify(cartProducts))
             }
         }
     }, [counter])
