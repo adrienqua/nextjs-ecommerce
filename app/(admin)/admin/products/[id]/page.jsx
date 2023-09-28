@@ -1,10 +1,11 @@
+import React from "react"
+import Link from "next/link"
+
 import { fetchCategories } from "@/components/actions/fetchCategories"
 import { fetchColors } from "@/components/actions/fetchColors"
 import { fetchProduct } from "@/components/actions/fetchProducts"
 import { fetchSizes } from "@/components/actions/fetchSizes"
 import ProductForm from "@/components/admin/form/ProductForm"
-import Link from "next/link"
-import React from "react"
 
 export default async function AdminEditProductPage({ params }) {
     const product = await fetchProduct(params.id)

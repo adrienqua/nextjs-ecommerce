@@ -1,16 +1,18 @@
 "use client"
-import React, { useRef, useState } from "react"
+import React from "react"
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react"
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from "swiper/modules"
+import Link from "next/link"
+import Image from "next/image"
 
 // Import Swiper styles
 import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
-
-// import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules"
-import Image from "next/image"
 
 export default function Slider() {
     return (
@@ -36,17 +38,18 @@ export default function Slider() {
                             Découvrez notre nouvelle collection !
                         </h2>
                     </div>
-                    <a href="/products" className="w-full h-full">
+                    <Link href="/products" className="w-full h-full">
                         <Image
                             src="/uploads/img/slider/slider1.jpg"
                             width={0}
                             height={0}
                             quality={100}
+                            priority={true}
                             sizes="100vw"
                             alt="slider1"
                             className="w-full h-full object-cover"
                         />
-                    </a>
+                    </Link>
                 </SwiperSlide>
                 <SwiperSlide className="!flex justify-center items-center text-left relative">
                     <div className="slide-content text-white absolute left-[12%]  max-w-[150px] md:max-w-[300px]">
@@ -54,17 +57,18 @@ export default function Slider() {
                             Découvrez notre nouvelle collection !
                         </h2>
                     </div>
-                    <a href="/products" className="w-full h-full">
+                    <Link href="/products" className="w-full h-full">
                         <Image
                             src="/uploads/img/slider/slider1.jpg"
                             width={0}
                             height={0}
                             quality={100}
+                            priority={true}
                             sizes="100vw"
                             alt="slider1"
                             className="w-full h-full object-cover"
                         />
-                    </a>
+                    </Link>
                 </SwiperSlide>
             </Swiper>
         </>

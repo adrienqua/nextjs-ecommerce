@@ -19,8 +19,7 @@ export default function Like({ productId, favorites, userId }) {
                 toast.success("Produit supprimé des favoris !")
                 await deleteFavorite(favoriteId)
             } catch (error) {
-                console.log(false)
-                setIsLiked(false)
+                setIsLiked(true)
             }
         } else {
             try {
@@ -33,8 +32,7 @@ export default function Like({ productId, favorites, userId }) {
                 })
                 toast.success("Produit ajouté aux favoris !")
             } catch (error) {
-                console.log(true)
-                setIsLiked(true)
+                setIsLiked(false)
             }
         }
     }

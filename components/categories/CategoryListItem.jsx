@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function CategoryListItem({ category }) {
     return (
         <>
-            <Link href={`/${category.name}`} className="card bg-base-100 shadow-xl image-full">
+            <Link href={`#`} className="card bg-base-100 shadow-xl image-full">
                 <figure>
                     <Image src="/img/placeholder.jpg" width={500} height={350} alt="catégorie" />
                 </figure>

@@ -1,14 +1,10 @@
-import Navbar from "@/components/Navbar"
-import TopBanner from "@/components/TopBanner"
 import "./(app)/css/globals.css"
 import "react-toastify/dist/ReactToastify.css"
 import { Inter } from "next/font/google"
 import Providers from "@/components/Providers"
-import Head from "next/head"
 import { AuthContextProvider } from "@/components/contexts/authContext"
 import { CartContextProvider } from "@/components/contexts/CartContext"
 import { ToastContainer, Slide } from "react-toastify"
-import Footer from "@/components/Footer"
 
 const inter = Inter({ subsets: ["latin"] })
 

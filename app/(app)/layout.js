@@ -1,22 +1,18 @@
 import Navbar from "@/components/Navbar"
 import TopBanner from "@/components/TopBanner"
-import "./css/globals.css"
-import "react-toastify/dist/ReactToastify.css"
-import { Inter } from "next/font/google"
-import Providers from "@/components/Providers"
-import Head from "next/head"
-import { AuthContextProvider } from "@/components/contexts/authContext"
-import { CartContextProvider } from "@/components/contexts/CartContext"
-import { ToastContainer, Slide } from "react-toastify"
 import Footer from "@/components/Footer"
+import { Suspense } from "react"
+import Loading from "@/components/Loading"
 
 export default function AppLayout({ children }) {
     return (
-        <div className="min-h-screen flex flex-col">
-            <TopBanner />
-            <Navbar />
-            <div className="container h-100 pb-12">{children}</div>
-            <Footer />
-        </div>
+        <>
+            <div className="min-h-screen flex flex-col">
+                <TopBanner />
+                <Navbar />
+                <div className="container flex flex-col flex-grow pb-12 ">{children}</div>
+                <Footer />
+            </div>
+        </>
     )
 }

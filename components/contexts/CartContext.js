@@ -6,9 +6,11 @@ const CartContext = createContext({})
 
 export const CartContextProvider = ({ children }) => {
     const [cartProducts, setCartProducts] = useState([])
+    const [counter, setCounter] = useState(0)
 
     function handleAddToCart(product) {
         setCartProducts((prev) => [...prev, product])
+        setCounter((prev) => prev + 1)
     }
 
     function handleSubstractToCart(product) {
@@ -18,6 +20,7 @@ export const CartContextProvider = ({ children }) => {
             products.splice(index, 1)
         }
         setCartProducts(products)
+        setCounter((prev) => prev + 1)
     }
 
     useEffect(() => {
@@ -30,7 +33,7 @@ export const CartContextProvider = ({ children }) => {
                 localStorage.setItem("cart", JSON.stringify(cartProducts))
             }
         }
-    }, [cartProducts])
+    }, [counter])
 
     return (
         <CartContext.Provider
