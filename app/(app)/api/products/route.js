@@ -10,6 +10,7 @@ export async function GET(req) {
     const searchParams = req.nextUrl.searchParams
     const page = parseInt(searchParams.get("page"))
     const pageCount = 12
+    const userId = searchParams.get("userId")
 
     console.log(page)
     try {
@@ -33,6 +34,11 @@ export async function GET(req) {
                         url: true,
                     },
                 },
+                ...(userId && {
+                    favorites: {
+                        where: { userId: userId },
+                    },
+                }),
             },
         })
         console.log(products)

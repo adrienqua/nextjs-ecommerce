@@ -1,7 +1,10 @@
 import { prisma } from "@/app/lib/prisma"
 import { NextResponse } from "next/server"
 
-export async function GET() {
+export async function GET(req, context) {
+    const searchParams = req.nextUrl.searchParams
+    const userId = searchParams.get("userId")
+
     const products = await prisma.product.findMany({
         take: 4,
         select: {
@@ -21,6 +24,11 @@ export async function GET() {
                     name: true,
                 },
             },
+            ...(userId && {
+                favorites: {
+                    where: { userId: userId },
+                },
+            }),
         },
     })
     console.log(products)

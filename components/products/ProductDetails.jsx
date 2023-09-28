@@ -6,8 +6,9 @@ import AddToCart from "./AddToCart"
 import ProductReviews from "./ProductReviews"
 import ProductPictures from "./ProductPictures"
 import ProductSpecifications from "./ProductSpecifications"
+import Like from "../Like"
 
-export default function ProductDetails({ product }) {
+export default function ProductDetails({ product, user }) {
     const [selectedVariant, setSelectedVariant] = useState({})
     return (
         <>
@@ -17,7 +18,10 @@ export default function ProductDetails({ product }) {
                 </div>
                 <div className="flex-initial min-w-[50%]">
                     <div className="p-5 bg-white rounded-xl px-10 py-10 shadow-sm mb-5">
-                        <h1 className="text-3xl font-extrabold mb-6">{product.name}</h1>
+                        <div className="flex justify-between">
+                            <h1 className="text-3xl font-extrabold mb-6">{product.name}</h1>
+                            <Like productId={product.id} favorites={product?.favorites} userId={user?.id} />
+                        </div>
                         <p className="text-gray-500 leading-7 my-5">{product.description}</p>
 
                         <h4 className="font-bold">{parseFloat(selectedVariant?.price).toFixed(2)} €</h4>

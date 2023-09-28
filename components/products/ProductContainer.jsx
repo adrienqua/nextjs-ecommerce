@@ -6,14 +6,14 @@ import ProductList from "./ProductList"
 import { fetchProducts } from "../actions/fetchProducts"
 import { handleScroll } from "@/utils/scroll"
 
-export default function ProductContainer({ products, categories }) {
+export default function ProductContainer({ products, categories, user }) {
     const [productsList, setProductsList] = useState(products)
     const [productsFiltered, setProductsFiltered] = useState(null)
     const [page, setPage] = useState(1)
     const [scrolled, setScrolled] = useState(false)
 
-    const fetchMoreProducts = async (page) => {
-        const newProducts = await fetchProducts(page)
+    const fetchMoreProducts = async (page, userId) => {
+        const newProducts = await fetchProducts(page, userId)
         if (newProducts.length === 0) {
             return setScrolled(true)
         }
@@ -22,20 +22,24 @@ export default function ProductContainer({ products, categories }) {
     }
 
     useEffect(() => {
-        page > 1 && fetchMoreProducts(page)
+        page > 1 && fetchMoreProducts(page, user?.id)
     }, [page])
 
     useEffect(() => {
         handleScroll(page, setPage, scrolled)
     }, [productsList])
 
+    useEffect(() => {
+        setProductsList(products)
+    }, [products])
+
     return (
         <div>
             <h1 className="text-center text-3xl mb-5 font-bold">Produits</h1>
 
-            <ProductFilter setProductsFiltered={setProductsFiltered} categories={categories} />
+            <ProductFilter setProductsFiltered={setProductsFiltered} categories={categories} user={user} />
 
-            <ProductList products={Array.isArray(productsFiltered) ? productsFiltered : productsList} />
+            <ProductList products={Array.isArray(productsFiltered) ? productsFiltered : productsList} user={user} />
         </div>
     )
 }

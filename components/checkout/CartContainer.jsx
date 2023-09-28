@@ -9,13 +9,12 @@ import Order from "./Order"
 import Cart from "./Cart"
 import { useRouter } from "next/navigation"
 
-export default function CartContainer({ children }) {
+export default function CartContainer({ children, user }) {
     const [products, setProducts] = useState([])
     const [subTotal, setSubTotal] = useState(0)
     const [shipping, setShipping] = useState(1)
 
-    const { cartProducts, handleAddToCart, handleSubstractToCart } =
-        useCartContext()
+    const { cartProducts, handleAddToCart, handleSubstractToCart } = useCartContext()
     const router = useRouter()
 
     //Cart
@@ -25,9 +24,7 @@ export default function CartContainer({ children }) {
                 const datas = res.data
                 let subtotal = 0
                 datas.map((data) => {
-                    data.quantity = cartProducts?.filter(
-                        (id) => id === data.id
-                    ).length
+                    data.quantity = cartProducts?.filter((id) => id === data.id).length
                     subtotal += data.price * data.quantity
                 })
                 setSubTotal(subtotal)
@@ -55,6 +52,9 @@ export default function CartContainer({ children }) {
 
     //Order
     const handleOrder = () => {
+        if (!user) {
+            return router.push("/login")
+        }
         router.push("/checkout")
     }
 
@@ -70,16 +70,11 @@ export default function CartContainer({ children }) {
                 <div className="cart-details flex flex-col mb-5">
                     <div className="cart-subtotal flex justify-between">
                         <span>Sous total</span>
-                        <span className="font-medium">
-                            {formatPrice(subTotal)}
-                        </span>
+                        <span className="font-medium">{formatPrice(subTotal)}</span>
                     </div>
                 </div>
 
-                <button
-                    className="btn btn-primary btn-md"
-                    onClick={() => handleOrder()}
-                >
+                <button className="btn btn-primary btn-md" onClick={() => handleOrder()}>
                     Passer la commande
                 </button>
             </Order>

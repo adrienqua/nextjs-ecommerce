@@ -29,7 +29,6 @@ export default function ProductReviewNew({ product }) {
             closeModal.click()
             router.refresh()
         } catch (error) {
-            console.log("de")
             setErrors(formatErrors(error))
         }
     }

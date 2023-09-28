@@ -7,7 +7,7 @@ import { formatErrors } from "@/utils/formatErrors"
 import { getProducts, getFilteredProducts } from "@/app/services/productAPI"
 import { toast } from "react-toastify"
 
-export default function ProductFilter({ setProductsFiltered, categories }) {
+export default function ProductFilter({ setProductsFiltered, categories, user }) {
     const [datas, setDatas] = useState({})
     const [errors, setErrors] = useState([])
 
@@ -49,7 +49,7 @@ export default function ProductFilter({ setProductsFiltered, categories }) {
 
     const handleSubmit = async (datas) => {
         try {
-            setProductsFiltered(await getFilteredProducts(datas))
+            setProductsFiltered(await getFilteredProducts(datas, user?.id))
             setErrors([])
             toast.success("Les filtres ont bien été appliqués !")
             router.refresh()

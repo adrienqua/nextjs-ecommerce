@@ -1,12 +1,17 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 import AddToCart from "./AddToCart"
+import Like from "../Like"
 
-export default function ProductListItem({ product }) {
+export default function ProductListItem({ product, user }) {
     return (
         <>
-            <div className="card card-compact bg-white shadow-sm" key={product.id}>
+            <div className="card card-compact bg-white shadow-sm relative" key={product.id}>
+                <div className="absolute top-2 right-2 z-20">
+                    <Like productId={product.id} favorites={product?.favorites} userId={user?.id} />
+                </div>
                 <Link href={`/products/${product.id}`}>
                     <figure className="rounded-t-2xl aspect-square">
                         <Image

@@ -22,6 +22,7 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
                           quantity: 99,
                       },
                   ],
+                  specifications: [],
               }
     )
     const [errors, setErrors] = useState({})

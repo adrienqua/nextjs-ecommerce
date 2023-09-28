@@ -1,6 +1,8 @@
+import React from "react"
 import { fetchProduct } from "@/components/actions/fetchProducts"
 import ProductDetails from "@/components/products/ProductDetails"
-import React from "react"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/lib/auth"
 
 export async function generateMetadata({ params, searchParams }, parent) {
     const product = await fetchProduct(params.id)
@@ -11,11 +13,12 @@ export async function generateMetadata({ params, searchParams }, parent) {
 }
 
 export default async function ProductDetailsPage({ params }) {
-    const product = await fetchProduct(params.id)
+    const session = await getServerSession(authOptions)
+    const product = await fetchProduct(params.id, session?.user?.id)
 
     return (
         <div>
-            <ProductDetails product={product} />
+            <ProductDetails product={product} user={session?.user} />
         </div>
     )
 }

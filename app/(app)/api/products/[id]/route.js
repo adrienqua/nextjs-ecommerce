@@ -3,17 +3,13 @@ import { productSchema } from "@/prisma/validation"
 import { PrismaClient } from "@prisma/client"
 import cuid from "cuid"
 import { mkdir, writeFile } from "fs/promises"
-import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/lib/auth"
 import { NextResponse } from "next/server"
 
 export async function GET(req, context) {
-    const session = await getServerSession(authOptions)
     const id = parseInt(context.params.id)
 
-    const userId = "clm9kn4fn0002ioxooeov6xlu"
-
-    console.log(session, "ssssssssssssssssssssssession")
+    const searchParams = req.nextUrl.searchParams
+    const userId = searchParams.get("userId")
 
     const product = await prisma.product.findUnique({
         where: { id: id },
@@ -26,9 +22,11 @@ export async function GET(req, context) {
                 },
             },
             specifications: true,
-            favorites: {
-                where: { userId: userId },
-            },
+            ...(userId && {
+                favorites: {
+                    where: { userId: userId },
+                },
+            }),
             reviews: {
                 orderBy: {
                     id: "desc",

@@ -3,15 +3,15 @@ import { apiUrl } from "../(app)/config"
 
 const apiEndpoint = apiUrl + "products"
 
-export function getProducts(page) {
-    return axios.get(`${apiEndpoint}?page=${page}`).then((res) => res.data)
+export function getProducts(page, userId) {
+    return axios.get(`${apiEndpoint}?page=${page}&userId=${userId}`).then((res) => res.data)
 }
 
-export function getFeaturedProducts() {
-    return axios.get(apiEndpoint + "/featured").then((res) => res.data)
+export function getFeaturedProducts(userId) {
+    return axios.get(apiEndpoint + "/featured" + "?userId=" + userId).then((res) => res.data)
 }
 
-export function getFilteredProducts(filterDatas) {
+export function getFilteredProducts(filterDatas, userId) {
     let filteredString = ""
     for (const [key, value] of Object.entries(filterDatas)) {
         let content = value
@@ -26,11 +26,11 @@ export function getFilteredProducts(filterDatas) {
         }
     }
 
-    return axios.get(apiEndpoint + "/filter" + filteredString).then((res) => res.data)
+    return axios.get(apiEndpoint + "/filter" + filteredString + "&userId=" + userId).then((res) => res.data)
 }
 
-export function getProduct(id) {
-    return axios.get(apiEndpoint + "/" + id).then((res) => res.data)
+export function getProduct(id, userId) {
+    return axios.get(apiEndpoint + "/" + id + "?userId=" + userId).then((res) => res.data)
 }
 
 export function newProduct(datas) {

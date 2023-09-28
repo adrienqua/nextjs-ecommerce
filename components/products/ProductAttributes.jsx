@@ -26,17 +26,13 @@ export default function ProductAttributes({ product, setSelectedVariant }) {
     }
 
     function getProductVariant(size, color) {
-        return product.productVariants.find(
-            (variant) =>
-                variant.size?.name === size && variant.color?.name === color
-        )
+        return product.productVariants.find((variant) => variant.size?.name === size && variant.color?.name === color)
     }
 
     useEffect(() => {
         setSelectedColor(uniqueColors[0])
         setSelectedSize(uniqueSizes[0])
         setSelectedVariant(product.productVariants[0])
-        console.log("de", uniqueColors)
     }, [])
 
     useEffect(() => {
@@ -54,9 +50,7 @@ export default function ProductAttributes({ product, setSelectedVariant }) {
                     </h4>
                     {uniqueColors.map((color) => (
                         <button
-                            className={`btn btn-sm mr-2 mb-2 ${
-                                color === selectedColor && "btn-active"
-                            } `}
+                            className={`btn btn-sm mr-2 mb-2 ${color === selectedColor && "btn-active"} `}
                             onClick={() => handleAttribute(color, "color")}
                             key={color}
                         >
@@ -74,9 +68,7 @@ export default function ProductAttributes({ product, setSelectedVariant }) {
                     </h4>
                     {uniqueSizes.map((size) => (
                         <button
-                            className={`btn btn-sm mr-2 mb-2 ${
-                                size === selectedSize && "btn-active"
-                            } `}
+                            className={`btn btn-sm mr-2 mb-2 ${size === selectedSize && "btn-active"} `}
                             onClick={() => handleAttribute(size, "size")}
                             key={size}
                         >

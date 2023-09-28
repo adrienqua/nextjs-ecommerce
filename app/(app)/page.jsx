@@ -4,22 +4,19 @@ import ProductList from "@/components/products/ProductList"
 import Link from "next/link"
 import React from "react"
 import Slider from "@/components/Slider"
-import { getFeaturedProducts } from "../services/productAPI"
-
-const fetchFeaturedProducts = async () => {
-    "use server"
-    const datas = await getFeaturedProducts()
-    return datas
-}
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/lib/auth"
+import { fetchFeaturedProducts } from "@/components/actions/fetchProducts"
 
 export default async function HomePage() {
-    const featuredProducts = await fetchFeaturedProducts()
+    const session = await getServerSession(authOptions)
+    const featuredProducts = await fetchFeaturedProducts(session?.user?.id)
     return (
         <>
             <Slider />
 
             <h2 className="h1 mb-4">Produits en vedette</h2>
-            <ProductList products={featuredProducts} />
+            <ProductList products={featuredProducts} user={session?.user} />
         </>
     )
 }
