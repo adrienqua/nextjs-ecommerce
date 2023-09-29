@@ -25,6 +25,7 @@ export default function LoginPage() {
             password: datas?.password,
         }).then((response) => {
             if (!response.error) {
+                router.refresh()
                 router.push("/")
             } else {
                 const errors = JSON.parse(response.error)

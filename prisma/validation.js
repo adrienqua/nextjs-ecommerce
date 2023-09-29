@@ -42,3 +42,11 @@ export const reviewSchema = z.object({
     message: z.string().min(5),
     rating: z.number().min(1).max(5),
 })
+
+export const discountSchema = z.object({
+    code: z.string(),
+    amount: z.number(),
+    minCartPrice: z.number(),
+    isPercent: z.boolean().optional(),
+    isActive: z.boolean().optional(),
+})

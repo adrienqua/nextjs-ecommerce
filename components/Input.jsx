@@ -15,7 +15,7 @@ export default function Input({
     switch (type) {
         default:
             return (
-                <div className={`flex flex-col w-full md:${width} mb-4`}>
+                <div className={`flex flex-col w-full md:${width} mb-4 shrink`}>
                     <label className="label">
                         <span className="label-text font-medium">{label}</span>
                     </label>
@@ -97,8 +97,17 @@ export default function Input({
             return (
                 <label className="label cursor-pointer">
                     <input type="radio" name={name} className="radio radio-sm checked:bg-primary" {...rest} />
-                    <span className="label-text">{label}</span>
+                    <span className="label-text font-medium">{label}</span>
                 </label>
+            )
+        case "boolean":
+            return (
+                <div className="flex flex-col justify-center mb-4">
+                    <label className="label ">
+                        <span className="label-text font-medium">{label}</span>
+                    </label>
+                    <input name={name} type="checkbox" className="toggle " onChange={handleChange} {...rest} />
+                </div>
             )
     }
 }

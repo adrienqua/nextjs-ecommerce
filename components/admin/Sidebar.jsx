@@ -28,6 +28,9 @@ export default function Sidebar() {
                 <li>
                     <Link href="/admin/orders">Commandes</Link>
                 </li>
+                <li>
+                    <Link href="/admin/discounts">Codes promo</Link>
+                </li>
             </ul>
             <ul className="menu w-56 bg-white shadow-sm rounded-box p0 mt-3">
                 <li>

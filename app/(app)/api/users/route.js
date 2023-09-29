@@ -17,25 +17,26 @@ export async function GET() {
 }
 
 export async function POST(req) {
+    let validation
     try {
         const body = await req.json()
-        const validation = userSchema.parse({
+        validation = userSchema.parse({
             email: body.email,
             password: body.password,
             name: body.name,
         })
-
-        const user = await prisma.user.create({
-            data: {
-                email: validation.email,
-                password: await hash(validation.password, 12),
-                name: validation.name,
-            },
-        })
-        console.log(user)
-
-        return NextResponse.json(user)
     } catch (error) {
         return NextResponse.json(error, { status: 400 })
     }
+    //api
+    const user = await prisma.user.create({
+        data: {
+            email: validation.email,
+            password: await hash(validation.password, 12),
+            name: validation.name,
+        },
+    })
+    console.log(user)
+
+    return NextResponse.json(user)
 }

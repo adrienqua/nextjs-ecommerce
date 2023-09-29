@@ -28,9 +28,11 @@ export default function RegisterPage() {
             await newUser(datas)
             await signIn("credentials", {
                 redirect: false,
+                name: datas?.name,
                 email: datas?.email,
                 password: datas?.password,
             })
+            router.refresh()
             router.push("/")
         } catch (error) {
             setErrors(formatErrors(error))
@@ -44,6 +46,13 @@ export default function RegisterPage() {
             <h1 className="text-center text-4xl">S&apos;inscrire</h1>
 
             <Form handleSubmit={handleSubmit} datas={datas}>
+                <Input
+                    name="name"
+                    label="Nom"
+                    required="required"
+                    handleChange={(e) => handleChange(e)}
+                    error={errors?.name}
+                />
                 <Input
                     name="email"
                     type="email"

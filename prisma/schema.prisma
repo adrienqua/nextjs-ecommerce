@@ -195,6 +195,15 @@ model OrderItems {
   quantity Int
 }
 
+model Discount {
+  id           String  @id @default(cuid())
+  code         String  @unique
+  amount       Int
+  minCartPrice Int
+  isPercent    Boolean @default(false)
+  isActive     Boolean @default(false)
+}
+
 model Settings {
   id String @id @default(cuid())
 
