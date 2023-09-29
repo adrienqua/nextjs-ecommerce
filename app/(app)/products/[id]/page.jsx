@@ -1,6 +1,6 @@
 import React from "react"
 import { fetchProduct } from "@/components/actions/fetchProducts"
-import ProductDetails from "@/components/products/ProductDetails"
+import ProductDetails from "@/components/products/productDetails/ProductDetails"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/lib/auth"
 

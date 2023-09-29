@@ -43,8 +43,12 @@ export async function GET(req, context) {
     })
 
     //calculate average rating
-    const TotalRatings = product.reviews.reduce((a, b) => a + b.rating, 0)
-    const averageRating = (TotalRatings / product.reviews.length).toFixed(1)
+    const totalRatings = product.reviews.reduce((a, b) => a + b.rating, 0)
+    let averageRating = "0"
+    if (product.reviews.length > 0) {
+        averageRating = (totalRatings / product.reviews.length).toFixed(1)
+    }
+
     product.averageRating = averageRating
     product.ratingCount = product.reviews.length
 

@@ -6,8 +6,8 @@ import AddToCart from "./AddToCart"
 import ProductReviews from "./ProductReviews"
 import ProductPictures from "./ProductPictures"
 import ProductSpecifications from "./ProductSpecifications"
-import Like from "../Like"
-import ReviewStars from "./ReviewStars"
+import Like from "../../Like"
+import ReviewStars from "../ReviewStars"
 import Link from "next/link"
 
 export default function ProductDetails({ product, user }) {

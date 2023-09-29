@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react"
-import Form from "../Form"
-import Input from "../Input"
-import Modal from "../Modal"
-import { formatDate } from "./../../utils/formatDate"
-import { formatErrors } from "@/utils/formatErrors"
+
 import { useRouter } from "next/navigation"
 import { deleteReview, editReview } from "@/app/services/reviewAPI"
 import { useSession } from "next-auth/react"
-import ReviewStars from "./ReviewStars"
+import Modal from "@/components/Modal"
+import Form from "@/components/Form"
+import Input from "@/components/Input"
+import { formatDate } from "@/utils/formatDate"
+import { formatErrors } from "@/utils/formatErrors"
+import ReviewStars from "../ReviewStars"
 
 export default function ProductReviewItem({ review, productId }) {
     const [datas, setDatas] = useState({})

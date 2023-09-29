@@ -2,8 +2,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
-import AddToCart from "./AddToCart"
 import Like from "../Like"
+import AddToCart from "./productDetails/AddToCart"
 
 export default function ProductListItem({ product, user }) {
     return (
