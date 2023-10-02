@@ -64,10 +64,12 @@ export async function POST(req) {
 
         //Setup files
         const files = formData.getAll("files")
-        console.log(files)
 
-        const path = `./public/uploads/img/products/`
-        await mkdir(path, { recursive: true })
+        let path
+        if (files) {
+            path = `./public/uploads/img/products/`
+            await mkdir(path, { recursive: true })
+        }
 
         for (const file of files) {
             const bytes = await file.arrayBuffer()
