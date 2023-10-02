@@ -12,7 +12,8 @@ i18next.init({
 z.setErrorMap(zodI18nMap) */
 
 export const categorySchema = z.object({
-    name: z.string().min(5),
+    name: z.string().min(3),
+    slug: z.string().min(3),
 })
 
 export const productSchema = z.object({

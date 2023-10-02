@@ -57,7 +57,6 @@ export default function LoginPage() {
                 <Input
                     name="password"
                     type="password"
-                    minLength="4"
                     label="Mot de passe"
                     required="required"
                     handleChange={(e) => handleChange(e)}
