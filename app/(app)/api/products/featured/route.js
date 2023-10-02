@@ -31,6 +31,6 @@ export async function GET(req, context) {
             }),
         },
     })
-    console.log(products)
+    console.log(products.length, "products featured")
     return NextResponse.json(products)
 }

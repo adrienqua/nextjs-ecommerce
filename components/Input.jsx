@@ -71,7 +71,7 @@ export default function Input({
             )
         case "select":
             return (
-                <div className={`flex flex-col w-full md:${width} mb-4`}>
+                <div className={`flex flex-col w-full md:${width} mb-4 ${className.length > 0 && className}`}>
                     <label className="label">
                         <span className="label-text font-medium">{label}</span>
                     </label>

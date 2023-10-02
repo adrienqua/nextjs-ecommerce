@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import Form from "@/components/Form"
 import Input from "@/components/Input"
 import Modal from "@/components/Modal"
@@ -28,6 +28,7 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
     const [errors, setErrors] = useState({})
 
     const router = useRouter()
+    const toggleVariantRef = useRef()
 
     const handleSubmit = async (datas, id) => {
         try {
@@ -117,6 +118,44 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
         setDatas(clonedDatas)
     }
 
+    //multiselect
+    const handleAddSelect = (e) => {
+        let id = parseInt(e.target.value)
+        let label = e.target[e.target.selectedIndex].text
+
+        const currentDatas = datas[e.target.name] || []
+
+        if (!datas[e.target.name] || !datas[e.target.name].some((item) => item.id === id)) {
+            setDatas({
+                ...datas,
+                [e.target.name]: [...currentDatas, { id: id, label: label }],
+            })
+        }
+    }
+
+    const handleRemoveSelect = (id, name) => {
+        const newDatas = [...datas[name]]
+
+        const filteredDatas = newDatas.filter((data) => {
+            return data.id !== id
+        })
+
+        setDatas({ ...datas, [name]: filteredDatas })
+    }
+
+    const handleGenerateVariants = () => {
+        console.log("hey")
+        const variantsArray = []
+        datas?.colors.forEach((color) => {
+            datas?.sizes.forEach((size) => {
+                variantsArray.push({ colorId: color.id, sizeId: size.id, price: datas.price, quantity: 99 })
+            })
+        })
+        console.log(variantsArray, "var")
+
+        setDatas({ ...datas, productVariants: variantsArray })
+    }
+
     return (
         <Form edit={true} datas={datas} handleSubmit={handleSubmit}>
             <Input
@@ -181,6 +220,69 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
                 handleChange={(e) => handleChange(e)}
                 error={errors.categoryId}
             />
+            <div className="product-variants-generate md:w-2/3">
+                <div className="collapse collapse-arrow bg-white shadow-sm mb-5">
+                    <input ref={toggleVariantRef} type="checkbox" />
+                    <div className="collapse-title h3">Générer les variants</div>
+                    <div className="collapse-content">
+                        <div className="flex flex-col md:flex-row md:space-x-2">
+                            <div className="w-full md:basis-1/2 mb-5 flex flex-col items-center">
+                                <Input
+                                    name="colors"
+                                    label="Couleurs"
+                                    type="select"
+                                    options={colors}
+                                    optionLabel="name"
+                                    handleChange={(e) => handleAddSelect(e)}
+                                    className="!w-full"
+                                />
+                                <div className="flex flex-wrap">
+                                    {datas?.colors?.map((color) => (
+                                        <span key={color.id} className="badge py-5 px-3 mr-2 mb-2 relative pr-10">
+                                            {color.label}{" "}
+                                            <button
+                                                className="btn bg-base-100 absolute right-2 min-h-0 h-6 px-2"
+                                                onClick={(e) => handleRemoveSelect(color.id, "colors")}
+                                            >
+                                                X
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="w-full md:basis-1/2 mb-5 flex flex-col items-center">
+                                <Input
+                                    name="sizes"
+                                    label="Tailles"
+                                    type="select"
+                                    options={sizes}
+                                    optionLabel="name"
+                                    handleChange={(e) => handleAddSelect(e)}
+                                    className="!w-full"
+                                />
+                                <div className="flex flex-wrap">
+                                    {datas?.sizes?.map((size) => (
+                                        <span key={size.id} className="badge py-5 px-3 mr-2 mb-2 relative pr-10">
+                                            {size.label}{" "}
+                                            <button
+                                                className="btn bg-base-100 absolute right-2 min-h-0 h-6 px-2"
+                                                onClick={(e) => handleRemoveSelect(size.id, "sizes")}
+                                            >
+                                                X
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-center">
+                            <button type="button" className="btn btn-primary" onClick={() => handleGenerateVariants()}>
+                                Générer les variants
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="product-variants mt-5">
                 <h2 className="h3 text-center mb-3">Variants du produit</h2>
                 <div className="flex flex-col">

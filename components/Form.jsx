@@ -5,12 +5,9 @@ import Input from "./Input"
 import useSWR from "swr"
 import { newProduct } from "@/app/services/productAPI"
 import { useAuthContext } from "./contexts/authContext"
-import { useSession, signIn, signOut } from "next-auth/react"
 import { revalidatePath } from "next/cache"
 
 export default function Form({ children, handleSubmit, modalId, datas, formRef, edit = false, ...rest }) {
-    const { data: session, status } = useSession()
-
     const { user, setUser } = useAuthContext()
     let [isPending, startTransition] = useTransition()
 

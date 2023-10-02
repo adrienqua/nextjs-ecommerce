@@ -77,7 +77,7 @@ export async function PUT(req, context) {
 
         let path
         if (files) {
-            path = `./public/uploads/img/products/`
+            path = process.cwd() + `/public/uploads/img/products/`
             await mkdir(path, { recursive: true })
         }
 

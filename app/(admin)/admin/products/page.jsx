@@ -1,7 +1,7 @@
 import React from "react"
 import ListingTable from "@/components/admin/ListingTable"
 import Modal from "@/components/Modal"
-import Sidebar from "@/components/admin/Sidebar"
+import Sidebar from "@/components/admin/AdminSidebar"
 import { revalidatePath } from "next/cache"
 import Link from "next/link"
 import Form from "@/components/Form"

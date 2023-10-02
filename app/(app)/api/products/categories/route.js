@@ -41,7 +41,7 @@ export async function GET(req) {
                 }),
             },
         })
-        console.log(products)
+        console.log(products.length, "products by categories")
         return NextResponse.json(products)
     } catch (error) {
         return NextResponse.json(error)

@@ -1,7 +1,7 @@
+import React, { Suspense } from "react"
 import Navbar from "@/components/Navbar"
 import TopBanner from "@/components/TopBanner"
 import Footer from "@/components/Footer"
-import { Suspense } from "react"
 import Loading from "@/components/Loading"
 
 export default function AppLayout({ children }) {

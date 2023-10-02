@@ -10,6 +10,7 @@ import { fetchFeaturedProducts } from "@/components/actions/fetchProducts"
 
 export default async function HomePage() {
     const session = await getServerSession(authOptions)
+    console.log(session?.user)
     const featuredProducts = await fetchFeaturedProducts(session?.user?.id)
     return (
         <>

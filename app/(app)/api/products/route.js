@@ -9,7 +9,7 @@ import { mkdir, writeFile } from "fs/promises"
 export async function GET(req) {
     const searchParams = req.nextUrl.searchParams
     const page = parseInt(searchParams.get("page"))
-    const pageCount = 12
+    const pageCount = 100
     const userId = searchParams.get("userId")
 
     console.log(page)
@@ -41,7 +41,7 @@ export async function GET(req) {
                 }),
             },
         })
-        console.log(products)
+        console.log(products.length)
         return NextResponse.json(products)
     } catch (error) {
         return NextResponse.json(error)
@@ -67,7 +67,7 @@ export async function POST(req) {
 
         let path
         if (files) {
-            path = `./public/uploads/img/products/`
+            path = process.cwd() + `/public/uploads/img/products/`
             await mkdir(path, { recursive: true })
         }
 

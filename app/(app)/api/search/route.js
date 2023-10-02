@@ -29,6 +29,6 @@ export async function GET(req) {
             pictures: true,
         },
     })
-    console.log(products)
+    console.log(products.length, "products searched")
     return NextResponse.json(products)
 }
