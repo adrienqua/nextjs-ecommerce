@@ -29,6 +29,7 @@ export async function GET(req, context) {
                     carrierPrice: true,
                     createdAt: true,
                     subTotal: true,
+                    discount: true,
                     total: true,
                     orderItems: true,
                 },

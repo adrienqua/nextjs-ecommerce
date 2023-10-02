@@ -1,13 +1,11 @@
 "use client"
 
-import { getCart } from "@/app/services/cartAPI"
-import { useCartContext } from "@/components/contexts/CartContext"
-import { formatPrice } from "@/utils/formatPrice"
-import Link from "next/link"
 import React, { useEffect, useState } from "react"
-import Order from "./Order"
+import { useCartContext } from "@/components/contexts/CartContext"
 import Cart from "./Cart"
+import CartOrder from "./CartOrder"
 import { useRouter } from "next/navigation"
+import { getCart } from "@/app/services/cartAPI"
 
 export default function CartContainer({ children, user }) {
     const [products, setProducts] = useState([])
@@ -60,24 +58,17 @@ export default function CartContainer({ children, user }) {
 
     return (
         <div className="flex flex-col md:flex-row md:space-x-5 md:items-start">
-            <Cart
-                products={products}
-                cartProducts={cartProducts}
-                onIncrement={handleIncrement}
-                onDecrement={handleDecrement}
-            />
-            <Order subTotal={subTotal} shipping={shipping}>
-                <div className="cart-details flex flex-col mb-5">
-                    <div className="cart-subtotal flex justify-between">
-                        <span className="font-medium">Sous total</span>
-                        <span className="font-bold">{formatPrice(subTotal)}</span>
-                    </div>
-                </div>
-
-                <button className="btn btn-primary btn-md" onClick={() => handleOrder()}>
-                    Passer la commande
-                </button>
-            </Order>
+            <div className="md:w-2/3">
+                <Cart
+                    products={products}
+                    cartProducts={cartProducts}
+                    onIncrement={handleIncrement}
+                    onDecrement={handleDecrement}
+                />
+            </div>
+            <div className="flex flex-col md:w-1/3">
+                <CartOrder subTotal={subTotal} handleOrder={handleOrder} cart={true} />
+            </div>
         </div>
     )
 }

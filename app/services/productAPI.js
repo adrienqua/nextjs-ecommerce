@@ -11,6 +11,10 @@ export function getFeaturedProducts(userId) {
     return axios.get(apiEndpoint + "/featured" + "?userId=" + userId).then((res) => res.data)
 }
 
+export function getProductsByCategory(page, userId, slug) {
+    return axios.get(`${apiEndpoint}/categories?page=${page}&userId=${userId}&slug=${slug}`).then((res) => res.data)
+}
+
 export function getFilteredProducts(filterDatas, userId) {
     let filteredString = ""
     for (const [key, value] of Object.entries(filterDatas)) {

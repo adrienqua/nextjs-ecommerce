@@ -7,6 +7,10 @@ export function getDiscounts() {
     return axios.get(apiEndpoint).then((res) => res.data)
 }
 
+export function getDiscount(id) {
+    return axios.get(`${apiEndpoint}/${id}`)
+}
+
 export function newDiscount(datas) {
     return axios.post(apiEndpoint, datas)
 }

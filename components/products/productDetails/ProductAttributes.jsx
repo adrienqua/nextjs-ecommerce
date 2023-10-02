@@ -8,7 +8,7 @@ export default function ProductAttributes({ product, setSelectedVariant }) {
     let uniqueSizes = new Set()
     let uniqueColors = new Set()
 
-    product.productVariants.forEach((variant) => {
+    product?.productVariants?.forEach((variant) => {
         variant.size?.name && uniqueSizes.add(variant.size?.name)
         variant.color?.name && uniqueColors.add(variant.color?.name)
     })

@@ -24,62 +24,58 @@ export async function GET(req, context) {
         ?.split(",")
         .map((x) => Number(x))
 
-    try {
-        const products = await prisma.product.findMany({
-            where: {
-                OR: [
-                    {
-                        price: {
-                            gte: minPrice ? minPrice : undefined,
-                            lte: maxPrice ? maxPrice : undefined,
-                        },
-                        categoryId: {
-                            in: categories ? categories : undefined,
-                        },
-                        productVariants: {
-                            some:
-                                colors || sizes
-                                    ? {
-                                          colorId: {
-                                              in: colors ? colors : undefined,
-                                          },
-                                          sizeId: {
-                                              in: sizes ? sizes : undefined,
-                                          },
-                                      }
-                                    : undefined,
-                        },
+    const products = await prisma.product.findMany({
+        where: {
+            OR: [
+                {
+                    price: {
+                        gte: minPrice ? minPrice : undefined,
+                        lte: maxPrice ? maxPrice : undefined,
                     },
-                ],
-            },
-            select: {
-                id: true,
-                name: true,
-                description: true,
-                price: true,
-                categoryId: true,
-                category: {
-                    select: {
-                        name: true,
+                    categoryId: {
+                        in: categories ? categories : undefined,
+                    },
+                    productVariants: {
+                        some:
+                            colors || sizes
+                                ? {
+                                      colorId: {
+                                          in: colors ? colors : undefined,
+                                      },
+                                      sizeId: {
+                                          in: sizes ? sizes : undefined,
+                                      },
+                                  }
+                                : undefined,
                     },
                 },
-                pictures: {
-                    select: {
-                        id: true,
-                        url: true,
-                    },
-                },
-                productVariants: {
-                    select: {
-                        colorId: true,
-                        sizeId: true,
-                    },
+            ],
+        },
+        select: {
+            id: true,
+            name: true,
+            description: true,
+            price: true,
+            categoryId: true,
+            category: {
+                select: {
+                    name: true,
                 },
             },
-        })
-        console.log(products)
-        return NextResponse.json(products)
-    } catch (error) {
-        return NextResponse.json(error)
-    }
+            pictures: {
+                select: {
+                    id: true,
+                    url: true,
+                },
+            },
+            productVariants: {
+                select: {
+                    colorId: true,
+                    sizeId: true,
+                },
+            },
+        },
+    })
+    console.log(products)
+    return NextResponse.json(products)
 }

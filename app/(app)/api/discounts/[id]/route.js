@@ -5,7 +5,7 @@ import { NextResponse } from "next/server"
 export async function GET(req, context) {
     const id = context.params.id
     const discount = await prisma.discount.findUnique({
-        where: { id: id },
+        where: { code: id, isActive: true },
     })
     return NextResponse.json(discount)
 }

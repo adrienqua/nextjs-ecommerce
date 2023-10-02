@@ -3,10 +3,11 @@ import { NextResponse } from "next/server"
 const stripe = require("stripe")(process.env.STRIPE_SK)
 
 export async function POST(req) {
-    const { userId, address, carrierName, carrierPrice, products } = await req.json()
+    const { userId, address, carrierName, carrierPrice, products, discountId } = await req.json()
 
     const productsUniqueIds = [...new Set(products)]
 
+    //refetch data to check integrity
     const productsDetails = await prisma.productVariant.findMany({
         where: { id: { in: productsUniqueIds } },
         include: {
@@ -16,7 +17,16 @@ export async function POST(req) {
         },
     })
 
-    console.log(productsDetails, "dddddddddddddddddd")
+    let discount
+    try {
+        discount = await prisma.discount.findUnique({
+            where: {
+                id: discountId,
+            },
+        })
+    } catch (error) {
+        console.log(error)
+    }
 
     let line_items = []
     let order_items = []
@@ -44,18 +54,41 @@ export async function POST(req) {
         })
     }
 
-    const total = subTotal + carrierPrice
+    let shipping
+    if (subTotal >= 60) {
+        shipping = 0
+    } else {
+        shipping = carrierPrice
+    }
+
+    let total
+    let discountAmount
+    //calc total with discounts
+    if (discount && subTotal + shipping >= discount.minCartPrice) {
+        discountAmount = discount.amount
+        if (discount.isPercent) {
+            total = (subTotal + shipping) * ((100 - discountAmount) / 100)
+        } else {
+            total = subTotal + shipping - discountAmount
+        }
+    } else {
+        discountAmount = 0
+        total = subTotal + shipping
+    }
+
+    console.log(total.toFixed(2), discountAmount, "total and discount")
 
     const order = await prisma.order
         .create({
             data: {
                 userId: userId,
                 address: address,
-                status: "Unpaid",
+                status: "UNPAID",
                 carrierName: carrierName,
-                carrierPrice: carrierPrice,
+                carrierPrice: shipping,
                 subTotal: parseFloat(subTotal),
-                total: total,
+                discount: discountAmount > 0 ? parseFloat(subTotal) - total.toFixed(2) - shipping : 0,
+                total: total.toFixed(2),
                 orderItems: {
                     createMany: {
                         data: order_items,
@@ -76,6 +109,23 @@ export async function POST(req) {
             return updatedOrder
         })
 
+    //create stripe coupon
+    let coupon
+    if (discountAmount > 0) {
+        coupon = await stripe.coupons.create({
+            ...(discount.isPercent && {
+                percent_off: discountAmount,
+            }),
+            ...(!discount.isPercent && {
+                amount_off: discountAmount * 100,
+            }),
+            currency: "eur",
+            duration: "once",
+            name: discount.code,
+        })
+    }
+
+    //create stripe session
     const session = await stripe.checkout.sessions.create({
         line_items: line_items,
         shipping_options: [
@@ -91,13 +141,19 @@ export async function POST(req) {
             },
         ],
         mode: "payment",
+        discounts:
+            discountAmount > 0
+                ? [
+                      {
+                          coupon: coupon.id,
+                      },
+                  ]
+                : undefined,
         customer_email: "777adrien@gmail.com",
-        success_url: process.env.PUBLIC_URL + "/checkout/success?orderId=" + order.orderNumber,
+        success_url: `${process.env.PUBLIC_URL}/checkout/success?orderId=${order.orderNumber}&sessionId={CHECKOUT_SESSION_ID}`,
         cancel_url: process.env.PUBLIC_URL + "/checkout/canceled?orderId=" + order.orderNumber,
         metadata: { orderId: order.orderNumber },
     })
-
-    console.log("sessssssssssssssssssssssssssssion", session)
 
     //res.redirect(303, session.url)
 

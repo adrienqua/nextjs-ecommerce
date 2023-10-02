@@ -6,7 +6,7 @@ import ProductList from "./ProductList"
 import { fetchProducts } from "../actions/fetchProducts"
 import { handleScroll } from "@/utils/scroll"
 
-export default function ProductContainer({ products, categories, user }) {
+export default function ProductContainer({ products, categories, user, pageTitle }) {
     const [productsList, setProductsList] = useState(products)
     const [productsFiltered, setProductsFiltered] = useState(null)
     const [page, setPage] = useState(1)
@@ -35,7 +35,7 @@ export default function ProductContainer({ products, categories, user }) {
 
     return (
         <div>
-            <h1 className="text-center text-3xl mb-5 font-bold">Produits</h1>
+            <h1 className="text-center text-3xl mb-5 font-bold">{pageTitle}</h1>
 
             <ProductFilter setProductsFiltered={setProductsFiltered} categories={categories} user={user} />
 

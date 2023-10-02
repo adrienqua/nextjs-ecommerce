@@ -18,6 +18,7 @@ export default async function ProductsPage() {
 
     return (
         <ProductContainer
+            pageTitle="Produits"
             products={products}
             categories={categories}
             sizes={sizes}

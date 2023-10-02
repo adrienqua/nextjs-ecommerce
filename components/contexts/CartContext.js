@@ -25,6 +25,11 @@ export const CartContextProvider = ({ children }) => {
         setCounter((prev) => prev + 1)
     }
 
+    function handleEmptyCart() {
+        localStorage.setItem("cart", JSON.stringify([]))
+        setCartProducts([])
+    }
+
     useEffect(() => {
         if (localStorage.getItem("cart") === null) {
             localStorage.setItem("cart", JSON.stringify([]))
@@ -50,6 +55,7 @@ export const CartContextProvider = ({ children }) => {
                 setCartProducts,
                 handleAddToCart,
                 handleSubstractToCart,
+                handleEmptyCart,
             }}
         >
             {children}

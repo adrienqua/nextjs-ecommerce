@@ -9,23 +9,28 @@ export default function Input({
     options,
     optionLabel,
     error,
+    success,
     width = "w-2/3",
+    className = "",
+    outerLabel = true,
     ...rest
 }) {
     switch (type) {
         default:
             return (
-                <div className={`flex flex-col w-full md:${width} mb-4 shrink`}>
-                    <label className="label">
-                        <span className="label-text font-medium">{label}</span>
-                    </label>
+                <div className={`flex flex-col w-full md:${width} mb-4 ${className.length > 0 && className}`}>
+                    {outerLabel && (
+                        <label className="label">
+                            <span className="label-text font-medium">{label}</span>
+                        </label>
+                    )}
                     <input
                         type={type}
                         name={name}
                         placeholder={label}
                         className={`${type === "file" ? "file-input" : "input input-bordered input-md"} ${
                             error && "input-error"
-                        } `}
+                        } ${success && "input-success"}`}
                         onChange={handleChange}
                         {...(type === "number" && {
                             min: "0",

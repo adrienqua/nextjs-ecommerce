@@ -45,7 +45,12 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
         }
     }
 
-    const formComponentProps = React.cloneElement(formComponent, { data: data })
+    //add data props to formComponent
+    let formComponentProps
+    if (formComponent) {
+        formComponentProps = React.cloneElement(formComponent, { data: data })
+    }
+
     useEffect(() => {
         setDatas(data)
     }, [])
@@ -73,7 +78,17 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
                         <td key={headerData.value}>{parseFloat(data[headerData.value]).toFixed(2)} €</td>
                     ) : headerData.type === "badge" ? (
                         <td key={headerData.value}>
-                            <span className="badge">{data[headerData.value]}</span>
+                            <span
+                                className={`badge 
+                            ${data[headerData.value] === "PAID" && "badge-success"} 
+                            ${data[headerData.value] === "UNPAID" && "badge-error"} `}
+                            >
+                                {data[headerData.value] === "PAID"
+                                    ? "Payée"
+                                    : data[headerData.value] === "UNPAID"
+                                    ? "Non payée"
+                                    : data[headerData.value]}
+                            </span>
                         </td>
                     ) : index === 0 ? (
                         <td key={headerData.value} className="font-bold">

@@ -22,6 +22,7 @@ export default function AccountOrders({ user }) {
         },
         { label: "Transporteur", value: "carrierName" },
         { label: "Sous total", value: "subTotal", format: "price" },
+        { label: "Réduction", value: "discount", format: "price" },
         { label: "Frais de port", value: "carrierPrice", format: "price" },
         { label: "Total", value: "total", format: "price" },
     ]

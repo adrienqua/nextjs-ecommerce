@@ -4,7 +4,7 @@ import Input from "../Input"
 
 import Modal from "../Modal"
 
-export default function Address({
+export default function CheckoutAddress({
     datas,
     addresses,
     selectedAddress,
@@ -13,7 +13,7 @@ export default function Address({
     handleSubmit,
 }) {
     return (
-        <div className="checkout-address bg-white rounded-xl px-8 py-6 shadow-sm lg:w-1/2 mb-5">
+        <div className="checkout-address bg-white rounded-xl px-8 py-6 shadow-sm w-full mb-5">
             <div className="flex justify-between">
                 <h2 className="h1 mb-5">Adresse</h2>
                 <label htmlFor="new-address-form" className="btn btn-primary btn-sm">
@@ -57,11 +57,19 @@ export default function Address({
                 <>
                     <div className="form-control font-medium mb-2" onChange={(e) => handleAddressChange(e)}>
                         {addresses.map((address, index) => (
-                            <Input type="radio" name="address" id={address.id} label={address.label} key={index} />
+                            <label className="label cursor-pointer" key={index}>
+                                <input
+                                    type="radio"
+                                    name="address"
+                                    className="radio radio-sm checked:bg-primary"
+                                    id={address.id}
+                                />
+                                <span className="label-text font-semibold">{`${address.label}`}</span>
+                            </label>
                         ))}
                     </div>
-                    <p>{selectedAddress?.name}</p>
-                    <p>
+                    <p className="label-text font-medium">{selectedAddress?.name}</p>
+                    <p className="label-text font-medium">
                         {selectedAddress?.address} <br /> {selectedAddress?.postalCode} {selectedAddress?.city} <br />
                         {selectedAddress?.country}
                     </p>

@@ -13,6 +13,7 @@ datasource db {
 model Category {
   id        Int       @id @default(autoincrement())
   name      String
+  slug      String
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   products  Product[]
@@ -172,13 +173,14 @@ model Carrier {
 model Order {
   id           Int          @id @default(autoincrement())
   status       String
-  orderNumber  String?
+  orderNumber  String?      @unique
   user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
   address      String
   carrierName  String
   carrierPrice Decimal      @db.Decimal(7, 2)
   subTotal     Decimal      @db.Decimal(7, 2)
+  discount     Decimal?     @db.Decimal(7, 2)
   total        Decimal      @db.Decimal(7, 2)
   createdAt    DateTime     @default(now())
   orderItems   OrderItems[]

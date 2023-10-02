@@ -1,18 +1,19 @@
 "use client"
 
-import { getCart } from "@/app/services/cartAPI"
-import { useCartContext } from "@/components/contexts/CartContext"
 import React, { useEffect, useState } from "react"
-import Order from "./Order"
 import Cart from "./Cart"
-import Address from "./Address"
+import CartOrder from "./CartOrder"
+import CheckoutAddress from "./CheckoutAddress"
+import CheckoutCarrier from "./CheckoutCarrier"
+import CheckoutDiscount from "./CheckoutDiscount"
 import { useSession } from "next-auth/react"
+import { useCartContext } from "@/components/contexts/CartContext"
+
 import { newAddress } from "@/app/services/addressAPI"
 import { getUserAddresses } from "@/app/services/userAPI"
-import Carrier from "./Carrier"
 import { getCarriers } from "@/app/services/carrierAPI"
-import { formatPrice } from "@/utils/formatPrice"
 import { newOrder } from "@/app/services/checkoutAPI"
+import { getCart } from "@/app/services/cartAPI"
 
 export default function CheckoutContainer({ children }) {
     const [products, setProducts] = useState([])
@@ -27,6 +28,7 @@ export default function CheckoutContainer({ children }) {
     const [selectedAddress, setSelectedAddress] = useState({})
     const [selectedCarrier, setSelectedCarrier] = useState({})
     const [isOrderFilled, setIsOrderFilled] = useState(false)
+    const [discount, setDiscount] = useState(null)
     const { data: session } = useSession()
 
     const { cartProducts, handleAddToCart, handleSubstractToCart } = useCartContext()
@@ -128,6 +130,7 @@ export default function CheckoutContainer({ children }) {
             carrierName: selectedCarrier.name,
             carrierPrice: parseFloat(selectedCarrier.price),
             products: cartProducts,
+            discountId: discount?.id,
         })
 
         if (response.data.url) {
@@ -144,47 +147,35 @@ export default function CheckoutContainer({ children }) {
     return (
         <>
             <div className="flex flex-col md:flex-row md:space-x-5 md:items-start">
-                <Cart
-                    products={products}
-                    cartProducts={cartProducts}
-                    onIncrement={handleIncrement}
-                    onDecrement={handleDecrement}
-                />
-                <Order subTotal={subTotal} shipping={shipping} handleOrder={handleOrder}>
-                    <div className="cart-details flex flex-col mb-5 font-medium">
-                        <div className="cart-subtotal flex justify-between">
-                            <span>Sous total</span>
-                            <span className="font-semibold">{formatPrice(subTotal)}</span>
-                        </div>
-                        <div className="cart-shipping flex justify-between">
-                            <span>Livraison</span>
-                            <span className="font-semibold">{formatPrice(shipping)}</span>
-                        </div>
-                        <hr />
-                        <div className="cart-total flex justify-between">
-                            <span>Total</span>
-                            <span className="font-bold">{formatPrice(subTotal + shipping)}</span>
-                        </div>
+                <div className="md:w-2/3">
+                    <Cart
+                        products={products}
+                        cartProducts={cartProducts}
+                        onIncrement={handleIncrement}
+                        onDecrement={handleDecrement}
+                    />
+                    <div className="flex flex-col lg:flex-row lg:space-x-5 md:items-start">
+                        <CheckoutAddress
+                            datas={addressFormDatas}
+                            addresses={addresses}
+                            selectedAddress={selectedAddress}
+                            handleChange={handleChange}
+                            handleAddressChange={handleAddressChange}
+                            handleSubmit={handleSubmit}
+                        />
+                        <CheckoutCarrier carriers={carriers} handleCarrierChange={handleCarrierChange} />
                     </div>
-
-                    <button
-                        className={`btn btn-primary btn-md ${isOrderFilled ? null : "btn-disabled"}`}
-                        onClick={() => handleOrder()}
-                    >
-                        Passer au paiement
-                    </button>
-                </Order>
-            </div>
-            <div className="flex flex-col md:flex-row md:space-x-5 md:items-start">
-                <Address
-                    datas={addressFormDatas}
-                    addresses={addresses}
-                    selectedAddress={selectedAddress}
-                    handleChange={handleChange}
-                    handleAddressChange={handleAddressChange}
-                    handleSubmit={handleSubmit}
-                />
-                <Carrier carriers={carriers} handleCarrierChange={handleCarrierChange} />
+                </div>
+                <div className="flex flex-col md:w-1/3">
+                    <CartOrder
+                        subTotal={subTotal}
+                        shipping={shipping}
+                        handleOrder={handleOrder}
+                        isOrderFilled={isOrderFilled}
+                        discount={discount}
+                    />
+                    <CheckoutDiscount setDiscount={setDiscount} />
+                </div>
             </div>
         </>
     )

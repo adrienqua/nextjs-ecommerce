@@ -5,11 +5,11 @@ import { useCartContext } from "@/components/contexts/CartContext"
 import { formatPrice } from "@/utils/formatPrice"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
-import CartOrder from "./Order"
+import CartOrder from "./CartOrder"
 
 export default function CartTable({ products, cartProducts, onIncrement, onDecrement }) {
     return (
-        <div className="cart-table bg-white rounded-xl px-8 py-6 shadow-sm md:w-2/3 mb-5">
+        <div className="cart-table bg-white rounded-xl px-8 py-6 shadow-sm mb-5">
             <h1 className="h1 mb-5">
                 Mon panier <span className="text-sm text-gray-500">({cartProducts?.length} articles)</span>
             </h1>

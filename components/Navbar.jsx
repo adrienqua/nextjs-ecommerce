@@ -14,26 +14,57 @@ export default function Navbar() {
     const { data: session } = useSession()
 
     return (
-        <div className="nav mb-8 text-white bg-slate-900 py-3 px-6 sticky top-0 z-50">
+        <div className="nav mb-8 text-white bg-slate-900 py-3 px-6 sticky top-0 z-50 ">
             <div className="flex flex-row justify-between items-center ">
                 <div className="flex">
-                    <Link className="px-2" href="/">
+                    <Link className="p-2" href="/">
                         Logo
                     </Link>
 
-                    <div className="hidden md:flex">
-                        <Link className="px-2" href="/products">
+                    <div className="hidden md:flex space-x-2">
+                        <Link className="p-2 hover:bg-slate-700 rounded-lg" href="/products">
                             Produits
                         </Link>
-                        <Link className="px-2" href="/categories">
-                            Catégories
-                        </Link>
+                        <div className="group relative inline-block">
+                            <Link className="p-2  hover:bg-slate-700 rounded-lg inline-block" href="/categories">
+                                Catégories
+                            </Link>
+                            <div className="hidden group-hover:block absolute">
+                                <ul className=" bg-slate-800 flex flex-col py-1.5 mt-1.5 w-52 left-0 rounded-lg cursor-pointer shadow-sm backdrop-blur-sm bg-opacity-90">
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100">
+                                        <Link className="block px-4 py-3 " href="/categories/t-shirts">
+                                            T-shirts
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100">
+                                        <Link className="block px-4 py-3 " href="/categories/chemises">
+                                            Chemises
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100">
+                                        <Link className="block px-4 py-3 " href="/categories/pulls">
+                                            Pulls
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100">
+                                        <Link className="block px-4 py-3 " href="/categories/pantalons">
+                                            Pantalons
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100">
+                                        <Link className="block px-4 py-3 " href="/categories/shorts">
+                                            Shorts
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div className="hidden md:flex items-center">
+                <div className="hidden md:flex items-center space-x-1">
                     <Searchbar />
-                    <Link className="px-2 relative" href="/cart">
+                    <Link className="p-2 hover:bg-slate-700 rounded-lg relative" href="/cart">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -49,11 +80,11 @@ export default function Navbar() {
                             />
                         </svg>
 
-                        <span className="absolute bottom-[-6px] right-0 badge badge-primary badge-xs py-2">
+                        <span className="absolute bottom-[2px] right-0 badge badge-primary badge-xs py-2">
                             {cartProducts ? cartProducts.length : 0}
                         </span>
                     </Link>
-                    <Link className="px-2" href={!session?.user ? "/login" : "/account"}>
+                    <Link className="p-2 hover:bg-slate-700 rounded-lg" href={!session?.user ? "/login" : "/account"}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
