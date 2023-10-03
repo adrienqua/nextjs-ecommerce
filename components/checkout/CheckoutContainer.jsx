@@ -146,15 +146,15 @@ export default function CheckoutContainer({ children }) {
 
     return (
         <>
-            <div className="flex flex-col md:flex-row md:space-x-5 md:items-start">
-                <div className="md:w-2/3">
+            <div className="flex flex-col lg:flex-row lg:space-x-5 lg:items-start">
+                <div className="lg:w-2/3">
                     <Cart
                         products={products}
                         cartProducts={cartProducts}
                         onIncrement={handleIncrement}
                         onDecrement={handleDecrement}
                     />
-                    <div className="flex flex-col lg:flex-row lg:space-x-5 md:items-start">
+                    <div className="flex flex-col lg:flex-row lg:space-x-5 lg:items-start">
                         <CheckoutAddress
                             datas={addressFormDatas}
                             addresses={addresses}
@@ -166,7 +166,7 @@ export default function CheckoutContainer({ children }) {
                         <CheckoutCarrier carriers={carriers} handleCarrierChange={handleCarrierChange} />
                     </div>
                 </div>
-                <div className="flex flex-col md:w-1/3">
+                <div className="flex flex-col lg:w-1/3">
                     <CartOrder
                         subTotal={subTotal}
                         shipping={shipping}

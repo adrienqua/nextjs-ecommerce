@@ -32,3 +32,8 @@ export const fetchFeaturedProducts = async (userId) => {
     const datas = fetch(`${apiEndpoint}/featured?userId=${userId}`, { cache: "no-store" }).then((res) => res.json())
     return datas
 }
+
+export const fetchFavoritesProducts = async (userId) => {
+    const datas = fetch(`${apiEndpoint}/favorites/${userId}`, { cache: "no-store" }).then((res) => res.json())
+    return datas
+}

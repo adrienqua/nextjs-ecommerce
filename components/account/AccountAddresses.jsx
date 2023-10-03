@@ -52,8 +52,8 @@ export default function AccountAddresses({ addresses, userId }) {
 
     return (
         <>
-            <div id="account-addresses" className="flex-1 md:mx-5 bg-white p-5 shadow-sm rounded-2xl">
-                <div className="flex justify-between px-2 mb-3">
+            <div id="account-addresses" className="flex-1 lg:mx-5 bg-white p-5 shadow-sm rounded-2xl">
+                <div className="flex justify-between space-x-2 mb-3">
                     <h2 className="h2 ">Mes adresses</h2>
                     <label htmlFor={`new-address`} className="btn btn-sm btn-primary">
                         Nouvelle adresse
@@ -110,7 +110,7 @@ export default function AccountAddresses({ addresses, userId }) {
                     {addresses.length > 0 ? (
                         addresses.map((address, index) => <AccountAddressesItem key={index} address={address} />)
                     ) : (
-                        <p className="text-gray-500">Vous n&apos;avez pas enregistré d&apos;adresses</p>
+                        <p className="text-gray-500">Vous n&apos;avez pas enregistré d&apos;adresses.</p>
                     )}
                 </div>
             </div>

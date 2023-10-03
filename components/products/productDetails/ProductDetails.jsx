@@ -16,7 +16,7 @@ export default function ProductDetails({ product, user }) {
         <>
             <div className="product-description flex flex-col lg:flex-row lg:space-x-5">
                 <div className=" mb-5 flex-initial min-w-[50%] lg:sticky lg:top-20 self-start w-full">
-                    <ProductPictures product={product} />
+                    <ProductPictures product={product} selectedColorId={selectedVariant?.colorId} />
                 </div>
                 <div className="flex-initial min-w-[50%]">
                     <div className="p-5 bg-white rounded-xl px-10 py-10 shadow-sm mb-5">

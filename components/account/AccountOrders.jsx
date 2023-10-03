@@ -28,8 +28,8 @@ export default function AccountOrders({ user }) {
     ]
 
     return (
-        <div id="account-orders" className="flex-1 md:mx-5 bg-white p-5 shadow-sm rounded-2xl">
-            <h2 className="h2 text-center mb-3">Mes commandes</h2>
+        <div id="account-orders" className="flex-1 lg:mx-5 bg-white p-5 shadow-sm rounded-2xl">
+            <h2 className="h2 ">Mes commandes</h2>
             {user &&
                 (user.orders.length > 0 ? (
                     <ListingTable
@@ -38,7 +38,7 @@ export default function AccountOrders({ user }) {
                         detailsDatas={ordersDetailsDatas}
                     />
                 ) : (
-                    <p className="text-gray-500 text-center">Vous n&apos;avez pas encore effectué de commande.</p>
+                    <p className="text-gray-500 mt-3">Vous n&apos;avez pas encore effectué de commande.</p>
                 ))}
         </div>
     )

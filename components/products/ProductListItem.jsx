@@ -27,9 +27,9 @@ export default function ProductListItem({ product, user }) {
                 <div className="card-body">
                     <div className="card-actions flex flex-row">
                         <Link className="flex-1" href={`/products/${product.id}`}>
-                            <h2 className="card-title text-lg">{product.name}</h2>
+                            <h2 className="card-title text-base leading-5 md:text-lg md:leading-6">{product.name}</h2>
                         </Link>
-                        <div className="pt-[5px]">
+                        <div className="pt-[1px] md:pt-[3px]">
                             <span>{parseFloat(product.price).toFixed(2)} €</span>
                         </div>
                         {/* <AddToCart id={product.id} /> */}

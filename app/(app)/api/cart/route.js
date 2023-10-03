@@ -18,7 +18,16 @@ export async function POST(req, context) {
         include: {
             color: true,
             size: true,
-            product: true,
+            product: {
+                include: {
+                    pictures: {
+                        select: {
+                            url: true,
+                            colorId: true,
+                        },
+                    },
+                },
+            },
         },
     })
     return NextResponse.json(product)

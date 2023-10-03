@@ -42,7 +42,7 @@ export default function ProductAttributes({ product, setSelectedVariant }) {
 
     return (
         <div className="product-attributes">
-            {uniqueColors.length > 1 && (
+            {uniqueColors.length > 0 && (
                 <div className="color-attribute">
                     <h4 className="mt-2">
                         <span className="font-medium">Couleur : </span>

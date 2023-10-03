@@ -91,6 +91,7 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
         setDatas({ ...datas, [e.target.name]: e.target.value })
     }
 
+    //update array
     const handleChangeArray = (e, array, parse = false) => {
         const clonedDatas = _.cloneDeep(datas)
         const index = clonedDatas[array].indexOf(clonedDatas[array][e.target.id])
@@ -118,7 +119,7 @@ export default function ProductForm({ product, categories, colors, sizes, edit =
         setDatas(clonedDatas)
     }
 
-    //multiselect
+    //generate variants multiselect
     const handleAddSelect = (e) => {
         let id = parseInt(e.target.value)
         let label = e.target[e.target.selectedIndex].text

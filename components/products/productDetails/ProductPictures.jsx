@@ -3,7 +3,7 @@ import Image from "next/image"
 import ProductPicturesMiniatures from "./ProductPicturesMiniatures"
 import { handleGalleryScroll } from "@/utils/galleryScroll"
 
-export default function ProductPictures({ product }) {
+export default function ProductPictures({ product, selectedColorId }) {
     const [selectedPicture, setSelectedPicture] = useState(product?.pictures?.[0]?.url)
 
     const galleryRef = useRef(null)
@@ -16,6 +16,12 @@ export default function ProductPictures({ product }) {
     useEffect(() => {
         handleGalleryScroll(galleryMainPicRef)
     }, [])
+
+    useEffect(() => {
+        const filterPictures = product?.pictures?.find((pic) => pic.colorId === selectedColorId)
+        //console.log(filterPictures, "filt")
+        filterPictures && setSelectedPicture(filterPictures.url)
+    }, [selectedColorId])
 
     return (
         <>

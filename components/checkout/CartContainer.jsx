@@ -57,8 +57,8 @@ export default function CartContainer({ children, user }) {
     }
 
     return (
-        <div className="flex flex-col md:flex-row md:space-x-5 md:items-start">
-            <div className="md:w-2/3">
+        <div className="flex flex-col lg:flex-row lg:space-x-5 lg:items-start">
+            <div className="lg:w-2/3">
                 <Cart
                     products={products}
                     cartProducts={cartProducts}
@@ -66,7 +66,7 @@ export default function CartContainer({ children, user }) {
                     onDecrement={handleDecrement}
                 />
             </div>
-            <div className="flex flex-col md:w-1/3">
+            <div className="flex flex-col lg:w-1/3">
                 <CartOrder subTotal={subTotal} handleOrder={handleOrder} cart={true} />
             </div>
         </div>
