@@ -4,7 +4,7 @@ import { NextResponse } from "next/server"
 export const revalidate = 0
 
 export async function GET(req, context) {
-    const userId = context.params.id
+    const userId = context.params.userId
 
     try {
         const products = await prisma.product.findMany({
@@ -32,9 +32,11 @@ export async function GET(req, context) {
                         url: true,
                     },
                 },
-                favorites: {
-                    where: { userId: userId },
-                },
+                ...(userId && {
+                    favorites: {
+                        where: { userId: userId },
+                    },
+                }),
             },
         })
         console.log(products.length, "products by categories")

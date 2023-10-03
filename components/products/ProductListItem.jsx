@@ -5,7 +5,7 @@ import React from "react"
 import Like from "../Like"
 import AddToCart from "./productDetails/AddToCart"
 
-export default function ProductListItem({ product, user }) {
+export default function ProductListItem({ product, user, favorite = false }) {
     return (
         <>
             <div className="card card-compact bg-white shadow-sm relative" key={product.id}>
@@ -25,11 +25,11 @@ export default function ProductListItem({ product, user }) {
                     </figure>
                 </Link>
                 <div className="card-body">
-                    <div className="card-actions flex flex-row">
+                    <div className={`card-actions flex  ${favorite ? "flex-col" : "flex-row"}`}>
                         <Link className="flex-1" href={`/products/${product.id}`}>
                             <h2 className="card-title text-base leading-5 md:text-lg md:leading-6">{product.name}</h2>
                         </Link>
-                        <div className="pt-[1px] md:pt-[3px]">
+                        <div className={`pt-[1px] md:pt-[3px] ${favorite && "-mt-3"}`}>
                             <span>{parseFloat(product.price).toFixed(2)} €</span>
                         </div>
                         {/* <AddToCart id={product.id} /> */}

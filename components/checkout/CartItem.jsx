@@ -29,7 +29,7 @@ export default function CartItem({ product, onIncrement, onDecrement }) {
                         />
                     </div>
                     <div className="">
-                        <Link href={`products/${product.id}`} className="text-gray-800 font-bold">
+                        <Link href={`products/${product.product.id}`} className="text-gray-800 font-bold">
                             {product.product.name}
                         </Link>
                         <div className="text-gray-500 flex flex-col leading-none">
