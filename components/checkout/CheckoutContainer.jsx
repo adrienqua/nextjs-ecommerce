@@ -73,7 +73,7 @@ export default function CheckoutContainer({ children }) {
         setAddresses(await getUserAddresses(session.user.id))
     }
 
-    const handleSubmit = async (datas) => {
+    const handleSubmit = async (datas, closeModal) => {
         await newAddress({
             label: datas.label,
             name: datas.name,
@@ -84,6 +84,7 @@ export default function CheckoutContainer({ children }) {
             country: datas.country,
             userId: session.user.id,
         })
+        closeModal.click()
         fetchAddresses()
     }
 
