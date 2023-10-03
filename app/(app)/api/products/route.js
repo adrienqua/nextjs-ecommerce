@@ -6,6 +6,8 @@ import { productSchema } from "@/prisma/validation"
 
 import { mkdir, writeFile } from "fs/promises"
 
+export const revalidate = 0
+
 export async function GET(req) {
     const searchParams = req.nextUrl.searchParams
     const page = parseInt(searchParams.get("page"))

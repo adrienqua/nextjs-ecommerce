@@ -26,7 +26,7 @@ export default function ProductPictures({ product }) {
                     height={604}
                     quality={100}
                     alt={product.name}
-                    className="rounded-xl shadow-sm cursor-pointer"
+                    className="rounded-xl shadow-sm cursor-pointer w-full"
                 />
             </div>
             <ProductPicturesMiniatures product={product} handlePicture={handlePicture} />

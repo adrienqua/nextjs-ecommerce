@@ -97,7 +97,7 @@ model Favorite {
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
-  @@unique([productId, userId])
+  @@unique([productId, userId], name: "productId_userId")
 }
 
 model Account {

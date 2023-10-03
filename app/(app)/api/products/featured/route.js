@@ -1,6 +1,8 @@
 import { prisma } from "@/app/lib/prisma"
 import { NextResponse } from "next/server"
 
+export const revalidate = 0
+
 export async function GET(req, context) {
     const searchParams = req.nextUrl.searchParams
     const userId = searchParams.get("userId")

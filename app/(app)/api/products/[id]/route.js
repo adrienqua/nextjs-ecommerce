@@ -5,6 +5,8 @@ import cuid from "cuid"
 import { mkdir, writeFile } from "fs/promises"
 import { NextResponse } from "next/server"
 
+export const revalidate = 0
+
 export async function GET(req, context) {
     const id = parseInt(context.params.id)
 

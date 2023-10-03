@@ -17,7 +17,7 @@ export default function Like({ productId, favorites, userId }) {
             try {
                 setIsLiked(false)
                 toast.success("Produit supprimé des favoris !")
-                await deleteFavorite(favoriteId)
+                await deleteFavorite(userId, productId)
             } catch (error) {
                 setIsLiked(true)
             }

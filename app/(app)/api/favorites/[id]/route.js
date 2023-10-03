@@ -21,10 +21,18 @@ export async function PUT(req, context) {
 }
 
 export async function DELETE(req, context) {
-    const id = parseInt(context.params.id)
+    const userId = context.params.id
+
+    const searchParams = req.nextUrl.searchParams
+    const productId = parseInt(searchParams.get("productId"))
 
     const favorite = await prisma.favorite.delete({
-        where: { id: id },
+        where: {
+            productId_userId: {
+                productId: productId,
+                userId: userId,
+            },
+        },
     })
     return NextResponse.json(true)
 }
