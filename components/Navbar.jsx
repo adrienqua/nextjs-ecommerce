@@ -89,7 +89,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex items-center space-x-1">
-                    <div className="hidden">
+                    <div className="hidden md:block">
                         <Searchbar />
                     </div>
                     <Link className="p-2 hover:bg-slate-700 rounded-lg relative" href="/cart">
