@@ -1,22 +1,43 @@
 "use client"
 import Link from "next/link"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { useCartContext } from "./contexts/CartContext"
 import { useSession } from "next-auth/react"
 import Searchbar from "./Searchbar"
 
 export default function Navbar() {
-    const [toggleMobile, setToggleMobile] = useState(false)
-    const handleClick = () => {
-        setToggleMobile(!toggleMobile)
-    }
     const { cartProducts } = useCartContext()
     const { data: session } = useSession()
+    const mobileRef = useRef(null)
+
+    const handleMobileMenu = () => {
+        mobileRef.current.click()
+        console.log("hey")
+    }
 
     return (
         <div className="nav mb-8 text-white bg-slate-900 py-3 px-6 sticky top-0 z-50 ">
             <div className="flex flex-row justify-between items-center ">
                 <div className="flex">
+                    <button
+                        className="mobile-toggle inline-block align-bottom md:hidden"
+                        onClick={() => handleMobileMenu()}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                            />
+                        </svg>
+                    </button>
                     <Link className="p-2" href="/">
                         Logo
                     </Link>
@@ -62,8 +83,10 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                <div className="hidden md:flex items-center space-x-1">
-                    <Searchbar />
+                <div className="flex items-center space-x-1">
+                    <div className="hidden">
+                        <Searchbar />
+                    </div>
                     <Link className="p-2 hover:bg-slate-700 rounded-lg relative" href="/cart">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -100,47 +123,84 @@ export default function Navbar() {
                             />
                         </svg>
                         {session?.user && (
-                            <span className="">
+                            <span className="hidden md:inline-block">
                                 <small>{session.user.name}</small>
                             </span>
                         )}
                     </Link>
                 </div>
-                <button className="mobile-toggle inline-block align-bottom md:hidden" onClick={() => handleClick()}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                        />
-                    </svg>
-                </button>
             </div>
-            {toggleMobile && (
-                <div className="mobile-menu">
-                    <div className="flex flex-col md:hidden mt-4">
-                        <Link className="px-2 py-2" href="/products">
-                            Produits
-                        </Link>
-                        <Link className="px-2 py-2" href="/categories">
-                            Catégories
-                        </Link>
-                        <Link className="px-2 py-2" href="/login">
-                            Se connecter
-                        </Link>
-                        <Link className="px-2 py-2" href="/register">
-                            Inscription
-                        </Link>
-                    </div>
+            <div className="drawer">
+                <input id="mobile-menu" type="checkbox" className="drawer-toggle" />
+                <div className="drawer-content">
+                    {/* Page content here */}
+                    <label ref={mobileRef} htmlFor="mobile-menu" className="hidden">
+                        Open drawer
+                    </label>
                 </div>
-            )}
+                <div className="drawer-side">
+                    <label htmlFor="mobile-menu" aria-label="close sidebar" className="drawer-overlay"></label>
+                    <ul className="menu p-5 w-80 min-h-full bg-slate-900 bg-opacity-90 backdrop-blur-sm  text-white ">
+                        <span className="mb-3 mt-1">
+                            <Searchbar />
+                        </span>
+                        <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
+                            <Link className="block px-4 py-3 hover:text-white focus:!text-white" href="/products">
+                                Produits
+                            </Link>
+                        </li>
+                        <li>
+                            <details open>
+                                <summary className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg px-4 py-3 hover:text-white focus:!text-white ">
+                                    Catégories
+                                </summary>
+                                <ul>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
+                                        <Link
+                                            className="block px-4 py-3 hover:text-white focus:!text-white"
+                                            href="/categories/t-shirts"
+                                        >
+                                            T-shirts
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
+                                        <Link
+                                            className="block px-4 py-3 hover:text-white focus:!text-white"
+                                            href="/categories/chemises"
+                                        >
+                                            Chemises
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
+                                        <Link
+                                            className="block px-4 py-3 hover:text-white focus:!text-white"
+                                            href="/categories/pulls"
+                                        >
+                                            Pulls
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
+                                        <Link
+                                            className="block px-4 py-3 hover:text-white focus:!text-white"
+                                            href="/categories/pantalons"
+                                        >
+                                            Pantalons
+                                        </Link>
+                                    </li>
+                                    <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
+                                        <Link
+                                            className="block px-4 py-3 hover:text-white focus:!text-white"
+                                            href="/categories/shorts"
+                                        >
+                                            Shorts
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </details>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     )
 }
