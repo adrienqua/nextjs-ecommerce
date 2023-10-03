@@ -79,7 +79,7 @@ export default function ListingTableItem({ data, headerDatas, handleEdit, formDa
                     ) : headerData.type === "badge" ? (
                         <td key={headerData.value}>
                             <span
-                                className={`badge 
+                                className={`badge whitespace-nowrap 
                             ${data[headerData.value] === "PAID" && "badge-success"} 
                             ${data[headerData.value] === "UNPAID" && "badge-error"} `}
                             >

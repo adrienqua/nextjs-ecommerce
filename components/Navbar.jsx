@@ -6,13 +6,18 @@ import { useSession } from "next-auth/react"
 import Searchbar from "./Searchbar"
 
 export default function Navbar() {
+    const [mobileToggle, setMobileToggle] = useState(false)
     const { cartProducts } = useCartContext()
     const { data: session } = useSession()
     const mobileRef = useRef(null)
+    const closeMobileRef = useRef(null)
 
     const handleMobileMenu = () => {
         mobileRef.current.click()
-        console.log("hey")
+    }
+
+    const handleCloseMenu = () => {
+        closeMobileRef.current.click()
     }
 
     return (
@@ -139,10 +144,15 @@ export default function Navbar() {
                     </label>
                 </div>
                 <div className="drawer-side">
-                    <label htmlFor="mobile-menu" aria-label="close sidebar" className="drawer-overlay"></label>
+                    <label
+                        ref={closeMobileRef}
+                        htmlFor="mobile-menu"
+                        aria-label="close sidebar"
+                        className="drawer-overlay"
+                    ></label>
                     <ul className="menu p-5 w-80 min-h-full bg-slate-900 bg-opacity-90 backdrop-blur-sm  text-white ">
                         <span className="mb-3 mt-1">
-                            <Searchbar />
+                            <Searchbar closeRef={closeMobileRef} />
                         </span>
                         <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
                             <Link className="block px-4 py-3 hover:text-white focus:!text-white" href="/products">
@@ -159,6 +169,7 @@ export default function Navbar() {
                                         <Link
                                             className="block px-4 py-3 hover:text-white focus:!text-white"
                                             href="/categories/t-shirts"
+                                            onClick={() => handleCloseMenu()}
                                         >
                                             T-shirts
                                         </Link>
@@ -167,6 +178,7 @@ export default function Navbar() {
                                         <Link
                                             className="block px-4 py-3 hover:text-white focus:!text-white"
                                             href="/categories/chemises"
+                                            onClick={() => handleCloseMenu()}
                                         >
                                             Chemises
                                         </Link>
@@ -175,6 +187,7 @@ export default function Navbar() {
                                         <Link
                                             className="block px-4 py-3 hover:text-white focus:!text-white"
                                             href="/categories/pulls"
+                                            onClick={() => handleCloseMenu()}
                                         >
                                             Pulls
                                         </Link>
@@ -183,6 +196,7 @@ export default function Navbar() {
                                         <Link
                                             className="block px-4 py-3 hover:text-white focus:!text-white"
                                             href="/categories/pantalons"
+                                            onClick={() => handleCloseMenu()}
                                         >
                                             Pantalons
                                         </Link>
@@ -191,6 +205,7 @@ export default function Navbar() {
                                         <Link
                                             className="block px-4 py-3 hover:text-white focus:!text-white"
                                             href="/categories/shorts"
+                                            onClick={() => handleCloseMenu()}
                                         >
                                             Shorts
                                         </Link>

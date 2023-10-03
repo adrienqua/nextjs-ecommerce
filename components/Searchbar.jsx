@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import Input from "./Input"
 import { useRouter } from "next/navigation"
 
-export default function Searchbar() {
+export default function Searchbar({ closeRef }) {
     const [query, setQuery] = useState("")
     const router = useRouter()
 
@@ -13,6 +13,7 @@ export default function Searchbar() {
 
     const handleSearch = (e) => {
         e.preventDefault()
+        closeRef.current.click()
         router.push(`/search?q=${query}`)
     }
 
