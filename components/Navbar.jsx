@@ -21,7 +21,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className="nav mb-8 text-white bg-slate-900 py-3 px-6 sticky top-0 z-50 ">
+        <div className="nav mb-8 text-white bg-slate-900 py-3 px-6 sticky top-0 z-40 ">
             <div className="flex flex-row justify-between items-center ">
                 <div className="flex">
                     <button

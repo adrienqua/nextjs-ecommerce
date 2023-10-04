@@ -9,20 +9,26 @@ export async function GET(req, context) {
     const minPrice = searchParams.get("minPrice")
     const maxPrice = searchParams.get("maxPrice")
 
-    const categories = searchParams
-        .get("categories")
-        ?.split(",")
-        .map((x) => Number(x))
+    const categories = searchParams.get("categories")
+        ? searchParams
+              .get("categories")
+              ?.split(",")
+              .map((x) => Number(x))
+        : []
 
-    const colors = searchParams
-        .get("colors")
-        ?.split(",")
-        .map((x) => Number(x))
+    const colors = searchParams.get("colors")
+        ? searchParams
+              .get("colors")
+              ?.split(",")
+              .map((x) => Number(x))
+        : []
 
-    const sizes = searchParams
-        .get("sizes")
-        ?.split(",")
-        .map((x) => Number(x))
+    const sizes = searchParams.get("sizes")
+        ? searchParams
+              .get("sizes")
+              ?.split(",")
+              .map((x) => Number(x))
+        : []
 
     const products = await prisma.product.findMany({
         where: {
@@ -33,17 +39,17 @@ export async function GET(req, context) {
                         lte: maxPrice ? maxPrice : undefined,
                     },
                     categoryId: {
-                        in: categories ? categories : undefined,
+                        in: categories && categories?.length > 0 ? categories : undefined,
                     },
                     productVariants: {
                         some:
                             colors || sizes
                                 ? {
                                       colorId: {
-                                          in: colors ? colors : undefined,
+                                          in: colors && colors?.length > 0 ? colors : undefined,
                                       },
                                       sizeId: {
-                                          in: sizes ? sizes : undefined,
+                                          in: sizes && sizes?.length > 0 ? sizes : undefined,
                                       },
                                   }
                                 : undefined,

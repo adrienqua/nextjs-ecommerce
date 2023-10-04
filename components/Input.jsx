@@ -28,7 +28,7 @@ export default function Input({
                         type={type}
                         name={name}
                         placeholder={label}
-                        className={`${type === "file" ? "file-input" : "input input-bordered input-md"} ${
+                        className={`${type === "file" ? "file-input" : "w-full input input-bordered input-md"} ${
                             error && "input-error"
                         } ${success && "input-success"}`}
                         onChange={handleChange}

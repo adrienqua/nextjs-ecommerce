@@ -7,7 +7,16 @@ import { newProduct } from "@/app/services/productAPI"
 import { useAuthContext } from "./contexts/authContext"
 import { revalidatePath } from "next/cache"
 
-export default function Form({ children, handleSubmit, modalId, datas, formRef, edit = false, ...rest }) {
+export default function Form({
+    children,
+    handleSubmit,
+    modalId,
+    datas,
+    formRef,
+    edit = false,
+    submitButton = true,
+    ...rest
+}) {
     const { user, setUser } = useAuthContext()
     let [isPending, startTransition] = useTransition()
 
@@ -29,7 +38,7 @@ export default function Form({ children, handleSubmit, modalId, datas, formRef, 
 
     return (
         <form
-            className="flex flex-col items-center mb-10 m-5"
+            className={`flex flex-col items-center mb-10 m-5 `}
             /* onSubmit={async (e) => {
                     await handleSubmit(e)
                 }} */
@@ -40,13 +49,15 @@ export default function Form({ children, handleSubmit, modalId, datas, formRef, 
             {...rest}
         >
             {children}
-            <button
-                type="submit"
-                className="btn btn-primary  mt-2"
-                //formAction={handleSubmit}
-            >
-                Confirmer
-            </button>
+            {submitButton && (
+                <button
+                    type="submit"
+                    className="btn btn-primary  mt-2"
+                    //formAction={handleSubmit}
+                >
+                    Confirmer
+                </button>
+            )}
             <label htmlFor={modalId} ref={closeModalRef} className="btn btn-sm hidden">
                 Close modal
             </label>
