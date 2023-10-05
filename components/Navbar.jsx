@@ -155,7 +155,11 @@ export default function Navbar() {
                             <Searchbar closeRef={closeMobileRef} />
                         </span>
                         <li className="text-sm hover:bg-slate-600 hover:bg-opacity-100 rounded-lg">
-                            <Link className="block px-4 py-3 hover:text-white focus:!text-white" href="/products">
+                            <Link
+                                className="block px-4 py-3 hover:text-white focus:!text-white"
+                                href="/products"
+                                onClick={() => handleCloseMenu()}
+                            >
                                 Produits
                             </Link>
                         </li>
