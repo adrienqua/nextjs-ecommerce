@@ -33,7 +33,7 @@ export default function Slider() {
                 className="flex h-[350px] lg:h-[550px] min-[2000px]:h-[700px] w-[100vw] !ml-[calc(-50vw+50%)] !mr-[calc(-50vw+50%)] -mt-8 mb-20"
             >
                 <SwiperSlide className="!flex justify-center items-center text-left relative">
-                    <div className="slide-content text-white absolute left-[12%]  max-w-[150px] md:max-w-[300px]">
+                    <div className="slide-content text-white absolute left-[12%]  max-w-[160px] md:max-w-[300px]">
                         <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold">
                             Découvrez notre nouvelle collection !
                         </h2>
@@ -46,26 +46,26 @@ export default function Slider() {
                             quality={100}
                             priority={true}
                             sizes="100vw"
-                            alt="slider1"
+                            alt="Découvrez nos produits"
                             className="w-full h-full object-cover"
                         />
                     </Link>
                 </SwiperSlide>
                 <SwiperSlide className="!flex justify-center items-center text-left relative">
-                    <div className="slide-content text-white absolute left-[12%]  max-w-[150px] md:max-w-[300px]">
+                    <div className="slide-content text-white absolute left-[12%]  max-w-[160px] md:max-w-[300px]">
                         <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold">
-                            Découvrez notre nouvelle collection !
+                            -10% dès 70€ d&apos;achat avec le code PROMO10
                         </h2>
                     </div>
                     <Link href="/products" className="w-full h-full">
                         <Image
-                            src="/uploads/img/slider/slider1.jpg"
+                            src="/uploads/img/slider/slider2.jpg"
                             width={0}
                             height={0}
                             quality={100}
                             priority={true}
                             sizes="100vw"
-                            alt="slider1"
+                            alt="Code promo"
                             className="w-full h-full object-cover"
                         />
                     </Link>
