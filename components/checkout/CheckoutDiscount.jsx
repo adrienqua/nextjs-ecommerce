@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Input from "../Input"
 import { getDiscount } from "@/app/services/discountAPI"
 
-export default function CheckoutDiscount({ setDiscount }) {
+export default function CheckoutDiscount({ setDiscount, subTotal, shipping }) {
     const [discountData, setDiscountData] = useState("")
     const [isDiscount, setIsDiscount] = useState()
     const [error, setError] = useState()
@@ -11,7 +11,7 @@ export default function CheckoutDiscount({ setDiscount }) {
         e.preventDefault()
         if (discountData !== "") {
             await getDiscount(discountData).then((res) => {
-                if (res.data !== null) {
+                if (res.data !== null && subTotal + shipping >= res.data.minCartPrice) {
                     setError(null)
                     setDiscount(res.data)
                     setIsDiscount(true)

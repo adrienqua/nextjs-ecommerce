@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { formatPrice } from "@/utils/formatPrice"
 
-export default function CartItem({ product, onIncrement, onDecrement }) {
+export default function CartItem({ product, handleIncrement, handleDecrement }) {
     const [productPicture, setProductPicture] = useState()
 
     const handlePicture = () => {
@@ -54,11 +54,11 @@ export default function CartItem({ product, onIncrement, onDecrement }) {
             <td className="text-gray-600 font-medium hidden md:table-cell">{formatPrice(product.price)}</td>
             <td className="text-gray-700 font-medium">
                 <div className="flex flex-col-reverse md:flex-row items-center md:space-x-1">
-                    <button onClick={() => onDecrement(product.id)} className="btn btn-xs">
+                    <button onClick={() => handleDecrement(product.id)} className="btn btn-xs">
                         -
                     </button>
                     <span>{product.quantity}</span>
-                    <button onClick={() => onIncrement(product.id)} className="btn btn-xs">
+                    <button onClick={() => handleIncrement(product.id)} className="btn btn-xs">
                         +
                     </button>
                 </div>

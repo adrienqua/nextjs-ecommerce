@@ -152,8 +152,8 @@ export default function CheckoutContainer({ children }) {
                     <Cart
                         products={products}
                         cartProducts={cartProducts}
-                        onIncrement={handleIncrement}
-                        onDecrement={handleDecrement}
+                        handleIncrement={handleIncrement}
+                        handleDecrement={handleDecrement}
                     />
                     <div className="flex flex-col lg:flex-row lg:space-x-5 lg:items-start">
                         <CheckoutAddress
@@ -175,7 +175,7 @@ export default function CheckoutContainer({ children }) {
                         isOrderFilled={isOrderFilled}
                         discount={discount}
                     />
-                    <CheckoutDiscount setDiscount={setDiscount} />
+                    <CheckoutDiscount setDiscount={setDiscount} subTotal={subTotal} shipping={shipping} />
                 </div>
             </div>
         </>

@@ -67,35 +67,37 @@ export default function ProductReviewItem({ review, productId }) {
                         </div>
                         <span className="text-gray-400 text-xs">{formatDate(review.createdAt)}</span>
                     </div>
-                    <div className="dropdown dropdown-end flex ">
-                        <label tabIndex={0} className="btn btn-ghost btn-xs">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-6 h-6"
+                    {session?.user?.id === review.userId && (
+                        <div className="dropdown dropdown-end flex ">
+                            <label tabIndex={0} className="btn btn-ghost btn-xs">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                                    />
+                                </svg>
+                            </label>
+                            <ul
+                                tabIndex={0}
+                                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                                />
-                            </svg>
-                        </label>
-                        <ul
-                            tabIndex={0}
-                            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                        >
-                            <li>
-                                <label htmlFor={`edit-review-${review.id}`}>Editer</label>
-                            </li>
-                            <li>
-                                <label htmlFor={`delete-review-${review.id}`}>Supprimer</label>
-                            </li>
-                        </ul>
-                    </div>
+                                <li>
+                                    <label htmlFor={`edit-review-${review.id}`}>Editer</label>
+                                </li>
+                                <li>
+                                    <label htmlFor={`delete-review-${review.id}`}>Supprimer</label>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
                 <hr className="border-base-200 -mt-1" />
                 <p className="text-sm mt-3 text-gray-600 leading-7">{review.message}</p>

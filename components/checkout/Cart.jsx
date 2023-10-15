@@ -9,7 +9,7 @@ import CartOrder from "./CartOrder"
 import Image from "next/image"
 import CartItem from "./CartItem"
 
-export default function CartTable({ products, cartProducts, onIncrement, onDecrement }) {
+export default function CartTable({ products, cartProducts, handleIncrement, handleDecrement }) {
     return (
         <div className="cart-table bg-white rounded-xl px-8 py-6 shadow-sm mb-5">
             <h1 className="h1 mb-5">
@@ -32,8 +32,8 @@ export default function CartTable({ products, cartProducts, onIncrement, onDecre
                                 <CartItem
                                     product={product}
                                     key={index}
-                                    onIncrement={onIncrement}
-                                    onDecrement={onDecrement}
+                                    handleIncrement={handleIncrement}
+                                    handleDecrement={handleDecrement}
                                 />
                             ))}
                         </tbody>

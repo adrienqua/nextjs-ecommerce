@@ -62,8 +62,8 @@ export default function CartContainer({ children, user }) {
                 <Cart
                     products={products}
                     cartProducts={cartProducts}
-                    onIncrement={handleIncrement}
-                    onDecrement={handleDecrement}
+                    handleIncrement={handleIncrement}
+                    handleDecrement={handleDecrement}
                 />
             </div>
             <div className="flex flex-col lg:w-1/3">
