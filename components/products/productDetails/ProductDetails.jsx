@@ -41,7 +41,7 @@ export default function ProductDetails({ product, user }) {
                         <AddToCart id={selectedVariant?.id} />
                     </div>
                     <ProductSpecifications product={product} />
-                    <ProductReviews product={product} />
+                    <ProductReviews product={product} user={user} />
                 </div>
             </div>
         </>

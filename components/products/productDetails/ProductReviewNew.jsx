@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import Modal from "@/components/Modal"
 import Form from "@/components/Form"
 import Input from "@/components/Input"
@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { newReview } from "@/app/services/reviewAPI"
 import { useSession } from "next-auth/react"
 
-export default function ProductReviewNew({ product }) {
+export default function ProductReviewNew({ product, user }) {
     const [datas, setDatas] = useState({
         rating: "5",
     })
@@ -16,6 +16,15 @@ export default function ProductReviewNew({ product }) {
     const router = useRouter()
 
     const { data: session } = useSession()
+
+    const newReviewRef = useRef(null)
+
+    const handleNewReview = () => {
+        if (!user) {
+            return router.push("/login")
+        }
+        newReviewRef.current.click()
+    }
 
     const handleSubmit = async (datas, closeModal) => {
         try {
@@ -34,15 +43,17 @@ export default function ProductReviewNew({ product }) {
     }
 
     const handleChange = (e) => {
-        console.log("e", e.currentTarget.value)
+        //console.log("e", e.currentTarget.value)
         setDatas({ ...datas, [e.target.name]: e.target.value })
     }
 
     return (
         <>
-            <label htmlFor="new-review-form" className="btn btn-sm">
+            <button onClick={() => handleNewReview()} className="btn btn-sm">
                 Écrire un commentaire
-            </label>
+            </button>
+
+            <label ref={newReviewRef} htmlFor="new-review-form" className="hidden"></label>
 
             <Modal id="new-review-form">
                 <h3 className="h2">Écrire un commentaire</h3>
