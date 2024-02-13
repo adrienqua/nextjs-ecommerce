@@ -8,6 +8,12 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/lib/auth"
 import { fetchFeaturedProducts } from "@/components/actions/fetchProducts"
 
+export async function generateMetadata({ params, searchParams }, parent) {
+    return {
+        title: `Vêtements de qualité - Next.js ecommerce`,
+    }
+}
+
 export default async function HomePage() {
     const session = await getServerSession(authOptions)
     console.log(session?.user)

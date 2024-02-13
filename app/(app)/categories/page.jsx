@@ -2,6 +2,12 @@ import React from "react"
 import { getCategories } from "@/app/services/categoryAPI"
 import CategoryList from "@/components/categories/CategoryList"
 
+export async function generateMetadata({ params, searchParams }, parent) {
+    return {
+        title: `Catégories - Next.js ecommerce`,
+    }
+}
+
 const fetchCategories = async () => {
     "use server"
     const datas = await getCategories()

@@ -14,6 +14,12 @@ import { authOptions } from "@/app/lib/auth"
 import AccountFavorites from "@/components/account/AccountFavorites"
 import { fetchFavoritesProducts } from "@/components/actions/fetchProducts"
 
+export async function generateMetadata({ params, searchParams }, parent) {
+    return {
+        title: `Mon compte - Next.js ecommerce`,
+    }
+}
+
 const fetchUser = async (id) => {
     "use server"
     const datas = await getUser(id)

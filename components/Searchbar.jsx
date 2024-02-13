@@ -13,7 +13,9 @@ export default function Searchbar({ closeRef }) {
 
     const handleSearch = (e) => {
         e.preventDefault()
-        closeRef.current.click()
+        if (closeRef) {
+            closeRef.current.click()
+        }
         router.push(`/search?q=${query}`)
     }
 
