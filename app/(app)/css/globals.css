@@ -62,16 +62,9 @@ body {
     font-weight: 300;
 }
 
-h1,
-h2,
-h3 {
-    font-family: "Poppins";
-}
-
 body {
     /* background-color: #f8fafc; */
     @apply bg-gray-100;
-    font-family: "OpenSans";
 }
 
 .input,
