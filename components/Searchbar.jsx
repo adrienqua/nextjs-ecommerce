@@ -22,7 +22,7 @@ export default function Searchbar({ closeRef }) {
     return (
         <form onSubmit={handleSearch}>
             <input
-                className="input input-bordered input-md h-10 text-black lg:pr-8"
+                className="input input-bordered input-md h-10 text-black lg:pr-8 w-full"
                 type="search"
                 placeholder="Rechercher un produit"
                 onChange={(e) => handleChange(e)}

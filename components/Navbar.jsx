@@ -160,7 +160,7 @@ export default function Navbar() {
                         aria-label="close sidebar"
                         className="drawer-overlay"
                     ></label>
-                    <ul className="menu p-5 w-80 min-h-full bg-slate-900 bg-opacity-90 backdrop-blur-sm  text-white ">
+                    <ul className="menu p-5 w-80 min-h-full bg-slate-900 bg-opacity-90 backdrop-blur-sm text-white overflow-x-hidden">
                         <span className="mb-3 mt-1">
                             <Searchbar closeRef={closeMobileRef} />
                         </span>
