@@ -33,8 +33,8 @@ export default function Slider() {
                 className="flex h-[350px] lg:h-[550px] min-[2000px]:h-[700px] w-[100vw] !ml-[calc(-50vw+50%)] !mr-[calc(-50vw+50%)] -mt-8 mb-20"
             >
                 <SwiperSlide className="!flex justify-center items-center text-left relative">
-                    <div className="slide-content text-white absolute left-[12%]  max-w-[160px] md:max-w-[300px]">
-                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold">
+                    <div className="slide-content text-white absolute left-[12%]  max-w-[160px] md:max-w-[310px] xl:max-w-[420px]">
+                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-semibold sm:!leading-[1.3]">
                             Découvrez notre nouvelle collection !
                         </h2>
                     </div>
@@ -52,8 +52,8 @@ export default function Slider() {
                     </Link>
                 </SwiperSlide>
                 <SwiperSlide className="!flex justify-center items-center text-left relative">
-                    <div className="slide-content text-white absolute left-[12%]  max-w-[160px] md:max-w-[300px]">
-                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold">
+                    <div className="slide-content text-white absolute left-[12%]  max-w-[160px] md:max-w-[310px] xl:max-w-[420px]">
+                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-semibold sm:!leading-[1.3]">
                             -10% dès 70€ d&apos;achat avec le code PROMO10
                         </h2>
                     </div>

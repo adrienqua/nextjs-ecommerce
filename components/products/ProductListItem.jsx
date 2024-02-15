@@ -27,7 +27,7 @@ export default function ProductListItem({ product, user, favorite = false }) {
                 <div className="card-body">
                     <div className={`card-actions flex  ${favorite ? "flex-col" : "flex-row"}`}>
                         <Link className="flex-1" href={`/products/${product.id}`}>
-                            <h2 className="card-title text-base leading-5 md:text-lg md:leading-6">{product.name}</h2>
+                            <h2 className="card-title text-base leading-5 md:leading-6">{product.name}</h2>
                         </Link>
                         <div className={`pt-[1px] md:pt-[3px] ${favorite && "-mt-3"}`}>
                             <span>{parseFloat(product.price).toFixed(2)} €</span>

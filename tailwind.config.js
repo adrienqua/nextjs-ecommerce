@@ -28,6 +28,9 @@ module.exports = {
             margin: {
                 fullwidth: "calc(-50vw + 50%) !important",
             },
+            fontFamily: {
+                poppins: ["var(--font-poppins)"],
+            },
         },
     },
     plugins: [require("daisyui"), require("@tailwindcss/typography")],
